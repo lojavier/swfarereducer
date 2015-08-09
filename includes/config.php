@@ -1,12 +1,10 @@
 <?php
 
-error_reporting(E_ALL ^ E_NOTICE);
-
 /*=========== Database Configuraiton ==========*/
 
-$db_host = '127.0.0.1';
+$db_host = 'localhost';
 $db_user = 'root';
-$db_pass = 'spartan';
+$db_pass = 'swfarereducer';
 $db_name = 'TESTDB';
 
 

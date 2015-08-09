@@ -24,12 +24,12 @@ function render($template,$vars = array()){
 			$cl = strtolower(get_class($k));
 			$$cl = $k;
 			
-			include "/views/_$cl.php";
+			include "views/_$cl.php";
 		}
 		
 	}
 	else {
-		include "/views/$template.php";
+		include "views/$template.php";
 	}
 }
 
