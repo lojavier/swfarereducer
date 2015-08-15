@@ -1,3 +1,5 @@
+DROP DATABASE TESTDB;
+
 CREATE DATABASE IF NOT EXISTS TESTDB;
 
 --
@@ -15,9 +17,10 @@ CREATE TABLE IF NOT EXISTS TESTDB.jqm_categories (
 -- Dumping data for table TESTDB.jqm_categories
 --
 
-INSERT INTO TESTDB.jqm_categories VALUES(1, 'Notebooks', 3);
-INSERT INTO TESTDB.jqm_categories VALUES(2, 'Smartphones', 4);
-INSERT INTO TESTDB.jqm_categories VALUES(3, 'Tablets', 4);
+INSERT INTO TESTDB.jqm_categories VALUES(1, 'MODIFY ALERTS', 3);
+INSERT INTO TESTDB.jqm_categories VALUES(2, 'REMOVE FLIGHTS', 4);
+INSERT INTO TESTDB.jqm_categories VALUES(3, 'FLIGHT DEALS', 4);
+INSERT INTO TESTDB.jqm_categories VALUES(4, 'LEAVE FEEDBACK', 4);
 
 -- --------------------------------------------------------
 

@@ -26,7 +26,6 @@ function render($template,$vars = array()){
 			
 			include "views/_$cl.php";
 		}
-		
 	}
 	else {
 		include "views/$template.php";

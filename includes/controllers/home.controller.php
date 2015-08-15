@@ -9,7 +9,7 @@ class HomeController{
 		$content = Category::find();
 		
 		render('home',array(
-			'title'		=> 'Welcome to our computer store',
+			'title'		=> 'SW FARE REDUCER',
 			'content'	=> $content
 		));
 	}

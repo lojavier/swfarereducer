@@ -13,7 +13,6 @@ require_once "includes/models/category.model.php";
 require_once "includes/controllers/home.controller.php";
 require_once "includes/controllers/category.controller.php";
 
-
 // This will allow the browser to cache the pages of the store.
 
 header('Cache-Control: max-age=3600, public');

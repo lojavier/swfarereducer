@@ -19,7 +19,7 @@ class CategoryController{
 		// $categories and $products are both arrays with objects
 		
 		render('category',array(
-			'title'			=> 'Browsing '.$cat[0]->name,
+			'title'			=> $cat[0]->name,
 			'categories'	=> $categories,
 			'products'		=> $products
 		));		

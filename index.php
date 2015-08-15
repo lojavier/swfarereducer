@@ -4,7 +4,7 @@
 	This is the index file of our simple website.
 	It routes requets to the appropriate controllers
 */
-
+error_reporting(0);
 require_once "includes/main.php";
 
 try {

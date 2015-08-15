@@ -2,7 +2,7 @@
 
 /*=========== Database Configuraiton ==========*/
 
-$db_host = 'localhost';
+$db_host = '127.0.0.1';
 $db_user = 'root';
 $db_pass = 'swfarereducer';
 $db_name = 'TESTDB';
@@ -10,7 +10,7 @@ $db_name = 'TESTDB';
 
 /*=========== Website Configuration ==========*/
 
-$defaultTitle = 'Mobile Computer Store';
-$defaultFooter = date('Y').' &copy; Computer Store';
+$defaultTitle = 'SW Fare Reducer';
+$defaultFooter = date('Y').' &copy; SW Fare Reducer';
 
 ?>
