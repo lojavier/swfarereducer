@@ -5,8 +5,7 @@
 $db_host = '127.0.0.1';
 $db_user = 'root';
 $db_pass = 'swfarereducer';
-$db_name = 'TESTDB';
-
+$db_name = 'SWFAREREDUCERDB';
 
 /*=========== Website Configuration ==========*/
 

@@ -10,8 +10,10 @@ require_once "includes/connect.php";
 require_once "includes/helpers.php";
 require_once "includes/models/product.model.php";
 require_once "includes/models/category.model.php";
+require_once "includes/models/upcomingflights.model.php";
 require_once "includes/controllers/home.controller.php";
 require_once "includes/controllers/category.controller.php";
+require_once "includes/controllers/upcomingflights.controller.php";
 
 // This will allow the browser to cache the pages of the store.
 

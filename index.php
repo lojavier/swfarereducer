@@ -9,7 +9,10 @@ require_once "includes/main.php";
 
 try {
 
-	if($_GET['category']){
+	if($_GET['CONFIRMATION_NUM']){
+		$c = new Upcoming_FlightsController();
+	}
+	else if($_GET['category']){
 		$c = new CategoryController();
 	}
 	else if(empty($_GET)){

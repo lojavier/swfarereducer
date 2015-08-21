@@ -7,9 +7,12 @@ class HomeController{
 		
 		// Select all the categories:
 		$content = Category::find();
+
+		$upcomingflights = UpcomingFlights::find();
 		
 		render('home',array(
 			'title'		=> 'SW FARE REDUCER',
+			'upcomingflights' => $upcomingflights,
 			'content'	=> $content
 		));
 	}
