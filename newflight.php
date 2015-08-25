@@ -16,7 +16,7 @@
 <?php
 // require_once "config.php";
 
-$command = "/usr/bin/wget -O 'change-air-reservation-results.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
+$command = "/usr/bin/wget -O 'view-reservation-to-change.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
 echo $command . "<br>";
 exec($command, $output, $return);
 print_r($output);
@@ -24,7 +24,7 @@ echo "<br>";
 print_r($return);
 echo "<br>";
 
-$file = popen("change-air-reservation-results.html","r");
+$file = fopen("view-reservation-to-change.html","r");
 while( !feof( $file ) )
 {
 	echo fread($file, 2048);
