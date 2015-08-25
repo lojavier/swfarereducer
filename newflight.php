@@ -35,7 +35,7 @@
 // echo $output;
 
 // $command = "/usr/bin/wget -O 'change-air-reservation-results.html' --post-data='confirmationNumber=8ABYGC&firstName=LORENZO&lastName=JAVIER&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
-$command = "/usr/bin/wget -O 'change-air-reservation-results.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
+$command = "/usr/bin/wget -O 'change-air-reservation.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
 echo $command . "<br>";
 // $output = shell_exec($command);
 // echo $output;
