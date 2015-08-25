@@ -1,9 +1,13 @@
 <?php
 
-/*
-	This file creates a new MySQL connection using the PDO class.
-	The login details are taken from config.php.
-*/
+/*=========== Database Configuraiton ==========*/
+
+error_reporting(0);
+
+$db_host = '127.0.0.1';
+$db_user = 'root';
+$db_pass = 'swfarereducer';
+$db_name = 'SWFAREREDUCERDB';
 
 try {
 	$db = new PDO(
