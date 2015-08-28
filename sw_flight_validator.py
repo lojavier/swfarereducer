@@ -203,7 +203,7 @@ confirmationNum = sys.argv[1]
 firstName = sys.argv[2]
 lastName = sys.argv[3]
 
-print "%s\n%s\n%s\n" % (confirmationNum,firstName,lastName)
+#print "%s\n%s\n%s\n" % (confirmationNum,firstName,lastName)
 # except:
 #     print "ERROR"
 #     sys.exit(1)

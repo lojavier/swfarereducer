@@ -30,10 +30,10 @@
 		<form method="POST" name="swform">
     		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
     		<div class="inset">
-    		<p>
+    		<p id="newresults">
     		<?php
     		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
-			echo $command . "<br>";
+			//echo $command . "<br>";
 			exec($command, $output, $return);
 
 			if($return == 0) {
