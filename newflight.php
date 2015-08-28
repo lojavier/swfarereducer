@@ -16,7 +16,15 @@
 <?php
 // require_once "config.php";
 
-$command = "/usr/bin/wget -O 'view-reservation-to-change.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
+// $command = "/usr/bin/wget -O 'view-reservation-to-change.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
+// echo $command . "<br>";
+// exec($command, $output, $return);
+// print_r($output);
+// echo "<br>";
+// print_r($return);
+// echo "<br>";
+
+$command = "/usr/bin/python sw_flight_validator.py 8ABYGC LORENZO JAVIER";
 echo $command . "<br>";
 exec($command, $output, $return);
 print_r($output);

@@ -331,40 +331,40 @@ if departureCity1:
 	print "Flight #      : " + flightNum1
 	print "Fare Type     : " + fareType1
 
-	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-	cursor = db.cursor()
-	sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode1,arrivalCityCode1,departureDate1,departureTime1,arrivalTime1,flightNum1,fareType1)
-	try:
-		cursor.execute(sql)
-		db.commit()
-	except:
-		db.rollback()
-		print "ERROR: Unable to insert new flight info"
-	db.close()
+	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+	# cursor = db.cursor()
+	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode1,arrivalCityCode1,departureDate1,departureTime1,arrivalTime1,flightNum1,fareType1)
+	# try:
+	# 	cursor.execute(sql)
+	# 	db.commit()
+	# except:
+	# 	db.rollback()
+	# 	print "ERROR: Unable to insert new flight info"
+	# db.close()
 
 if departureCity2:
 	# print ""
 	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
 	departureDate2 = temp.strftime("%m/%d/%Y")
-	# print "Departure Code: " + departureCityCode2
-	# print "Departure City: " + departureCity2
-	# print "Arrival Code  : " + arrivalCityCode2
-	# print "Arrival City  : " + arrivalCity2
-	# print "Departure Date: " + departureDate2
-	# print "Departure Time: " + departureTime2
-	# print "Arrival Time  : " + arrivalTime2
-	# print "Flight #      : " + flightNum2
-	# print "Fare Type     : " + fareType2
+	print "Departure Code: " + departureCityCode2
+	print "Departure City: " + departureCity2
+	print "Arrival Code  : " + arrivalCityCode2
+	print "Arrival City  : " + arrivalCity2
+	print "Departure Date: " + departureDate2
+	print "Departure Time: " + departureTime2
+	print "Arrival Time  : " + arrivalTime2
+	print "Flight #      : " + flightNum2
+	print "Fare Type     : " + fareType2
 
-	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-	cursor = db.cursor()
-	sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode2,arrivalCityCode2,departureDate2,departureTime2,arrivalTime2,flightNum2,fareType2)
-	try:
-		cursor.execute(sql)
-		db.commit()
-	except:
-		db.rollback()
-		print "ERROR: Unable to insert new flight info"
-	db.close()
+	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+	# cursor = db.cursor()
+	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode2,arrivalCityCode2,departureDate2,departureTime2,arrivalTime2,flightNum2,fareType2)
+	# try:
+	# 	cursor.execute(sql)
+	# 	db.commit()
+	# except:
+	# 	db.rollback()
+	# 	print "ERROR: Unable to insert new flight info"
+	# db.close()
 # else:
 # 	print existFlag
