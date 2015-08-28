@@ -16,6 +16,7 @@
 <?php
 // require_once "config.php";
 
+
 // $command = "/usr/bin/wget -O 'view-reservation-to-change.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
 // echo $command . "<br>";
 // exec($command, $output, $return);
@@ -23,25 +24,54 @@
 // echo "<br>";
 // print_r($return);
 // echo "<br>";
-
-$command = "/usr/bin/python sw_flight_validator.py 8ABYGC LORENZO JAVIER";
-echo $command . "<br>";
-exec($command, $output, $return);
-print_r($output);
-echo "<br>";
-print_r($return);
-echo "<br>";
-
-$file = fopen("view-reservation-to-change.html","r");
-while( !feof( $file ) )
-{
-	echo fread($file, 2048);
-	flush();
-	ob_flush();
-}
-pclose($file);
-
 ?>
+
+	<div class="main">
+		<form method="POST" name="swform">
+    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
+    		<div class="inset">
+    		<p>
+    		<?php
+    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
+			echo $command . "<br>";
+			exec($command, $output, $return);
+
+			if($return == 0) {
+				foreach ($output as $value) {
+			    echo $value . "<br>";
+				}
+			}
+			?>
+			</p>
+			</div>
+
+  			<div class="inset">
+	  			<p>
+   	 				<input name="CONFIRMATION_NUM" style="text-transform:uppercase" type="text" placeholder="CONFIRMATION #" maxlength="6" required/>
+				</p>
+  				<p>
+				    <input name="FIRST_NAME" style="text-transform:uppercase" type="text" placeholder="FIRST NAME" required/>
+  				</p>
+  				<p>
+				    <input name="LAST_NAME" style="text-transform:uppercase" type="text" placeholder="LAST NAME" required/>
+  				</p>
+				  <!-- <p>
+				    <input type="checkbox" name="remember" id="remember">
+				    <label for="remember">Remember me for 14 days</label>
+				  </p> -->
+ 			</div>
+ 	 
+			<p class="p-container">
+				<input type="submit" value="NEW FLIGHT" onclick="newFlight();">
+			</p>
+			<p class="p-container">
+				<input type="submit" value="UPDATE PRICE" onclick="updatePrice();">
+			</p>
+			<p class="p-container">
+				<input type="submit" value="REMOVE FLIGHT" onclick="removeFlight();">
+			</p>
+		</form>
+	</div>
 
 </body>
 </html>
