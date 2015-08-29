@@ -320,18 +320,16 @@ if departureCity1:
 	# db.close()
 
 if departureCity2:
-	# print ""
+	print ""
 	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
 	departureDate2 = temp.strftime("%m/%d/%Y")
-	print "Departure Code: " + departureCityCode2
-	print "Departure City: " + departureCity2
-	print "Arrival Code  : " + arrivalCityCode2
-	print "Arrival City  : " + arrivalCity2
-	print "Departure Date: " + departureDate2
-	print "Departure Time: " + departureTime2
-	print "Arrival Time  : " + arrivalTime2
-	print "Flight #      : " + flightNum2
-	print "Fare Type     : " + fareType2
+	print "Departure Date : %s" % (departureDate2)
+	print "Flight # %s" % (flightNum2)
+	print "Depart: %s (%s)" % (departureCity2, departureTime2)
+	print "Arrive: %s (%s)" % (arrivalCity2, arrivalTime2)
+	# print "Departure Code: " + departureCityCode2
+	# print "Arrival Code  : " + arrivalCityCode2
+	print "Fare Type : %s" % (fareType2)
 
 	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	# cursor = db.cursor()
