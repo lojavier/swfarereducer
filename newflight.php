@@ -44,31 +44,9 @@
 			?>
 			</p>
 			</div>
-
-  			<div class="inset">
-	  			<p>
-   	 				<input name="CONFIRMATION_NUM" style="text-transform:uppercase" type="text" placeholder="CONFIRMATION #" maxlength="6" required/>
-				</p>
-  				<p>
-				    <input name="FIRST_NAME" style="text-transform:uppercase" type="text" placeholder="FIRST NAME" required/>
-  				</p>
-  				<p>
-				    <input name="LAST_NAME" style="text-transform:uppercase" type="text" placeholder="LAST NAME" required/>
-  				</p>
-				  <!-- <p>
-				    <input type="checkbox" name="remember" id="remember">
-				    <label for="remember">Remember me for 14 days</label>
-				  </p> -->
- 			</div>
  	 
 			<p class="p-container">
-				<input type="submit" value="NEW FLIGHT" onclick="newFlight();">
-			</p>
-			<p class="p-container">
-				<input type="submit" value="UPDATE PRICE" onclick="updatePrice();">
-			</p>
-			<p class="p-container">
-				<input type="submit" value="REMOVE FLIGHT" onclick="removeFlight();">
+				<input type="submit" value="CONTINUE" onclick="">
 			</p>
 		</form>
 	</div>
