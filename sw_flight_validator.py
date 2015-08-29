@@ -41,9 +41,6 @@ global outboundFlightNum
 global paidDollarsPrice
 global paidPointsPrice
 
-# print "TEST\n\n"
-# sys.exit(1)
-
 class MyHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
 		# print "Start tag:", tag
@@ -203,17 +200,6 @@ confirmationNum = sys.argv[1]
 firstName = sys.argv[2]
 lastName = sys.argv[3]
 
-#print "%s\n%s\n%s\n" % (confirmationNum,firstName,lastName)
-# except:
-#     print "ERROR"
-#     sys.exit(1)
-
-# # Generate some data to send to PHP
-# result = {'status': 'Yes!'}
-
-# # Send it to stdout (to PHP)
-# print json.dumps(result)
-
 departureDate1 = ""
 departureCity1 = ""
 departureTime1 = ""
@@ -277,10 +263,6 @@ db.close()
 ####################################################################
 # if not existFlag:
 try:
-	# proxy = urllib2.ProxyHandler({'http': '127.0.0.1'})
-	# opener = urllib2.build_opener(proxy)
-	# urllib2.install_opener(opener)
-	# urllib2.urlopen('https://www.southwest.com/flight/change-air-reservation.html')
 	br = mechanize.Browser()
 	br.set_handle_robots(False)
 	response = br.open("https://www.southwest.com/flight/change-air-reservation.html")
@@ -311,27 +293,22 @@ except mechanize.HTTPError as e:
 	print e.reason.args
 	sys.exit(1)
 
-# print "2"
 # with open(resultsFile, "r") as f:
 # 	southwest_conf_results_string = f.read()
 parser = MyHTMLParser()
 parser.feed(southwest_conf_results_string)
-# print "3"
 
 if departureCity1:
 	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
 	departureDate1 = temp.strftime("%m/%d/%Y")
-	print "Departure Code: " + departureCityCode1
-	print "Departure City: " + departureCity1
-	print "Arrival Code  : " + arrivalCityCode1
-	print "Arrival City  : " + arrivalCity1
-	print "Departure Date: " + departureDate1
-	print "Departure Time: " + departureTime1
-	print "Arrival Time  : " + arrivalTime1
-	print "Flight #      : " + flightNum1
-	print "Fare Type     : " + fareType1
+	print "Departure Date : %s" % (departureDate1)
+	print "Flight # %s" % (flightNum1)
+	print "Depart: %s (%s)" % (departureCity1, departureTime1)
+	print "Arrive: %s (%s)" % (arrivalCity1, arrivalTime1)
+	# print "Departure Code: " + departureCityCode1
+	# print "Arrival Code  : " + arrivalCityCode1
+	print "Fare Type : %s" % (fareType1)
 
-	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	# cursor = db.cursor()
 	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode1,arrivalCityCode1,departureDate1,departureTime1,arrivalTime1,flightNum1,fareType1)
 	# try:
