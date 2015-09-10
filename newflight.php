@@ -16,8 +16,8 @@
 <?php
 require_once "config.php";
 
-$sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
-echo $sql;
+$sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."'";
+
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() == 0) {
 ?>
@@ -27,6 +27,7 @@ if ($res = $db->query($sql)) {
 	    		<div class="inset">
 	    		<p id="newresults">
 	    		<?php
+	    			echo $sql;
 					$flightCount = 0;
 		    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
 					exec($command, $output, $return);
