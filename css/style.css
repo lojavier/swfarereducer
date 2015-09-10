@@ -40,7 +40,7 @@ body {
 }
 .main{
 	margin: 1em auto 0;
-	width: 22%;
+	width: 31%;
 }
 form {
 	background:#0A192A;
@@ -240,6 +240,7 @@ input[type=submit]:hover {
 @media only screen and (max-width:1680px) {
 	.main{
 	margin: 1em auto 0;
+	width:31%;
 	}
 	.copy-right p {
 	padding: 0em 0;
@@ -248,7 +249,7 @@ input[type=submit]:hover {
 @media only screen and (max-width:1440px)  {
 	.main{
 	margin: 1em auto 0;
-	width:24%;
+	width:31%;
 	}
 	.copy-right p {
 	padding:3em 0;
@@ -257,7 +258,7 @@ input[type=submit]:hover {
 @media only screen and (max-width:1366px) {
 	.main{
 	margin: 1em auto 0;
-	width:25%;
+	width:31%;
 	}
 	.copy-right p {
 	padding:3.5em 0;
@@ -266,7 +267,7 @@ input[type=submit]:hover {
 @media only screen and (max-width:1280px) {
 	.main{
 	margin: 1em auto 0;
-	width: 27%;
+	width: 41%;
 	}
 	.copy-right p {
 	padding:4.3em 0;
@@ -275,7 +276,7 @@ input[type=submit]:hover {
 @media only screen and (max-width:1024px)  {
 	.main{
 	margin: 1em auto 0;
-	width:33%;
+	width:51%;
 	}
 	.copy-right p {
 	padding:6em 0;
@@ -284,7 +285,7 @@ input[type=submit]:hover {
 @media only screen and (max-width:768px) {
 	.main{
 	margin: 1em auto 0;
-	width: 43%;
+	width: 61%;
 	}
 	.copy-right p {
 	padding:6em 0;
@@ -293,7 +294,7 @@ input[type=submit]:hover {
 @media only screen and (max-width:640px) {
 	.main{
 	margin: 1em auto 0;
-	width:51%;
+	width:71%;
 	}
 	.copy-right p {
 	padding:6em 0;
