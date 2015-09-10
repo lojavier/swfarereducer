@@ -200,6 +200,7 @@ confirmationNum = sys.argv[1]
 firstName = sys.argv[2]
 lastName = sys.argv[3]
 
+data = {}
 departureDate1 = ""
 departureCity1 = ""
 departureTime1 = ""
@@ -298,18 +299,57 @@ except mechanize.HTTPError as e:
 parser = MyHTMLParser()
 parser.feed(southwest_conf_results_string)
 
-if departureCity1:
+if departureCity2 and departureCity1:
+	# print ""
+	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
+	departureDate2 = temp.strftime("%m/%d/%Y")
+	# print "Departure Date : %s" % (departureDate2)
+	# print "Flight # %s" % (flightNum2)
+	# print "Depart: %s (%s)" % (departureCity2, departureTime2)
+	# print "Arrive: %s (%s)" % (arrivalCity2, arrivalTime2)
+	# print "Departure Code: " + departureCityCode2
+	# print "Arrival Code  : " + arrivalCityCode2
+	# print "Fare Type : %s" % (fareType2)
+
+	data['departureDate1'] = departureDate1
+	data['flightNum1'] = flightNum1
+	data['departureCity1'] = departureCity1
+	data['departureTime1'] = departureTime1
+	data['arrivalCity1'] = arrivalCity1
+	data['arrivalTime1'] = arrivalTime1
+	data['fareType1'] = fareType1
+	data['departureDate2'] = departureDate2
+	data['flightNum2'] = flightNum2
+	data['departureCity2'] = departureCity2
+	data['departureTime2'] = departureTime2
+	data['arrivalCity2'] = arrivalCity2
+	data['arrivalTime2'] = arrivalTime2
+	data['fareType2'] = fareType2
+	json_data = json.dumps(data)
+	print json_data
+
+	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+	# cursor = db.cursor()
+	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode2,arrivalCityCode2,departureDate2,departureTime2,arrivalTime2,flightNum2,fareType2)
+	# try:
+	# 	cursor.execute(sql)
+	# 	db.commit()
+	# except:
+	# 	db.rollback()
+	# 	print "ERROR: Unable to insert new flight info"
+	# db.close()
+
+elif not departureCity2 and departureCity1:
 	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
 	departureDate1 = temp.strftime("%m/%d/%Y")
-	print "Departure Date : %s" % (departureDate1)
-	print "Flight # %s" % (flightNum1)
-	print "Depart: %s (%s)" % (departureCity1, departureTime1)
-	print "Arrive: %s (%s)" % (arrivalCity1, arrivalTime1)
+	# print "Departure Date : %s" % (departureDate1)
+	# print "Flight # %s" % (flightNum1)
+	# print "Depart: %s (%s)" % (departureCity1, departureTime1)
+	# print "Arrive: %s (%s)" % (arrivalCity1, arrivalTime1)
 	# print "Departure Code: " + departureCityCode1
 	# print "Arrival Code  : " + arrivalCityCode1
-	print "Fare Type : %s" % (fareType1)
+	# print "Fare Type : %s" % (fareType1)
 
-	data = {}
 	data['departureDate1'] = departureDate1
 	data['flightNum1'] = flightNum1
 	data['departureCity1'] = departureCity1
@@ -330,27 +370,5 @@ if departureCity1:
 	# 	print "ERROR: Unable to insert new flight info"
 	# db.close()
 
-if departureCity2:
-	print ""
-	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
-	departureDate2 = temp.strftime("%m/%d/%Y")
-	print "Departure Date : %s" % (departureDate2)
-	print "Flight # %s" % (flightNum2)
-	print "Depart: %s (%s)" % (departureCity2, departureTime2)
-	print "Arrive: %s (%s)" % (arrivalCity2, arrivalTime2)
-	# print "Departure Code: " + departureCityCode2
-	# print "Arrival Code  : " + arrivalCityCode2
-	print "Fare Type : %s" % (fareType2)
-
-	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-	# cursor = db.cursor()
-	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode2,arrivalCityCode2,departureDate2,departureTime2,arrivalTime2,flightNum2,fareType2)
-	# try:
-	# 	cursor.execute(sql)
-	# 	db.commit()
-	# except:
-	# 	db.rollback()
-	# 	print "ERROR: Unable to insert new flight info"
-	# db.close()
 # else:
 # 	print existFlag

@@ -53,6 +53,7 @@ if ($res = $db->query($sql)) {
 					    		$flightCount++;
 					    	}
 					    	var_dump(json_decode($value));
+					    	var_dump(json_decode($value, true));
 						}
 					}
 				?>
