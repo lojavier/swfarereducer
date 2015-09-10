@@ -301,6 +301,8 @@ parser.feed(southwest_conf_results_string)
 
 if departureCity2 and departureCity1:
 	# print ""
+	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
+	departureDate1 = temp.strftime("%m/%d/%Y")
 	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
 	departureDate2 = temp.strftime("%m/%d/%Y")
 	# print "Departure Date : %s" % (departureDate2)
@@ -311,6 +313,7 @@ if departureCity2 and departureCity1:
 	# print "Arrival Code  : " + arrivalCityCode2
 	# print "Fare Type : %s" % (fareType2)
 
+	data['flightCount'] = "2"
 	data['departureDate1'] = departureDate1
 	data['flightNum1'] = flightNum1
 	data['departureCity1'] = departureCity1
@@ -350,6 +353,7 @@ elif not departureCity2 and departureCity1:
 	# print "Arrival Code  : " + arrivalCityCode1
 	# print "Fare Type : %s" % (fareType1)
 
+	data['flightCount'] = "1"
 	data['departureDate1'] = departureDate1
 	data['flightNum1'] = flightNum1
 	data['departureCity1'] = departureCity1
@@ -369,6 +373,10 @@ elif not departureCity2 and departureCity1:
 	# 	db.rollback()
 	# 	print "ERROR: Unable to insert new flight info"
 	# db.close()
+elif not departureCity2 and not departureCity1:
+	data['flightCount'] = "0"
+	json_data = json.dumps(data)
+	print json_data
 
 # else:
 # 	print existFlag
