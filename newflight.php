@@ -38,11 +38,11 @@
 			if($return == 0) {
 				foreach ($output as $value) {
 			    	echo $value . "<br>";
-			    	if ( strpos($value, "Fare Type") != false) {
+			    	if ( strpos($value, "Fare Type") >= 0) {
 			    	?>
 			    		<input type="radio" name="FARE_TYPE" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_TYPE" value="POINTS">&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE" value="FARE_PRICE" style="width:40%;">
+						<input type="text" name="FARE_PRICE" style="width:40%;">
 			    	<?php
 			    	}
 				}
