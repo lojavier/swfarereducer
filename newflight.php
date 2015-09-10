@@ -52,8 +52,8 @@ if ($res = $db->query($sql)) {
 					    	<?php
 					    		$flightCount++;
 					    	}
+					    	var_dump(json_decode($value));
 						}
-						var_dump(json_decode($command));
 					}
 				?>
 				</p>
