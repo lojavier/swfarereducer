@@ -14,67 +14,51 @@
 <body>
 
 <?php
-// require_once "config.php";
+$con = mysqli_connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB");
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
 
-
-// $command = "/usr/bin/wget -O 'view-reservation-to-change.html' --save-cookies=cookie --post-data='confirmationNumber=".$_POST['CONFIRMATION_NUM']."&firstName=".$_POST['FIRST_NAME']."&lastName=".$_POST['LAST_NAME']."&submit=submit' https://www.southwest.com/flight/change-air-reservation.html 2>&1";
-// echo $command . "<br>";
-// exec($command, $output, $return);
-// print_r($output);
-// echo "<br>";
-// print_r($return);
-// echo "<br>";
+$sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
+echo $sql;
+if ($result = mysqli_query($con, $sql) {
+	$row_cnt = mysqli_num_rows($result);
+	printf("Result set has %d rows.\n", $row_cnt);
+    mysqli_free_result($result);
+    mysqli_close($con);
+    if($row_cnt == 0) {
 ?>
-
 	<div class="main">
 		<form method="POST" name="swform">
     		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
     		<div class="inset">
     		<p id="newresults">
     		<?php
-
-    		$con = mysqli_connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB");
-			if (mysqli_connect_errno()) {
-			    printf("Connect failed: %s\n", mysqli_connect_error());
-			    exit();
-			}
-
-			$sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
-			echo $sql;
-			if ($result = mysqli_query($con, $sql) {
-				$row_cnt = mysqli_num_rows($result);
-				printf("Result set has %d rows.\n", $row_cnt);
-			    mysqli_free_result($result);
-			    mysqli_close($con);
-				if($row_cnt == 0) {
-					$flightCount = 0;
-		    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
-					exec($command, $output, $return);
-					if($return == 0) {
-						$flightCount++;
-						foreach ($output as $value) {
-					    	echo $value . "<br>";
-					    	if ( strstr($value, "Fare Type") && $flightCount == 1) {
-					    	?>
-					    		<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-								<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-								<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
-					    	<?php
-					    		$flightCount++;
-					    	} else if ( strstr($value, "Fare Type") && $flightCount == 2) {
-					    	?>
-					    		<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-								<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
-								<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
-					    	<?php
-					    		$flightCount++;
-					    	}
-						}
+				$flightCount = 0;
+	    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
+				exec($command, $output, $return);
+				if($return == 0) {
+					$flightCount++;
+					foreach ($output as $value) {
+				    	echo $value . "<br>";
+				    	if ( strstr($value, "Fare Type") && $flightCount == 1) {
+				    	?>
+				    		<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
+				    	<?php
+				    		$flightCount++;
+				    	} else if ( strstr($value, "Fare Type") && $flightCount == 2) {
+				    	?>
+				    		<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
+				    	<?php
+				    		$flightCount++;
+				    	}
 					}
-				} elseif ($row_cnt > 0) {
-					# code...
 				}
-			}
 			?>
 			</p>
 			</div>
@@ -84,6 +68,8 @@
 			</p>
 		</form>
 	</div>
-
+<?php
+	}
+}
 </body>
 </html>
