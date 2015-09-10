@@ -38,6 +38,7 @@
 			if($return == 0) {
 				foreach ($output as $value) {
 			    	echo $value . "<br>";
+			    	echo strpos($value, "Fare Type");
 			    	if ( strpos($value, "Fare Type") >= 0) {
 			    	?>
 			    		<input type="radio" name="FARE_TYPE" value="DOLLARS">&nbsp;DOLLARS&nbsp;
