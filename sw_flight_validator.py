@@ -309,6 +309,17 @@ if departureCity1:
 	# print "Arrival Code  : " + arrivalCityCode1
 	print "Fare Type : %s" % (fareType1)
 
+	data = {}
+	data['departureDate1'] = departureDate1
+	data['flightNum1'] = flightNum1
+	data['departureCity1'] = departureCity1
+	data['departureTime1'] = departureTime1
+	data['arrivalCity1'] = arrivalCity1
+	data['arrivalTime1'] = arrivalTime1
+	data['fareType1'] = fareType1
+	json_data = json.dumps(data)
+	print json_data
+
 	# cursor = db.cursor()
 	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode1,arrivalCityCode1,departureDate1,departureTime1,arrivalTime1,flightNum1,fareType1)
 	# try:

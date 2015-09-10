@@ -30,7 +30,6 @@ if ($res = $db->query($sql)) {
 	    		<div class="inset">
 	    		<p id="newresults">
 	    		<?php
-	    			echo $sql;
 					$flightCount = 0;
 		    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
 					exec($command, $output, $return);
