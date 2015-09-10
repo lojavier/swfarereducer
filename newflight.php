@@ -32,18 +32,27 @@
     		<div class="inset">
     		<p id="newresults">
     		<?php
+    		$flightCount = 0;
     		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
 			exec($command, $output, $return);
-
 			if($return == 0) {
+				$flightCount++;
 				foreach ($output as $value) {
 			    	echo $value . "<br>";
-			    	if ( strstr($value, "Fare Type") ) {
+			    	if ( strstr($value, "Fare Type") && $flightCount == 1) {
 			    	?>
-			    		<input type="radio" name="FARE_TYPE" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-						<input type="radio" name="FARE_TYPE" value="POINTS">&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE" style="width:35%;"> <br>
+			    		<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+						<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
+						<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
 			    	<?php
+			    		$flightCount++;
+			    	} else if ( strstr($value, "Fare Type") && $flightCount == 2) {
+			    	?>
+			    		<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+						<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
+						<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
+			    	<?php
+			    		$flightCount++;
 			    	}
 				}
 			}
