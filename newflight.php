@@ -34,27 +34,9 @@ if ($res = $db->query($sql)) {
 		    		$command = "/usr/bin/python sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
 					exec($command, $output, $return);
 					if($return == 0) {
-						$flightCount++;
-						foreach ($output as $value) {
-					    	echo $value . "<br>";
-					    	if ( strstr($value, "Fare Type") && $flightCount == 1) {
-					    	?>
-					    		<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-								<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-								<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
-					    	<?php
-					    		$flightCount++;
-					    	} else if ( strstr($value, "Fare Type") && $flightCount == 2) {
-					    	?>
-					    		<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-								<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
-								<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
-					    	<?php
-					    		$flightCount++;
-					    	}
-					    	var_dump(json_decode($value));
-					    	var_dump(json_decode($value, true));
-						}
+				    	var_dump(json_decode($output));
+				    	echo "<br>";
+				    	var_dump(json_decode($output, true));
 					}
 				?>
 				</p>
