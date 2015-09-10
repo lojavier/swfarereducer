@@ -33,12 +33,18 @@
     		<p id="newresults">
     		<?php
     		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
-			//echo $command . "<br>";
 			exec($command, $output, $return);
 
 			if($return == 0) {
 				foreach ($output as $value) {
-			    echo $value . "<br>";
+			    	echo $value . "<br>";
+			    	if ( strpos($value, "Fare Type") != false) {
+			    	?>
+			    		<form method="">
+			    			
+			    		</form>
+			    	<?php
+			    	}
 				}
 			}
 			?>
