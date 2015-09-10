@@ -21,7 +21,6 @@ $FIRST_NAME = strtoupper(trim($_POST['FIRST_NAME']));
 $LAST_NAME = strtoupper(trim($_POST['LAST_NAME']));
 
 $sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
-
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() == 0) {
 ?>

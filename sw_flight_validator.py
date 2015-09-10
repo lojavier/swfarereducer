@@ -243,103 +243,103 @@ responseFile = cwd+"/southwest_conf_response.html"
 #####################################################################
 ## Check if flight information exists in DB
 #####################################################################
-db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-cursor = db.cursor()
-sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='%s' AND FIRST_NAME='%s' AND LAST_NAME='%s' ORDER BY DEPART_DATE ASC" % (confirmationNum,firstName,lastName)
-try:
-	cursor.execute(sql)
-	if cursor.rowcount > 0:
-		existFlag = True
-	else:
-		existFlag = False
-except:
-	print "ERROR: Unable to fetch flight info with Conf #, first & last name"
+# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+# cursor = db.cursor()
+# sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='%s' AND FIRST_NAME='%s' AND LAST_NAME='%s' ORDER BY DEPART_DATE ASC" % (confirmationNum,firstName,lastName)
+# try:
+# 	cursor.execute(sql)
+# 	if cursor.rowcount > 0:
+# 		existFlag = True
+# 	else:
+# 		existFlag = False
+# except:
+# 	print "ERROR: Unable to fetch flight info with Conf #, first & last name"
 
-db.close()
+# db.close()
 
 ####################################################################
 # If flight information does not exist in DB, retrieve flight 
 # information
 ####################################################################
-if not existFlag:
+# if not existFlag:
+try:
+	br = mechanize.Browser()
+	br.set_handle_robots(False)
+	response = br.open("https://www.southwest.com/flight/change-air-reservation.html")
+	# content = response.read()
+	# with open(responseFile, "w") as f:
+	#     f.write(content)
+	br.select_form(predicate=lambda f: f.attrs.get('id', None) == 'reservationLookupCriteria')
+	br.find_control(name="confirmationNumber").value = confirmationNum
+	br.find_control(name="firstName").value = firstName
+	br.find_control(name="lastName").value = lastName
 	try:
-		br = mechanize.Browser()
-		br.set_handle_robots(False)
-		response = br.open("https://www.southwest.com/flight/change-air-reservation.html")
-		# content = response.read()
-		# with open(responseFile, "w") as f:
-		#     f.write(content)
-		br.select_form(predicate=lambda f: f.attrs.get('id', None) == 'reservationLookupCriteria')
-		br.find_control(name="confirmationNumber").value = confirmationNum
-		br.find_control(name="firstName").value = firstName
-		br.find_control(name="lastName").value = lastName
-		try:
-			result = br.submit()
-			southwest_conf_results_string = result.read()
-			# with open(resultsFile, "w") as f:
-			# 	f.write(southwest_conf_results_string)
-		except:
-			print "ERROR: Could not submit information"
-			sys.exit(1)
-	# except mechanize.URLError as e:
-	# 	# print e.code
-	# 	print e
-	# 	print "ERROR: Could not connect to browser\n"
-	# 	sys.exit(1)
-
-	except mechanize.HTTPError as e:
-		print "ERROR: Could not connect to browser\n"
-		print e.code
-		print e.reason.args
+		result = br.submit()
+		southwest_conf_results_string = result.read()
+		# with open(resultsFile, "w") as f:
+		# 	f.write(southwest_conf_results_string)
+	except:
+		print "ERROR: Could not submit information"
 		sys.exit(1)
+# except mechanize.URLError as e:
+# 	# print e.code
+# 	print e
+# 	print "ERROR: Could not connect to browser\n"
+# 	sys.exit(1)
 
-	# with open(resultsFile, "r") as f:
-	# 	southwest_conf_results_string = f.read()
-	parser = MyHTMLParser()
-	parser.feed(southwest_conf_results_string)
+except mechanize.HTTPError as e:
+	print "ERROR: Could not connect to browser\n"
+	print e.code
+	print e.reason.args
+	sys.exit(1)
 
-	if departureCity1:
-		temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
-		departureDate1 = temp.strftime("%m/%d/%Y")
-		print "Departure Date : %s" % (departureDate1)
-		print "Flight # %s" % (flightNum1)
-		print "Depart: %s (%s)" % (departureCity1, departureTime1)
-		print "Arrive: %s (%s)" % (arrivalCity1, arrivalTime1)
-		# print "Departure Code: " + departureCityCode1
-		# print "Arrival Code  : " + arrivalCityCode1
-		print "Fare Type : %s" % (fareType1)
+# with open(resultsFile, "r") as f:
+# 	southwest_conf_results_string = f.read()
+parser = MyHTMLParser()
+parser.feed(southwest_conf_results_string)
 
-		cursor = db.cursor()
-		sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode1,arrivalCityCode1,departureDate1,departureTime1,arrivalTime1,flightNum1,fareType1)
-		try:
-			cursor.execute(sql)
-			db.commit()
-		except:
-			db.rollback()
-			print "ERROR: Unable to insert new flight info"
-		db.close()
+if departureCity1:
+	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
+	departureDate1 = temp.strftime("%m/%d/%Y")
+	print "Departure Date : %s" % (departureDate1)
+	print "Flight # %s" % (flightNum1)
+	print "Depart: %s (%s)" % (departureCity1, departureTime1)
+	print "Arrive: %s (%s)" % (arrivalCity1, arrivalTime1)
+	# print "Departure Code: " + departureCityCode1
+	# print "Arrival Code  : " + arrivalCityCode1
+	print "Fare Type : %s" % (fareType1)
 
-	if departureCity2:
-		print ""
-		temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
-		departureDate2 = temp.strftime("%m/%d/%Y")
-		print "Departure Date : %s" % (departureDate2)
-		print "Flight # %s" % (flightNum2)
-		print "Depart: %s (%s)" % (departureCity2, departureTime2)
-		print "Arrive: %s (%s)" % (arrivalCity2, arrivalTime2)
-		# print "Departure Code: " + departureCityCode2
-		# print "Arrival Code  : " + arrivalCityCode2
-		print "Fare Type : %s" % (fareType2)
+	# cursor = db.cursor()
+	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode1,arrivalCityCode1,departureDate1,departureTime1,arrivalTime1,flightNum1,fareType1)
+	# try:
+	# 	cursor.execute(sql)
+	# 	db.commit()
+	# except:
+	# 	db.rollback()
+	# 	print "ERROR: Unable to insert new flight info"
+	# db.close()
 
-		db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-		cursor = db.cursor()
-		sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode2,arrivalCityCode2,departureDate2,departureTime2,arrivalTime2,flightNum2,fareType2)
-		try:
-			cursor.execute(sql)
-			db.commit()
-		except:
-			db.rollback()
-			print "ERROR: Unable to insert new flight info"
-		db.close()
-else:
-	print existFlag
+if departureCity2:
+	print ""
+	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
+	departureDate2 = temp.strftime("%m/%d/%Y")
+	print "Departure Date : %s" % (departureDate2)
+	print "Flight # %s" % (flightNum2)
+	print "Depart: %s (%s)" % (departureCity2, departureTime2)
+	print "Arrive: %s (%s)" % (arrivalCity2, arrivalTime2)
+	# print "Departure Code: " + departureCityCode2
+	# print "Arrival Code  : " + arrivalCityCode2
+	print "Fare Type : %s" % (fareType2)
+
+	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+	# cursor = db.cursor()
+	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode2,arrivalCityCode2,departureDate2,departureTime2,arrivalTime2,flightNum2,fareType2)
+	# try:
+	# 	cursor.execute(sql)
+	# 	db.commit()
+	# except:
+	# 	db.rollback()
+	# 	print "ERROR: Unable to insert new flight info"
+	# db.close()
+# else:
+# 	print existFlag
