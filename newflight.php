@@ -14,6 +14,7 @@
 <body>
 
 <?php
+require_once "config.php";
 echo "TEST <br>";
 $con = mysqli_connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB");
 if (mysqli_connect_errno()) {
@@ -21,56 +22,72 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-$sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
+$sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
 echo $sql;
-if ($result = mysqli_query($con, $sql) {
-	$row_cnt = mysqli_num_rows($result);
-	printf("Result set has %d rows.\n", $row_cnt);
-    mysqli_free_result($result);
-    mysqli_close($con);
-    if($row_cnt == 0) {
+if ($res = $db->query($sql)) {
+	if ($res->fetchColumn() > 0) {
 ?>
-	<div class="main">
-		<form method="POST" name="swform">
-    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
-    		<div class="inset">
-    		<p id="newresults">
-    		<?php
-				$flightCount = 0;
-	    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
-				exec($command, $output, $return);
-				if($return == 0) {
-					$flightCount++;
-					foreach ($output as $value) {
-				    	echo $value . "<br>";
-				    	if ( strstr($value, "Fare Type") && $flightCount == 1) {
-				    	?>
-				    		<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
-				    	<?php
-				    		$flightCount++;
-				    	} else if ( strstr($value, "Fare Type") && $flightCount == 2) {
-				    	?>
-				    		<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
-				    	<?php
-				    		$flightCount++;
-				    	}
+		<div class="main">
+			<form method="POST" name="swform">
+	    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
+	    		<div class="inset">
+	    		<p id="newresults">
+	    		<?php
+					$flightCount = 0;
+		    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
+					exec($command, $output, $return);
+					if($return == 0) {
+						$flightCount++;
+						foreach ($output as $value) {
+					    	echo $value . "<br>";
+					    	if ( strstr($value, "Fare Type") && $flightCount == 1) {
+					    	?>
+					    		<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+								<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
+								<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
+					    	<?php
+					    		$flightCount++;
+					    	} else if ( strstr($value, "Fare Type") && $flightCount == 2) {
+					    	?>
+					    		<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+								<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
+								<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
+					    	<?php
+					    		$flightCount++;
+					    	}
+						}
 					}
-				}
-			?>
-			</p>
-			</div>
- 	 
-			<p class="p-container">
-				<input type="submit" value="CONTINUE" onclick="">
-			</p>
-		</form>
-	</div>
+				?>
+				</p>
+				</div>
+	 	 
+				<p class="p-container">
+					<input type="submit" value="CONTINUE" onclick="">
+				</p>
+			</form>
+		</div>
+<?php
+	} else {
+?>
+		<div class="main">
+			<form method="POST" name="swform">
+	    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
+	    		<div class="inset">
+	    		<p id="newresults">
+	    		
+				</p>
+				</div>
+	 	 
+				<p class="p-container">
+					<input type="submit" value="CONTINUE" onclick="">
+				</p>
+			</form>
+		</div>
 <?php
 	}
 }
+$res = null;
+$db = null;
+?>
 </body>
 </html>
