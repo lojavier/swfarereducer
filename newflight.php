@@ -15,12 +15,6 @@
 
 <?php
 require_once "config.php";
-echo "TEST <br>";
-$con = mysqli_connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB");
-if (mysqli_connect_errno()) {
-    printf("Connect failed: %s\n", mysqli_connect_error());
-    exit();
-}
 
 $sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
 echo $sql;
