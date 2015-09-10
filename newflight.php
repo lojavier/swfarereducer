@@ -25,7 +25,7 @@ if (mysqli_connect_errno()) {
 $sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
 echo $sql;
 if ($res = $db->query($sql)) {
-	if ($res->fetchColumn() > 0) {
+	if ($res->fetchColumn() == 0) {
 ?>
 		<div class="main">
 			<form method="POST" name="swform">
@@ -67,7 +67,7 @@ if ($res = $db->query($sql)) {
 			</form>
 		</div>
 <?php
-	} else {
+	} elseif ($res->fetchColumn() > 0) {
 ?>
 		<div class="main">
 			<form method="POST" name="swform">
