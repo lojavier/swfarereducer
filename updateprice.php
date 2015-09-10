@@ -94,7 +94,6 @@ if ($res = $db->query($sql)) {
 						<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
 						<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
 				<?php
-						}
 					} elseif($flightCount < 1) {
 						echo "ERROR <br>";
 					}
@@ -108,7 +107,7 @@ if ($res = $db->query($sql)) {
 			</form>
 		</div>
 <?php
-	} elseif ($res->fetchColumn() > 0) {
+	} elseif ($res->fetchColumn() < 1) {
 ?>
 		<div class="main">
 			<form method="POST" name="swform">
