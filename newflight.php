@@ -40,7 +40,8 @@
 			}
 
 			$sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
-			if ($result = $mysqli->query($sql) {
+			echo $sql;
+			if ($result = $con->query($sql) {
 				$row_cnt = $result->num_rows;
 				$result->close();
 				$mysqli->close();
