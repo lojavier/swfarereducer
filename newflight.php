@@ -42,7 +42,7 @@
 			    	?>
 			    		<input type="radio" name="FARE_TYPE" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_TYPE" value="POINTS">&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE" style="width:40%;">
+						<input type="text" name="FARE_PRICE" style="width:40%;"> <br>
 			    	<?php
 			    	}
 				}
