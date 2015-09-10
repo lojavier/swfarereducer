@@ -16,7 +16,11 @@
 <?php
 require_once "config.php";
 
-$sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."'";
+$CONFIRMATION_NUM = strtoupper(trim($_POST['CONFIRMATION_NUM']));
+$FIRST_NAME = strtoupper(trim($_POST['FIRST_NAME']));
+$LAST_NAME = strtoupper(trim($_POST['LAST_NAME']));
+
+$sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
 
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() == 0) {
