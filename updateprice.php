@@ -65,13 +65,13 @@ if ($res = $db->query($sql)) {
 						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
 						echo "Fare Type : ".$fareType1."<br>";
 						echo "Flight # ".$flightNum1."<br>";
-						if ( strstr($fareType1, "DOLLARS") ) {
+						if ( strstr($fareLabel1, "DOLLARS") ) {
 				?>
 							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
 							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
 							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;"> <br>
 				<?php
-						} elseif ( strstr($fareType1, "POINTS")) {
+						} elseif ( strstr($fareLabel1, "POINTS")) {
 				?>
 							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
@@ -84,13 +84,13 @@ if ($res = $db->query($sql)) {
 						echo "Arrive: ".$arrivalCity2." (".$arrivalTime2.")<br>";
 						echo "Fare Type : ".$fareType2."<br>";
 						echo "Flight # ".$flightNum2."<br>";
-						if ( strstr($fareType2, "DOLLARS") ) {
+						if ( strstr($fareLabel2, "DOLLARS") ) {
 				?>
 							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
 							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
 							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice2; ?> style="width:35%;"> <br>
 				<?php
-						} elseif ( strstr($fareType2, "POINTS") ) {
+						} elseif ( strstr($fareLabel2, "POINTS") ) {
 				?>
 							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
