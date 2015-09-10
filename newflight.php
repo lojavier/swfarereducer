@@ -38,7 +38,7 @@ if ($res = $db->query($sql)) {
 					    	// echo "<br>";
 					    	// var_dump(json_decode($value, true));
 					    	$json = json_decode($value);
-					    	print $json->['departureDate1'];
+					    	echo $json->{'departureDate1'};
 						}
 					} elseif($return > 0) {
 						echo "ERROR <br>";
