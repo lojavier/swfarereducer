@@ -23,6 +23,8 @@ $LAST_NAME = strtoupper(trim($_POST['LAST_NAME']));
 $sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() == 0) {
+		echo "CONFIRMATION # ".$CONFIRMATION_NUM."<br>";
+		echo $FIRST_NAME." ".$LAST_NAME."<br><br>";
 		$command = "/usr/bin/python sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
 		exec($command, $output, $return);
 ?>
@@ -53,8 +55,8 @@ if ($res = $db->query($sql)) {
 						}
 						echo "Departure Date : ".$departureDate1."<br>";
 						echo "Flight # ".$flightNum1."<br>";
-						echo "Depart: ".$departureCity1."(".$departureTime1.")<br>";
-						echo "Arrive: ".$arrivalCity1."(".$arrivalTime1.")<br>";
+						echo "Depart: ".$departureCity1." (".$departureTime1.")<br>";
+						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
 						echo "Fare Type : ".$fareType1."<br>";
 				?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
@@ -64,8 +66,8 @@ if ($res = $db->query($sql)) {
 						if( strstr($flightCount, "2") ) {
 							echo "Departure Date : ".$departureDate2."<br>";
 							echo "Flight # ".$flightNum2."<br>";
-							echo "Depart: ".$departureCity2."(".$departureTime2.")<br>";
-							echo "Arrive: ".$arrivalCity2."(".$arrivalTime2.")<br>";
+							echo "Depart: ".$departureCity2." (".$departureTime2.")<br>";
+							echo "Arrive: ".$arrivalCity2." (".$arrivalTime2.")<br>";
 							echo "Fare Type : ".$fareType2."<br>";
 				?>
 							<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
