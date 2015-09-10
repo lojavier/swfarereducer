@@ -47,13 +47,8 @@ form {
 	/*border-radius:0.4em;*/
   	border:1px solid #0A192A;
   	overflow:hidden;
-  	/*position:relative;*/
+  	position:relative;
   	box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
-  	position:fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
 }
 
 form:after {
@@ -301,6 +296,13 @@ input[type=submit]:hover {
 	margin: 1em auto 0;
 	width:71%;
 	}
+	form {
+  	position:fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+	}
 	.copy-right p {
 	padding:6em 0;
 	}
@@ -310,6 +312,13 @@ input[type=submit]:hover {
 	margin: 0em auto 0;
 	width: 100%;
 	}
+	form {
+  	position:fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+	}
 	.copy-right p {
 	padding:6em 0;
 	}
@@ -318,6 +327,13 @@ input[type=submit]:hover {
 	.main{
 	margin: 0em auto 0;
 	width:100%;
+	}
+	form {
+  	position:fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 	}
 	.copy-right p {
 	padding:1em 0;
