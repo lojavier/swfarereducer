@@ -54,6 +54,10 @@
 			<p class="p-container">
 				<input type="submit" value="CONTINUE" onclick="">
 			</p>
+
+			<input type="radio" name="FARE_TYPE" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+			<input type="radio" name="FARE_TYPE" value="POINTS">&nbsp;POINTS&nbsp;
+			<input type="text" name="FARE_PRICE" value="FARE_PRICE" style="width:40%;">
 		</form>
 	</div>
 
