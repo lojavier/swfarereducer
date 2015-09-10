@@ -31,7 +31,7 @@ if ($res = $db->query($sql)) {
 	    		<p id="newresults">
 	    		<?php
 					$flightCount = 0;
-		    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
+		    		$command = "/usr/bin/python sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
 					exec($command, $output, $return);
 					if($return == 0) {
 						$flightCount++;
@@ -53,6 +53,7 @@ if ($res = $db->query($sql)) {
 					    		$flightCount++;
 					    	}
 						}
+						var_dump(json_decode($command));
 					}
 				?>
 				</p>
