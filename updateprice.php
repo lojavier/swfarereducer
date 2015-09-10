@@ -86,15 +86,15 @@ if ($res = $db->query($sql)) {
 						echo "Flight # ".$flightNum2."<br>";
 						if ( strstr($fareLabel2, "DOLLARS") ) {
 				?>
-							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice2; ?> style="width:35%;"> <br>
+							<input type="radio" name="FARE_LABEL_2" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_2" value=<?php echo $farePrice2; ?> style="width:35%;"> <br>
 				<?php
 						} elseif ( strstr($fareLabel2, "POINTS") ) {
 				?>
-							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice2; ?> style="width:35%;"> <br>
+							<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_2" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_2" value=<?php echo $farePrice2; ?> style="width:35%;"> <br>
 				<?php
 						}
 					} elseif($flightCount == 1) {
