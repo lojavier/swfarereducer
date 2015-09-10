@@ -43,7 +43,8 @@
 			if ($result = $mysqli->query($sql) {
 				$row_cnt = $result->num_rows;
 				$result->close();
-
+				$mysqli->close();
+				echo $row_cnt;
 				if($row_cnt == 0) {
 					$flightCount = 0;
 		    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
