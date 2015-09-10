@@ -34,9 +34,11 @@ if ($res = $db->query($sql)) {
 	    		<?php
 		    		if($return == 0) {
 						foreach ($output as $value) {
-					    	var_dump(json_decode($value));
-					    	echo "<br>";
-					    	var_dump(json_decode($value, true));
+					    	// var_dump(json_decode($value));
+					    	// echo "<br>";
+					    	// var_dump(json_decode($value, true));
+					    	$json = json_decode($value);
+					    	print $json->['departureDate1'];
 						}
 					} elseif($return > 0) {
 						echo "ERROR <br>";
