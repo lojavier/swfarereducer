@@ -33,7 +33,7 @@
     		<p id="newresults">
     		<?php
 
-    		$con = new mysqli("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB");
+    		$con = mysqli_connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB");
 			if (mysqli_connect_errno()) {
 			    printf("Connect failed: %s\n", mysqli_connect_error());
 			    exit();
@@ -41,11 +41,11 @@
 
 			$sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$_POST['CONFIRMATION_NUM']."' AND FIRST_NAME='".$_POST['FIRST_NAME']."' AND LAST_NAME='".$_POST['LAST_NAME']."' ORDER BY DEPART_DATE ASC";
 			echo $sql;
-			if ($result = $con->query($sql) {
-				$row_cnt = $result->num_rows;
-				$result->close();
-				$mysqli->close();
-				echo $row_cnt;
+			if ($result = mysqli_query($con, $sql) {
+				$row_cnt = mysqli_num_rows($result);
+				printf("Result set has %d rows.\n", $row_cnt);
+			    mysqli_free_result($result);
+			    mysqli_close($con);
 				if($row_cnt == 0) {
 					$flightCount = 0;
 		    		$command = "/usr/bin/python sw_flight_validator.py ".$_POST['CONFIRMATION_NUM']." ".$_POST['FIRST_NAME']." ".$_POST['LAST_NAME'];
