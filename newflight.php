@@ -50,18 +50,30 @@ if ($res = $db->query($sql)) {
 							$arrivalCity2 = $json->{'arrivalCity2'};
 							$arrivalTime2 = $json->{'arrivalTime2'};
 							$fareType2 = $json->{'fareType2'};
-					    	echo "Departure Date : ".$departureDate1;
-							echo "Flight # ".$flightNum1;
-							echo "Depart: ".$departureCity1."(".$departureTime1.")";
-							echo "Arrive: ".$arrivalCity1."(".$arrivalTime1.")";
-							echo "Departure Code: ".$departureCityCode1;
-							echo "Arrival Code  : ".$arrivalCityCode1;
-							echo "Fare Type : ".$fareType1;
 						}
+						echo "Departure Date : ".$departureDate1."<br>";
+						echo "Flight # ".$flightNum1."<br>";
+						echo "Depart: ".$departureCity1."(".$departureTime1.")<br>";
+						echo "Arrive: ".$arrivalCity1."(".$arrivalTime1.")<br>";
+						echo "Departure Code: ".$departureCityCode1."<br>";
+						echo "Arrival Code  : ".$arrivalCityCode1."<br>";
+						echo "Fare Type : ".$fareType1."<br>";
 					?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
 						<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
+					<?php
+						echo "Departure Date : ".$departureDate2."<br>";
+						echo "Flight # ".$flightNum2."<br>";
+						echo "Depart: ".$departureCity2."(".$departureTime2.")<br>";
+						echo "Arrive: ".$arrivalCity2."(".$arrivalTime2.")<br>";
+						echo "Departure Code: ".$departureCityCode2."<br>";
+						echo "Arrival Code  : ".$arrivalCityCode2."<br>";
+						echo "Fare Type : ".$fareType2."<br>";
+					?>
+						<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+						<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
+						<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
 					<?php
 					} elseif($return > 0) {
 						echo "ERROR <br>";
