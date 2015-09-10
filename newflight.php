@@ -33,7 +33,6 @@ if ($res = $db->query($sql)) {
 	    		<p id="newresults">
 	    		<?php
 		    		if($return == 0) {
-		    			var_dump(json_decode($value));
 		    			echo "CONFIRMATION # ".$CONFIRMATION_NUM."<br>";
 						echo $FIRST_NAME." ".$LAST_NAME."<br><br>";
 						foreach ($output as $value) {
