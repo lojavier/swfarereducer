@@ -16,6 +16,11 @@
 			document.swform.action = "index.php";
 			document.getElementById('swform').submit();
 		}
+		function submitPriceUpdate()
+		{
+			document.swform.action = "submitpriceupdate.php";
+			document.getElementById('swform').submit();
+		}
 	</script>
 </head>
  
@@ -36,6 +41,7 @@ if ($res = $db->query($sql)) {
 		foreach ($db->query($sql) as $row) {
 			$flightCount++;
 			if($flightCount == 1) {
+				$upcomingFlightId1 = $row['UPCOMING_FLIGHT_ID'];
 				$departureDate1 = $row['DEPART_DATE'];
 				$flightNum1 = $row['FLIGHT_NUM'];
 				$departureCity1 = $row['DEPART_AIRPORT_CODE'];
@@ -46,6 +52,7 @@ if ($res = $db->query($sql)) {
 				$fareLabel1 = $row['FARE_LABEL'];
 				$farePrice1 = $row['FARE_PRICE'];
 			} elseif($flightCount == 2) {
+				$upcomingFlightId2 = $row['UPCOMING_FLIGHT_ID'];
 				$departureDate2 = $row['DEPART_DATE'];
 				$flightNum2 = $row['FLIGHT_NUM'];
 				$departureCity2 = $row['DEPART_AIRPORT_CODE'];
@@ -135,6 +142,11 @@ if ($res = $db->query($sql)) {
 				</div>
 	 	 
 				<p class="p-container">
+					<input type="hidden" name="CONFIRMATION_NUM" value=<?php echo $CONFIRMATION_NUM;?>>
+					<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
+					<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
+					<input type="hidden" name="UPCOMING_FLIGHT_ID_1" value=<?php echo $upcomingFlightId1;?>>
+					<input type="hidden" name="UPCOMING_FLIGHT_ID_2" value=<?php echo $upcomingFlightId2;?>>
 					<input type="submit" value="CONTINUE" onclick="">
 				</p>
 			</form>
