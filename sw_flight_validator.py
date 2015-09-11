@@ -300,18 +300,10 @@ parser = MyHTMLParser()
 parser.feed(southwest_conf_results_string)
 
 if departureCity2 and departureCity1:
-	# print ""
 	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
 	departureDate1 = temp.strftime("%m/%d/%Y")
 	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
 	departureDate2 = temp.strftime("%m/%d/%Y")
-	# print "Departure Date : %s" % (departureDate2)
-	# print "Flight # %s" % (flightNum2)
-	# print "Depart: %s (%s)" % (departureCity2, departureTime2)
-	# print "Arrive: %s (%s)" % (arrivalCity2, arrivalTime2)
-	# print "Departure Code: " + departureCityCode2
-	# print "Arrival Code  : " + arrivalCityCode2
-	# print "Fare Type : %s" % (fareType2)
 
 	data['flightCount'] = "2"
 	data['departureDate1'] = departureDate1
@@ -345,13 +337,6 @@ if departureCity2 and departureCity1:
 elif not departureCity2 and departureCity1:
 	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
 	departureDate1 = temp.strftime("%m/%d/%Y")
-	# print "Departure Date : %s" % (departureDate1)
-	# print "Flight # %s" % (flightNum1)
-	# print "Depart: %s (%s)" % (departureCity1, departureTime1)
-	# print "Arrive: %s (%s)" % (arrivalCity1, arrivalTime1)
-	# print "Departure Code: " + departureCityCode1
-	# print "Arrival Code  : " + arrivalCityCode1
-	# print "Fare Type : %s" % (fareType1)
 
 	data['flightCount'] = "1"
 	data['departureDate1'] = departureDate1

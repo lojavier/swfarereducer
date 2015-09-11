@@ -33,20 +33,20 @@ $CONFIRMATION_NUM = strtoupper(trim($_POST['CONFIRMATION_NUM']));
 $FIRST_NAME = strtoupper(trim($_POST['FIRST_NAME']));
 $LAST_NAME = strtoupper(trim($_POST['LAST_NAME']));
 
-$sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
+$sql = "SELECT COUNT(*) FROM UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() > 0) {
 		$flightCount = 0;
-		$sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
+		$sql = "SELECT UPCOMING_FLIGHTS.*,A.AIRPORT_NAME as DEPART_AIRPORT_NAME,B.AIRPORT_NAME as ARRIVE_AIRPORT_NAME FROM UPCOMING_FLIGHTS LEFT JOIN AIRPORTS as A ON A.AIRPORT_CODE=UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE LEFT JOIN AIRPORTS as B ON B.AIRPORT_CODE=UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE WHERE UPCOMING_FLIGHTS.CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND UPCOMING_FLIGHTS.FIRST_NAME='".$FIRST_NAME."' AND UPCOMING_FLIGHTS.LAST_NAME='".$LAST_NAME."'";
 		foreach ($db->query($sql) as $row) {
 			$flightCount++;
 			if($flightCount == 1) {
 				$upcomingFlightId1 = $row['UPCOMING_FLIGHT_ID'];
 				$departureDate1 = $row['DEPART_DATE'];
 				$flightNum1 = $row['FLIGHT_NUM'];
-				$departureCity1 = $row['DEPART_AIRPORT_CODE'];
+				$departureCity1 = $row['DEPART_AIRPORT_NAME'];
 				$departureTime1 = $row['DEPART_TIME'];
-				$arrivalCity1 = $row['ARRIVE_AIRPORT_CODE'];
+				$arrivalCity1 = $row['ARRIVE_AIRPORT_NAME'];
 				$arrivalTime1 = $row['ARRIVE_TIME'];
 				$fareType1 = $row['FARE_TYPE'];
 				$fareLabel1 = $row['FARE_LABEL'];
@@ -55,9 +55,9 @@ if ($res = $db->query($sql)) {
 				$upcomingFlightId2 = $row['UPCOMING_FLIGHT_ID'];
 				$departureDate2 = $row['DEPART_DATE'];
 				$flightNum2 = $row['FLIGHT_NUM'];
-				$departureCity2 = $row['DEPART_AIRPORT_CODE'];
+				$departureCity2 = $row['DEPART_AIRPORT_NAME'];
 				$departureTime2 = $row['DEPART_TIME'];
-				$arrivalCity2 = $row['ARRIVE_AIRPORT_CODE'];
+				$arrivalCity2 = $row['ARRIVE_AIRPORT_NAME'];
 				$arrivalTime2 = $row['ARRIVE_TIME'];
 				$fareType2 = $row['FARE_TYPE'];
 				$fareLabel2 = $row['FARE_LABEL'];
