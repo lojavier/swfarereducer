@@ -9,6 +9,14 @@
 	<!--webfonts-->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text.css'/>
 	<!--//webfonts-->
+
+	<script type="text/javascript">
+		function goHome()
+		{
+			document.swform.action = "index.php";
+			document.getElementById('swform').submit();
+		}
+	</script>
 </head>
  
 <body>
@@ -106,13 +114,13 @@ if ($res = $db->query($sql)) {
 						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
 						echo "Fare Type : ".$fareType1."<br>";
 						echo "Flight # ".$flightNum1."<br>";
-						if ( strstr($fareType1, "DOLLARS") ) {
+						if ( strstr($fareLabel1, "DOLLARS") ) {
 				?>
 							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
 							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
 							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;"> <br>
 				<?php
-						} elseif ( strstr($fareType1, "POINTS") ) {
+						} elseif ( strstr($fareLabel1, "POINTS") ) {
 				?>
 							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
@@ -144,7 +152,7 @@ if ($res = $db->query($sql)) {
 				</div>
 	 	 
 				<p class="p-container">
-					<input type="submit" value="CONTINUE" onclick="">
+					<input type="submit" value="HOME" onclick="goHome();">
 				</p>
 			</form>
 		</div>

@@ -106,6 +106,8 @@ if ($res = $db->query($sql)) {
 		</div>
 <?php
 	}
+} else {
+	echo "ERROR: Cannot make database query";
 }
 $res = null;
 $db = null;
