@@ -67,9 +67,9 @@ if ($res = $db->query($sql)) {
 						echo "Fare Type : ".$fareType1."<br>";
 						echo "Flight # ".$flightNum1."<br>";
 				?>
-						<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-						<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
+						<input type="radio" name="FARE_LABEL_1" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
+						<input type="radio" name="FARE_LABEL_1" value="POINTS" required>&nbsp;POINTS&nbsp;
+						<input type="text" name="FARE_PRICE_1" style="width:35%;" required> <br>
 				<?php
 						if( strstr($flightCount, "2") ) {
 							echo "Departure Date : ".$departureDate2."<br>";
@@ -78,12 +78,22 @@ if ($res = $db->query($sql)) {
 							echo "Fare Type : ".$fareType2."<br>";
 							echo "Flight # ".$flightNum2."<br>";
 				?>
-							<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
+							<input type="radio" name="FARE_LABEL_2" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_2" value="POINTS" required>&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_2" style="width:35%;" required> <br>
 				<?php
 						}
 				?>
+						<input type="text" name="PHONE_NUM" style="width:35%;" required>
+						<select>
+				<?php
+							$sql = "SELECT * FROM WIRELESS_CARRIERS ORDER BY CARRIER_NAME ASC";
+							foreach ($db->query($sql) as $row) {
+								echo "<option value=".$row['WIRELESS_CARRIER_ID'].">".$row['CARRIER_NAME']."</option>";
+							}
+				?>
+						</select> <br>
+						
 						</p>
 						</div>
 			 	 
@@ -92,7 +102,7 @@ if ($res = $db->query($sql)) {
 						</p>
 				<?php
 					} elseif($return > 0) {
-						echo "ERROR: Could not confirm if flight exists with SW! Try again in a moment! <br>";
+						echo "ERROR: Flight info does not exist or was entered incorrectly. <br>";
 				?>
 						</p>
 						</div>
