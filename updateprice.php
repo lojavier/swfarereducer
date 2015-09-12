@@ -37,7 +37,7 @@ $sql = "SELECT COUNT(*) FROM UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRM
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() > 0) {
 		$flightCount = 0;
-		$sql = "SELECT UPCOMING_FLIGHTS.*,A.AIRPORT_NAME as DEPART_AIRPORT_NAME,B.AIRPORT_NAME as ARRIVE_AIRPORT_NAME FROM UPCOMING_FLIGHTS LEFT JOIN AIRPORTS as A ON A.AIRPORT_CODE=UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE LEFT JOIN AIRPORTS as B ON B.AIRPORT_CODE=UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE WHERE UPCOMING_FLIGHTS.CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND UPCOMING_FLIGHTS.FIRST_NAME='".$FIRST_NAME."' AND UPCOMING_FLIGHTS.LAST_NAME='".$LAST_NAME."'";
+		$sql = "SELECT UF.*,A.AIRPORT_NAME as DEPART_AIRPORT_NAME,B.AIRPORT_NAME as ARRIVE_AIRPORT_NAME FROM UPCOMING_FLIGHTS AS UF LEFT JOIN AIRPORTS as A ON A.AIRPORT_CODE=UF.DEPART_AIRPORT_CODE LEFT JOIN AIRPORTS as B ON B.AIRPORT_CODE=UF.ARRIVE_AIRPORT_CODE WHERE UF.CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND UF.FIRST_NAME='".$FIRST_NAME."' AND UF.LAST_NAME='".$LAST_NAME."' ORDER BY UF.DEPART_DATE ASC";
 		foreach ($db->query($sql) as $row) {
 			$flightCount++;
 			if($flightCount == 1) {
@@ -74,7 +74,7 @@ if ($res = $db->query($sql)) {
 		    		if($flightCount == 2) {
 		    			echo "CONFIRMATION # ".$CONFIRMATION_NUM."<br>";
 						echo $FIRST_NAME." ".$LAST_NAME."<br><br>";
-						
+
 						echo "Departure Date : ".$departureDate1."<br>";
 						echo "Depart: ".$departureCity1." (".$departureTime1.")<br>";
 						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
@@ -82,15 +82,21 @@ if ($res = $db->query($sql)) {
 						echo "Flight # ".$flightNum1."<br>";
 						if ( strstr($fareLabel1, "DOLLARS") ) {
 				?>
-							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;"> <br>
+							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked" required>&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_1" value="POINTS" required>&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;" required> <br>
 				<?php
 						} elseif ( strstr($fareLabel1, "POINTS")) {
 				?>
-							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;"> <br>
+							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked" required>&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;" required> <br>
+				<?php
+						} else {
+				?>
+							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_1" value="POINTS" required>&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_1" style="width:35%;" required> <br>
 				<?php
 						}
 
@@ -101,15 +107,21 @@ if ($res = $db->query($sql)) {
 						echo "Flight # ".$flightNum2."<br>";
 						if ( strstr($fareLabel2, "DOLLARS") ) {
 				?>
-							<input type="radio" name="FARE_LABEL_2" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_2" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_2" value=<?php echo $farePrice2; ?> style="width:35%;"> <br>
+							<input type="radio" name="FARE_LABEL_2" value="DOLLARS" checked="checked" required>&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_2" value="POINTS" required>&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_2" value=<?php echo $farePrice2; ?> style="width:35%;" required> <br>
 				<?php
 						} elseif ( strstr($fareLabel2, "POINTS") ) {
 				?>
-							<input type="radio" name="FARE_LABEL_2" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_2" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_2" value=<?php echo $farePrice2; ?> style="width:35%;"> <br>
+							<input type="radio" name="FARE_LABEL_2" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_2" value="POINTS" checked="checked" required>&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_2" value=<?php echo $farePrice2; ?> style="width:35%;" required> <br>
+				<?php
+						} else {
+				?>
+							<input type="radio" name="FARE_LABEL_2" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_2" value="POINTS" required>&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_2" value="" style="width:35%;" required> <br>
 				<?php
 						}
 					} elseif($flightCount == 1) {
@@ -133,6 +145,12 @@ if ($res = $db->query($sql)) {
 							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
 							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;"> <br>
 				<?php
+						} else {
+				?>
+							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
+							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
+							<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
+				<?php
 						}
 					} elseif($flightCount < 1) {
 						echo "ERROR <br>";
@@ -140,26 +158,28 @@ if ($res = $db->query($sql)) {
 				?>
 				</p>
 				</div>
-	 	 
+	 	 		<input type="hidden" name="CONFIRMATION_NUM" value=<?php echo $CONFIRMATION_NUM;?>>
+				<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
+				<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
+				<input type="hidden" name="UPCOMING_FLIGHT_ID_1" value=<?php echo $upcomingFlightId1;?>>
+				<input type="hidden" name="UPCOMING_FLIGHT_ID_2" value=<?php echo $upcomingFlightId2;?>>
 				<p class="p-container">
-					<input type="hidden" name="CONFIRMATION_NUM" value=<?php echo $CONFIRMATION_NUM;?>>
-					<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
-					<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
-					<input type="hidden" name="UPCOMING_FLIGHT_ID_1" value=<?php echo $upcomingFlightId1;?>>
-					<input type="hidden" name="UPCOMING_FLIGHT_ID_2" value=<?php echo $upcomingFlightId2;?>>
-					<input type="submit" value="CONTINUE" onclick="">
+					<input type="submit" value="CONTINUE" onclick="submitPriceUpdate();">
+				</p>
+				<p class="p-container">
+					<input type="submit" value="HOME" onclick="goHome();">
 				</p>
 			</form>
 		</div>
 <?php
-	} elseif ($res->fetchColumn() < 1) {
+	} else {
 ?>
 		<div class="main">
-			<form method="POST" name="swform">
+			<form name="swform">
 	    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
 	    		<div class="inset">
 	    		<p id="newresults">
-	    		
+	    		<?php echo "ERROR: Flight does not exist in our database! <br>"; ?>
 				</p>
 				</div>
 	 	 

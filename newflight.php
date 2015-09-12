@@ -9,6 +9,14 @@
 	<!--webfonts-->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text.css'/>
 	<!--//webfonts-->
+
+	<script type="text/javascript">
+		function goHome()
+		{
+			document.swform.action = "index.php";
+			document.getElementById('swform').submit();
+		}
+	</script>
 </head>
  
 <body>
@@ -20,7 +28,7 @@ $CONFIRMATION_NUM = strtoupper(trim($_POST['CONFIRMATION_NUM']));
 $FIRST_NAME = strtoupper(trim($_POST['FIRST_NAME']));
 $LAST_NAME = strtoupper(trim($_POST['LAST_NAME']));
 
-$sql = "SELECT COUNT(*) FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
+$sql = "SELECT COUNT(*) FROM UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() == 0) {
 		$command = "/usr/bin/python sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
@@ -75,39 +83,64 @@ if ($res = $db->query($sql)) {
 							<input type="text" name="FARE_PRICE_2" style="width:35%;"> <br>
 				<?php
 						}
+				?>
+						</p>
+						</div>
+			 	 
+						<p class="p-container">
+							<input type="submit" value="CONTINUE" onclick="">
+						</p>
+				<?php
 					} elseif($return > 0) {
-						echo "ERROR <br>";
+						echo "ERROR: Could not confirm if flight exists with SW! Try again in a moment! <br>";
+				?>
+						</p>
+						</div>
+			 	 
+						<p class="p-container">
+							<input type="submit" value="HOME" onclick="goHome();">
+						</p>
+				<?php
 					}
 				?>
-				</p>
-				</div>
-	 	 
-				<p class="p-container">
-					<input type="submit" value="CONTINUE" onclick="">
-				</p>
 			</form>
 		</div>
 <?php
-	} elseif ($res->fetchColumn() > 0) {
+	} else {
 ?>
 		<div class="main">
-			<form method="POST" name="swform">
-	    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
-	    		<div class="inset">
-	    		<p id="newresults">
-	    		
-				</p>
-				</div>
-	 	 
-				<p class="p-container">
-					<input type="submit" value="CONTINUE" onclick="">
-				</p>
-			</form>
+		<form name="swform">
+    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
+    		<div class="inset">
+    		<p id="newresults">
+    		<?php echo "ERROR: Flight already exists in our database! Update price! <br>"; ?>
+			</p>
+			</div>
+ 	 
+			<p class="p-container">
+				<input type="submit" value="HOME" onclick="goHome();">
+			</p>
+		</form>
 		</div>
 <?php
 	}
 } else {
-	echo "ERROR: Cannot make database query";
+?>
+	<div class="main">
+	<form name="swform">
+		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
+		<div class="inset">
+		<p id="newresults">
+		<?php echo "ERROR: Could not confirm if flight exists in our database! <br>"; ?>
+		</p>
+		</div>
+	 
+		<p class="p-container">
+			<input type="submit" value="HOME" onclick="goHome();">
+		</p>
+	</form>
+	</div>
+<?php
 }
 $res = null;
 $db = null;
