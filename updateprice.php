@@ -13,8 +13,10 @@
 	<script type="text/javascript">
 		function goHome()
 		{
-			document.swform.action = "index.php";
-			document.getElementById('swform').submit();
+			// document.location.href = "index.php";
+			document.location.assign("index.php");
+			// document.swform.action = "index.php";
+			// document.getElementById('swform').submit();
 		}
 		function submitPriceUpdate()
 		{
