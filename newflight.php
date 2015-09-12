@@ -84,8 +84,10 @@ if ($res = $db->query($sql)) {
 				<?php
 						}
 				?>
-						<input type="text" name="PHONE_NUM" style="width:35%;" required>
-						<select>
+						<label>Mobile Alerts</label>
+						<input type="text" name="PHONE_NUM" style="width:40%;" placeholder="XXXXXXXXXX" required>
+						<select required>
+							<option value=-1>***** SELECT *****</option>
 				<?php
 							$sql = "SELECT * FROM WIRELESS_CARRIERS ORDER BY CARRIER_NAME ASC";
 							foreach ($db->query($sql) as $row) {
@@ -125,8 +127,20 @@ if ($res = $db->query($sql)) {
     		<p id="newresults">
     		<?php echo "ERROR: Flight already exists in our database! Update price! <br>"; ?>
 			</p>
-			</div>
+			<br>
+			<label>Mobile Alerts</label>
+			<input type="text" name="PHONE_NUM" style="width:40%;" placeholder="XXXXXXXXXX" required>
+						<select required>
+							<option value=-1>***** SELECT *****</option>
+				<?php
+							$sql = "SELECT * FROM WIRELESS_CARRIERS ORDER BY CARRIER_NAME ASC";
+							foreach ($db->query($sql) as $row) {
+								echo "<option value=".$row['WIRELESS_CARRIER_ID'].">".$row['CARRIER_NAME']."</option>";
+							}
+				?>
+						</select> <br>
  	 
+ 	 		</div>
 			<p class="p-container">
 				<input type="submit" value="HOME" onclick="goHome();">
 			</p>
