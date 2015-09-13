@@ -109,7 +109,7 @@ if ($res = $db->query($sql)) {
 						</div>
 			 	 
 						<p class="p-container">
-							<input type="submit" value="HOME" onclick="goHome();">
+							<input type="button" value="HOME" onclick="goHome();">
 						</p>
 				<?php
 					}
@@ -129,7 +129,7 @@ if ($res = $db->query($sql)) {
  	 		</div>
 
 			<p class="p-container">
-				<input type="submit" value="HOME" onclick="goHome();">
+				<input type="button" value="HOME" onclick="goHome();">
 			</p>
 		</form>
 		</div>
@@ -147,7 +147,7 @@ if ($res = $db->query($sql)) {
 		</div>
 	 
 		<p class="p-container">
-			<input type="submit" value="HOME" onclick="goHome();">
+			<input type="button" value="HOME" onclick="goHome();">
 		</p>
 	</form>
 	</div>
