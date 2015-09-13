@@ -29,23 +29,15 @@ $LAST_NAME = 			strtoupper(trim($_POST['LAST_NAME']));
 $UPCOMING_FLIGHT_ID_1 = $_POST['UPCOMING_FLIGHT_ID_1'];
 $UPCOMING_FLIGHT_ID_2 = $_POST['UPCOMING_FLIGHT_ID_2'];
 
-$sql = "UPDATE UPCOMING_FLIGHTS 
-		SET FARE_LABEL=
-		(CASE
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_1." THEN '".$FARE_LABEL_1."'
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_2." THEN '".$FARE_LABEL_2."'
-			ELSE FARE_LABEL
-		END),
-		FARE_PRICE=
-		  (CASE
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_1." THEN ".$FARE_PRICE_1."
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_2." THEN ".$FARE_PRICE_2."
-			ELSE FARE_PRICE
-		  END)";
+if(isset($UPCOMING_FLIGHT_ID_1) && isset($UPCOMING_FLIGHT_ID_2)) {
+	$sql = "DELETE FROM UPCOMING_FLIGHTS WHERE UPCOMING_FLIGHT_ID IN (".$UPCOMING_FLIGHT_ID_1.",".$UPCOMING_FLIGHT_ID_2.")";
+} elseif(isset($UPCOMING_FLIGHT_ID_1) && !isset($UPCOMING_FLIGHT_ID_2)) {
+	$sql = "DELETE FROM UPCOMING_FLIGHTS WHERE UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_1;
+}
 try {
 	$stmt = $db->prepare($sql);
     $stmt->execute();
-    $submissionMessage = "Successfully updated your flight prices!";
+    $submissionMessage = "Successfully removed your flight info!";
 }
 catch(PDOException $e)
 {
@@ -109,6 +101,7 @@ if ($res = $db->query($sql)) {
 						echo "Flight # ".$flightNum2."<br>";
 						echo $fareLabel2." ".$farePrice2."<br>";
 					} elseif($flightCount == 1) {
+						echo $submissionMessage."<br><br>";
 		    			echo "CONFIRMATION # ".$CONFIRMATION_NUM."<br>";
 						echo $FIRST_NAME." ".$LAST_NAME."<br><br>";
 						
@@ -126,11 +119,6 @@ if ($res = $db->query($sql)) {
 				</div>
 	 	 
 				<p class="p-container">
-					<input type="hidden" name="CONFIRMATION_NUM" value=<?php echo $CONFIRMATION_NUM;?>>
-					<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
-					<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
-					<input type="hidden" name="UPCOMING_FLIGHT_ID_1" value=<?php echo $upcomingFlightId1;?>>
-					<input type="hidden" name="UPCOMING_FLIGHT_ID_2" value=<?php echo $upcomingFlightId2;?>>
 					<input type="submit" value="HOME" onclick="goHome();">
 				</p>
 			</form>
@@ -143,7 +131,9 @@ if ($res = $db->query($sql)) {
 	    		<h1><span>SW</span> <lable> FARE REDUCER </lable> </h1>
 	    		<div class="inset">
 	    		<p id="newresults">
-	    		
+	    <?php
+	    		echo $submissionMessage . "<br>";
+	    ?>
 				</p>
 				</div>
 	 	 

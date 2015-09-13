@@ -163,7 +163,7 @@ if ($res = $db->query($sql)) {
 				<input type="hidden" name="UPCOMING_FLIGHT_ID_1" value=<?php echo $upcomingFlightId1;?>>
 				<input type="hidden" name="UPCOMING_FLIGHT_ID_2" value=<?php echo $upcomingFlightId2;?>>
 				<p class="p-container">
-					<input type="submit" value="CONTINUE" onclick="submitPriceUpdate();">
+					<input type="submit" value="UPDATE" onclick="submitPriceUpdate();">
 				</p>
 				<p class="p-container">
 					<input type="submit" value="HOME" onclick="goHome();">

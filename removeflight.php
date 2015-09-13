@@ -139,7 +139,7 @@ if ($res = $db->query($sql)) {
 				<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
 				<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
 				<p class="p-container">
-					<input type="submit" value="CONTINUE" onclick="submitFlightRemoval();">
+					<input type="submit" value="REMOVE" onclick="submitFlightRemoval();">
 				</p>
 				<p class="p-container">
 					<input type="submit" value="HOME" onclick="goHome();">

@@ -130,11 +130,6 @@ if ($res = $db->query($sql)) {
 				</div>
 	 	 
 				<p class="p-container">
-					<input type="hidden" name="CONFIRMATION_NUM" value=<?php echo $CONFIRMATION_NUM;?>>
-					<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
-					<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
-					<input type="hidden" name="UPCOMING_FLIGHT_ID_1" value=<?php echo $upcomingFlightId1;?>>
-					<input type="hidden" name="UPCOMING_FLIGHT_ID_2" value=<?php echo $upcomingFlightId2;?>>
 					<input type="submit" value="HOME" onclick="goHome();">
 				</p>
 			</form>
