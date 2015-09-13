@@ -13,8 +13,7 @@
 	<script type="text/javascript">
 		function goHome()
 		{
-			document.swform.action = "index.php";
-			document.getElementById('swform').submit();
+			document.location.assign("index.php");
 		}
 	</script>
 </head>
