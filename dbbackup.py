@@ -25,13 +25,13 @@ import datetime
 
 DB_HOST = 'localhost'
 DB_USER = 'root'
-DB_USER_PASSWORD = '_root_user_password_'
+DB_USER_PASSWORD = 'swfarereducer'
 #DB_NAME = '/backup/dbnames.txt'
-DB_NAME = 'db_name'
-BACKUP_PATH = '/backup/dbbackup/'
+DB_NAME = 'SWFAREREDUCERDB'
+BACKUP_PATH = '/home/lorenzo/Python/python-project/sql'
 
 # Getting current datetime to create seprate backup folder like "12012013-071334".
-DATETIME = time.strftime('%m%d%Y-%H%M%S')
+DATETIME = time.strftime('%Y%m%d_%H%M%S')
 
 TODAYBACKUPPATH = BACKUP_PATH + DATETIME
 
@@ -74,15 +74,3 @@ else:
 
 print "Backup script completed"
 print "Your backups has been created in '" + TODAYBACKUPPATH + "' directory"
-
-UPDATE UPCOMING_FLIGHTS 
-SET FARE_LABEL=
-  (CASE
-    WHEN UPCOMING_FLIGHT_ID=100000 THEN 'PRICE'
-    WHEN UPCOMING_FLIGHT_ID=100000 THEN 'PRICE'
-  END),
-FARE_PRICE=
-  (CASE
-    WHEN UPCOMING_FLIGHT_ID=100000 THEN 5000
-    WHEN UPCOMING_FLIGHT_ID=100000 THEN 5000
-  END);

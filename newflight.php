@@ -15,6 +15,11 @@
 		{
 			document.location.assign("index.php");
 		}
+		function submitNewFlight()
+		{
+			document.swform.action = "submitnewflight.php";
+			document.getElementById('swform').submit();
+		}
 	</script>
 </head>
  
@@ -97,9 +102,27 @@ if ($res = $db->query($sql)) {
 						
 						</p>
 						</div>
-			 	 
+
+						<input type="hidden" name="CONFIRMATION_NUM" value=<?php echo $CONFIRMATION_NUM;?>>
+						<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
+						<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
+			 	 		<input type="hidden" name="DEPART_DATE_1" value="<?php echo $departureDate1;?>">
+			 	 		<input type="hidden" name="FLIGHT_NUM_1" value="<?php echo $flightNum1;?>">
+			 	 		<input type="hidden" name="DEPART_TIME_1" value="<?php echo $departureTime1;?>">
+			 	 		<input type="hidden" name="ARRIVE_TIME_1" value="<?php echo $arrivalTime1;?>">
+			 	 		<input type="hidden" name="ARRIVE_AIRPORT_CODE_1" value="<?php echo $arrivalCity1;?>">
+			 	 		<input type="hidden" name="DEPART_AIRPORT_CODE_1" value="<?php echo $departureCity1;?>">
+			 	 		<input type="hidden" name="FARE_TYPE_1" value="<?php echo $fareType1;?>">
+			 	 		<input type="hidden" name="DEPART_DATE_2" value="<?php echo $departureDate2;?>">
+			 	 		<input type="hidden" name="FLIGHT_NUM_2" value="<?php echo $flightNum2;?>">
+			 	 		<input type="hidden" name="DEPART_TIME_2" value="<?php echo $departureTime2;?>">
+			 	 		<input type="hidden" name="ARRIVE_TIME_2" value="<?php echo $arrivalTime2;?>">
+			 	 		<input type="hidden" name="ARRIVE_AIRPORT_CODE_2" value="<?php echo $arrivalCity2;?>">
+			 	 		<input type="hidden" name="DEPART_AIRPORT_CODE_2" value="<?php echo $departureCity2;?>">
+			 	 		<input type="hidden" name="FARE_TYPE_2" value="<?php echo $fareType2;?>">
+
 						<p class="p-container">
-							<input type="submit" value="CONTINUE" onclick="">
+							<input type="submit" value="CONTINUE" onclick="submitNewFlight();">
 						</p>
 				<?php
 					} elseif($return > 0) {
