@@ -84,9 +84,10 @@ if ($res = $db->query($sql)) {
 						echo "Depart: ".$departureCity1." (".$departureTime1.")<br>";
 						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
 						echo "Fare Type : ".$fareType1."<br>";
-						echo "Flight # ".$flightNum1;
+						echo "Flight # ".$flightNum1."<br>";
+						echo $fareLabel1." ".$farePrice1;
 				?>
-							</p><br><br>
+							</p><br>
 							</div>
 						</div>
 						
@@ -96,43 +97,38 @@ if ($res = $db->query($sql)) {
 							</div>
 							<div style='float:left; padding-left:5px;'><p id='newresults'>
 				<?php
-						echo "Departure Date : ".$departureDate2."<br>";
-						echo "Depart: ".$departureCity2." (".$departureTime2.")<br>";
-						echo "Arrive: ".$arrivalCity2." (".$arrivalTime2.")<br>";
-						echo "Fare Type : ".$fareType2."<br>";
-						echo "Flight # ".$flightNum2;
+							echo "Departure Date : ".$departureDate2."<br>";
+							echo "Depart: ".$departureCity2." (".$departureTime2.")<br>";
+							echo "Arrive: ".$arrivalCity2." (".$arrivalTime2.")<br>";
+							echo "Fare Type : ".$fareType2."<br>";
+							echo "Flight # ".$flightNum2."<br>";
+							echo $fareLabel2." ".$farePrice2;
 				?>
-							</p><br><br></div>
+							</p><br>
+							</div>
 						</div>
 				<?php
 					} elseif($flightCount == 1) {
 		    			echo "CONFIRMATION # ".$CONFIRMATION_NUM."<br>";
 						echo $FIRST_NAME." ".$LAST_NAME."<br><br>";
-						
-						echo "Departure Date : ".$departureDate1."<br>";
-						echo "Depart: ".$departureCity1." (".$departureTime1.")<br>";
-						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
-						echo "Fare Type : ".$fareType1."<br>";
-						echo "Flight # ".$flightNum1."<br>";
-						if ( strstr($fareLabel1, "DOLLARS") ) {
 				?>
-							<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;"> <br>
+						<div style='position:relative; clear:left; width:100%;'>
+							<div style='float:left; padding:10px;'>
+								<input type='checkbox' name='UPCOMING_FLIGHT_ID_1' value=<?php echo $upcomingFlightId1; ?>>
+							</div>
+							<div style='float:left; padding-left:5px;'><p id='newresults'>
 				<?php
-						} elseif ( strstr($fareLabel1, "POINTS") ) {
+							echo "Departure Date : ".$departureDate1."<br>";
+							echo "Depart: ".$departureCity1." (".$departureTime1.")<br>";
+							echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
+							echo "Fare Type : ".$fareType1."<br>";
+							echo "Flight # ".$flightNum1."<br>";
+							echo $fareLabel1." ".$farePrice1;
 				?>
-							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" value=<?php echo $farePrice1; ?> style="width:35%;"> <br>
+							</p><br>
+							</div>
+						</div>
 				<?php
-						} else {
-				?>
-							<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
-							<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-							<input type="text" name="FARE_PRICE_1" style="width:35%;"> <br>
-				<?php
-						}
 					} elseif($flightCount < 1) {
 						echo "ERROR <br>";
 					}
