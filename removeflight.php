@@ -75,7 +75,7 @@ if ($res = $db->query($sql)) {
 						echo $FIRST_NAME." ".$LAST_NAME."<br><br>";
 				?>
 						<div style='position:relative; clear:left; width:100%;'>
-							<div style='float:left; padding:15px;'>
+							<div style='float:left; padding:10px;'>
 								<input type='checkbox' name='UPCOMING_FLIGHT_ID_1' value=<?php echo $upcomingFlightId1; ?>>
 							</div>
 							<div style='float:left; padding-left:5px;'><p id='newresults'>
@@ -91,7 +91,7 @@ if ($res = $db->query($sql)) {
 						</div>
 						
 						<div style='position:relative; clear:left; width:100%;'>
-							<div style='float:left; padding:15px;'>
+							<div style='float:left; padding:10px;'>
 								<input type='checkbox' name='UPCOMING_FLIGHT_ID_2' value=<?php echo $upcomingFlightId2; ?>>
 							</div>
 							<div style='float:left; padding-left:5px;'><p id='newresults'>
