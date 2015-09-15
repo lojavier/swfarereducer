@@ -90,7 +90,7 @@ if ($res = $db->query($sql)) {
 				?>
 						<label>Mobile Alerts</label>
 						<input type="text" name="PHONE_NUM" style="width:40%;" placeholder="XXXXXXXXXX" required>
-						<select required>
+						<select name="WIRELESS_CARRIER_ID" required>
 							<option value=-1>***** SELECT *****</option>
 				<?php
 							$sql = "SELECT * FROM WIRELESS_CARRIERS ORDER BY CARRIER_NAME ASC";
