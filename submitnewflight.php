@@ -49,11 +49,11 @@ $FLIGHT_NUM_2 =			$_POST['FLIGHT_NUM_2'];
 $PHONE_NUM =			$_POST['PHONE_NUM'];
 $WIRELESS_CARRIER_ID =	$_POST['WIRELESS_CARRIER_ID'];
 
-$sql = "SELECT CARRIER_NAME FROM WIRELESS_CARRIERS WHERE WIRELESS_CARRIER_ID=".$WIRELESS_CARRIER_ID;
+$sql = "SELECT CARRIER_TEXT_EMAIL FROM WIRELESS_CARRIERS WHERE WIRELESS_CARRIER_ID=".$WIRELESS_CARRIER_ID;
 try {
 	$res = $db->query($sql);
 	foreach ($db->query($sql) as $row) {
-		$EMAIL = $PHONE_NUM.$row['CARRIER_NAME'];
+		$EMAIL = $PHONE_NUM.$row['CARRIER_TEXT_EMAIL'];
 	}
 }
 catch(PDOException $e)
@@ -134,7 +134,9 @@ if ($res = $db->query($sql)) {
 						echo "Arrive: ".$arrivalCity2." (".$arrivalTime2.")<br>";
 						echo "Fare Type : ".$fareType2."<br>";
 						echo "Flight # ".$flightNum2."<br>";
-						echo $fareLabel2." ".$farePrice2."<br>";
+						echo $fareLabel2." ".$farePrice2."<br><br>";
+
+						echo "Mobile Alert : ".$EMAIL."<br>";
 					} elseif($flightCount == 1) {
 						echo $submissionMessage."<br><br>";
 		    			echo "CONFIRMATION # ".$CONFIRMATION_NUM."<br>";
@@ -145,7 +147,9 @@ if ($res = $db->query($sql)) {
 						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
 						echo "Fare Type : ".$fareType1."<br>";
 						echo "Flight # ".$flightNum1."<br>";
-						echo $fareLabel1." ".$farePrice1."<br>";
+						echo $fareLabel1." ".$farePrice1."<br><br>";
+
+						echo "Mobile Alert : ".$EMAIL."<br>";
 					} elseif($flightCount < 1) {
 						echo "ERROR <br>";
 					}
