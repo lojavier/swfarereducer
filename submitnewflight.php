@@ -49,29 +49,30 @@ $FLIGHT_NUM_2 =			$_POST['FLIGHT_NUM_2'];
 $PHONE_NUM =			$_POST['PHONE_NUM'];
 $WIRELESS_CARRIER_ID =	$_POST['WIRELESS_CARRIER_ID'];
 
-if(isset(DEPART_DATE_1) && isset(DEPART_DATE_2)) {
-$sql = "INSERT INTO UPCOMING_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,EMAIL,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_LABEL,FARE_PRICE,FARE_TYPE) VALUES 
-('".$CONFIRMATION_NUM."','".$FIRST_NAME."','".$LAST_NAME."','9252007284@vtext.com','SJC','PHX','10/02/2015','8:05 PM','9:50 PM','179','POINTS','4291','Wanna Get Away'),";
-} elseif(isset(DEPART_DATE_1) && !isset(DEPART_DATE_2)) {
-
+$sql = "SELECT CARRIER_NAME FROM WIRELESS_CARRIERS WHERE WIRELESS_CARRIER_ID=".$WIRELESS_CARRIER_ID;
+try {
+	$res = $db->query($sql);
+	foreach ($db->query($sql) as $row) {
+		$EMAIL = $PHONE_NUM.$row['CARRIER_NAME'];
+	}
 }
-$sql = "UPDATE UPCOMING_FLIGHTS 
-		SET FARE_LABEL=
-		(CASE
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_1." THEN '".$FARE_LABEL_1."'
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_2." THEN '".$FARE_LABEL_2."'
-			ELSE FARE_LABEL
-		END),
-		FARE_PRICE=
-		  (CASE
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_1." THEN ".$FARE_PRICE_1."
-		    WHEN UPCOMING_FLIGHT_ID=".$UPCOMING_FLIGHT_ID_2." THEN ".$FARE_PRICE_2."
-			ELSE FARE_PRICE
-		  END)";
+catch(PDOException $e)
+{
+    $submissionMessage = $e->getMessage();
+}
+
+if(isset(DEPART_DATE_1) && isset(DEPART_DATE_2)) {
+	$sql = "INSERT INTO UPCOMING_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,EMAIL,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_LABEL,FARE_PRICE,FARE_TYPE) VALUES 
+	('".$CONFIRMATION_NUM."','".$FIRST_NAME."','".$LAST_NAME."','".$EMAIL."','".$DEPART_AIRPORT_CODE_1."','".$ARRIVE_AIRPORT_CODE_1."','".$DEPART_DATE_1."','".$DEPART_TIME_1."','".$ARRIVE_TIME_1."','".$FLIGHT_NUM_1."','".$FARE_LABEL_1."','".$FARE_PRICE_1."','".$FARE_TYPE_1."'),
+	('".$CONFIRMATION_NUM."','".$FIRST_NAME."','".$LAST_NAME."','".$EMAIL."','".$DEPART_AIRPORT_CODE_2."','".$ARRIVE_AIRPORT_CODE_2."','".$DEPART_DATE_2."','".$DEPART_TIME_2."','".$ARRIVE_TIME_2."','".$FLIGHT_NUM_2."','".$FARE_LABEL_2."','".$FARE_PRICE_2."','".$FARE_TYPE_2."')";
+} elseif(isset(DEPART_DATE_1) && !isset(DEPART_DATE_2)) {
+	$sql = "INSERT INTO UPCOMING_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,EMAIL,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_LABEL,FARE_PRICE,FARE_TYPE) VALUES 
+	('".$CONFIRMATION_NUM."','".$FIRST_NAME."','".$LAST_NAME."','".$EMAIL."','".$DEPART_AIRPORT_CODE_1."','".$ARRIVE_AIRPORT_CODE_1."','".$DEPART_DATE_1."','".$DEPART_TIME_1."','".$ARRIVE_TIME_1."','".$FLIGHT_NUM_1."','".$FARE_LABEL_1."','".$FARE_PRICE_1."','".$FARE_TYPE_1."')";
+}
 try {
 	$stmt = $db->prepare($sql);
     $stmt->execute();
-    $submissionMessage = "Successfully updated your flight prices!";
+    $submissionMessage = "Successfully inserted your new flight info!";
 }
 catch(PDOException $e)
 {
@@ -135,6 +136,7 @@ if ($res = $db->query($sql)) {
 						echo "Flight # ".$flightNum2."<br>";
 						echo $fareLabel2." ".$farePrice2."<br>";
 					} elseif($flightCount == 1) {
+						echo $submissionMessage."<br><br>";
 		    			echo "CONFIRMATION # ".$CONFIRMATION_NUM."<br>";
 						echo $FIRST_NAME." ".$LAST_NAME."<br><br>";
 						
