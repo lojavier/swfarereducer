@@ -53,6 +53,9 @@ if ($res = $db->query($sql)) {
 					    	$departureDate1 = $json->{'departureDate1'};
 							$flightNum1 = $json->{'flightNum1'};
 							$departureCity1 = $json->{'departureCity1'};
+							$TEMP = explode("-", $departureCity1);
+							$DEPART_AIRPORT_CODE_1 = $TEMP[1];
+							echo $DEPART_AIRPORT_CODE_1 . "<br>";
 							$departureTime1 = $json->{'departureTime1'};
 							$arrivalCity1 = $json->{'arrivalCity1'};
 							$arrivalTime1 = $json->{'arrivalTime1'};
@@ -110,15 +113,15 @@ if ($res = $db->query($sql)) {
 			 	 		<input type="hidden" name="FLIGHT_NUM_1" value="<?php echo $flightNum1;?>">
 			 	 		<input type="hidden" name="DEPART_TIME_1" value="<?php echo $departureTime1;?>">
 			 	 		<input type="hidden" name="ARRIVE_TIME_1" value="<?php echo $arrivalTime1;?>">
-			 	 		<input type="hidden" name="ARRIVE_AIRPORT_CITY_1" value="<?php echo $arrivalCity1;?>">
-			 	 		<input type="hidden" name="DEPART_AIRPORT_CITY_1" value="<?php explode("-",$departureCity1); echo $departureCity1[2];?>">
+			 	 		<input type="hidden" name="ARRIVE_AIRPORT_CODE_1" value="<?php echo $arrivalCity1;?>">
+			 	 		<input type="hidden" name="DEPART_AIRPORT_CODE_1" value="<?php echo $DEPART_AIRPORT_CODE_1;?>">
 			 	 		<input type="hidden" name="FARE_TYPE_1" value="<?php echo $fareType1;?>">
 			 	 		<input type="hidden" name="DEPART_DATE_2" value="<?php echo $departureDate2;?>">
 			 	 		<input type="hidden" name="FLIGHT_NUM_2" value="<?php echo $flightNum2;?>">
 			 	 		<input type="hidden" name="DEPART_TIME_2" value="<?php echo $departureTime2;?>">
 			 	 		<input type="hidden" name="ARRIVE_TIME_2" value="<?php echo $arrivalTime2;?>">
-			 	 		<input type="hidden" name="ARRIVE_AIRPORT_CITY_2" value="<?php echo $arrivalCity2;?>">
-			 	 		<input type="hidden" name="DEPART_AIRPORT_CITY_2" value="<?php echo $departureCity2;?>">
+			 	 		<input type="hidden" name="ARRIVE_AIRPORT_CODE_2" value="<?php echo $arrivalCity2;?>">
+			 	 		<input type="hidden" name="DEPART_AIRPORT_CODE_2" value="<?php echo $departureCity2;?>">
 			 	 		<input type="hidden" name="FARE_TYPE_2" value="<?php echo $fareType2;?>">
 
 						<p class="p-container">
