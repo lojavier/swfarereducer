@@ -55,16 +55,21 @@ if ($res = $db->query($sql)) {
 							$departureCity1 = $json->{'departureCity1'};
 							$TEMP = explode("-", $departureCity1);
 							$DEPART_AIRPORT_CODE_1 = $TEMP[1];
-							echo $DEPART_AIRPORT_CODE_1 . "<br>";
 							$departureTime1 = $json->{'departureTime1'};
 							$arrivalCity1 = $json->{'arrivalCity1'};
+							$TEMP = explode("-", $arrivalCity1);
+							$ARRIVE_AIRPORT_CODE_1 = $TEMP[1];
 							$arrivalTime1 = $json->{'arrivalTime1'};
 							$fareType1 = $json->{'fareType1'};
 							$departureDate2 = $json->{'departureDate2'};
 							$flightNum2 = $json->{'flightNum2'};
 							$departureCity2 = $json->{'departureCity2'};
+							$TEMP = explode("-", $departureCity2);
+							$DEPART_AIRPORT_CODE_2 = $TEMP[1];
 							$departureTime2 = $json->{'departureTime2'};
 							$arrivalCity2 = $json->{'arrivalCity2'};
+							$TEMP = explode("-", $arrivalCity2);
+							$ARRIVE_AIRPORT_CODE_2 = $TEMP[1];
 							$arrivalTime2 = $json->{'arrivalTime2'};
 							$fareType2 = $json->{'fareType2'};
 						}
