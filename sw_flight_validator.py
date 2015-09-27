@@ -13,10 +13,7 @@ from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
-# http://www.blog.pythonlibrary.org/2012/06/08/python-101-how-to-submit-a-web-form/
-# http://www.thetaranights.com/fill-online-form-using-python/
-# http://wwwsearch.sourceforge.net/mechanize/download.html
-# http://readwrite.com/2014/06/27/raspberry-pi-web-server-website-hosting
+
 global temp
 global outboundTime
 global returnTime
@@ -301,9 +298,17 @@ parser.feed(southwest_conf_results_string)
 
 if departureCity2 and departureCity1:
 	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
-	departureDate1 = temp.strftime("%m/%d/%Y")
+	departureDate1 = temp.strftime("%Y-%m-%d")
 	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
-	departureDate2 = temp.strftime("%m/%d/%Y")
+	departureDate2 = temp.strftime("%Y-%m-%d")
+	temp = datetime.datetime.strptime(departureTime1, "%I:%m %p")
+	departureTime1 = temp.strftime("%H:%m:%s")
+	temp = datetime.datetime.strptime(arrivalTime1, "%I:%m %p")
+	arrivalTime1 = temp.strftime("%H:%m:%s")
+	temp = datetime.datetime.strptime(departureTime2, "%I:%m %p")
+	departureTime2 = temp.strftime("%H:%m:%s")
+	temp = datetime.datetime.strptime(arrivalTime2, "%I:%m %p")
+	arrivalTime2 = temp.strftime("%H:%m:%s")
 
 	data['flightCount'] = "2"
 	data['departureDate1'] = departureDate1
@@ -336,7 +341,11 @@ if departureCity2 and departureCity1:
 
 elif not departureCity2 and departureCity1:
 	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
-	departureDate1 = temp.strftime("%m/%d/%Y")
+	departureDate1 = temp.strftime("%Y-%m-%d")
+	temp = datetime.datetime.strptime(departureTime1, "%I:%m %p")
+	departureTime1 = temp.strftime("%H:%m:%s")
+	temp = datetime.datetime.strptime(arrivalTime1, "%I:%m %p")
+	arrivalTime1 = temp.strftime("%H:%m:%s")
 
 	data['flightCount'] = "1"
 	data['departureDate1'] = departureDate1

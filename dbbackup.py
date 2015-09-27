@@ -18,6 +18,7 @@
 # Import required python libraries
 import os
 import time
+import MySQLdb
 import datetime
 
 # MySQL database details to which backup to be done. Make sure below user having enough privileges to take databases backup. 
