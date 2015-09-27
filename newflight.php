@@ -73,9 +73,12 @@ if ($res = $db->query($sql)) {
 							$arrivalTime2 = $json->{'arrivalTime2'};
 							$fareType2 = $json->{'fareType2'};
 						}
-						echo "Departure Date : ".$departureDate1."<br>";
-						echo "Depart: ".$departureCity1." (".$departureTime1.")<br>";
-						echo "Arrive: ".$arrivalCity1." (".$arrivalTime1.")<br>";
+						$tempDate = strtotime($departureDate1);
+						echo "Departure Date : ".date('D, M d, Y', $tempDate)."<br>";
+						$tempDate = strtotime($departureTime1);
+						echo "Depart: ".$departureCity1." (".date('h:i A', $tempDate).")<br>";
+						$tempDate = strtotime($arrivalTime1);
+						echo "Arrive: ".$arrivalCity1." (".date('h:i A', $tempDate).")<br>";
 						echo "Fare Type : ".$fareType1."<br>";
 						echo "Flight # ".$flightNum1."<br>";
 				?>
@@ -84,9 +87,12 @@ if ($res = $db->query($sql)) {
 						<input type="text" name="FARE_PRICE_1" style="width:35%;" required> <br>
 				<?php
 						if( strstr($flightCount, "2") ) {
-							echo "Departure Date : ".$departureDate2."<br>";
-							echo "Depart: ".$departureCity2." (".$departureTime2.")<br>";
-							echo "Arrive: ".$arrivalCity2." (".$arrivalTime2.")<br>";
+							$tempDate = strtotime($departureDate2);
+							echo "Departure Date : ".date('D, M d, Y', $tempDate)."<br>";
+							$tempDate = strtotime($departureTime2);
+							echo "Depart: ".$departureCity2." (".date('h:i A', $tempDate).")<br>";
+							$tempDate = strtotime($arrivalTime2);
+							echo "Arrive: ".$arrivalCity2." (".date('h:i A', $tempDate).")<br>";
 							echo "Fare Type : ".$fareType2."<br>";
 							echo "Flight # ".$flightNum2."<br>";
 				?>
