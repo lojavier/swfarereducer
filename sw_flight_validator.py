@@ -274,8 +274,8 @@ try:
 	try:
 		result = br.submit()
 		southwest_conf_results_string = result.read()
-		# with open(resultsFile, "w") as f:
-		# 	f.write(southwest_conf_results_string)
+		with open(resultsFile, "w") as f:
+			f.write(southwest_conf_results_string)
 	except:
 		print "ERROR: Could not submit information"
 		sys.exit(1)

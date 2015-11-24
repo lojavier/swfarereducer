@@ -1,9 +1,11 @@
 #!/usr/bin/env python
+import os
 import re
 import sys
+import json
 import time
-import urllib
 import urllib2
+import MySQLdb
 import smtplib
 import datetime
 import mechanize
@@ -11,9 +13,7 @@ from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
-# http://www.blog.pythonlibrary.org/2012/06/08/python-101-how-to-submit-a-web-form/
-# http://www.thetaranights.com/fill-online-form-using-python/
-# http://wwwsearch.sourceforge.net/mechanize/download.html
+
 global temp
 global nonstopFlag
 global pointsFlag
@@ -88,33 +88,6 @@ class MyHTMLParser(HTMLParser):
 		global currentPrice
 		currentPrice = data.replace(',','')
 
-upcoming_trips = []
-upcoming_trips.append(['8ABYGC','Lorenzo','Javier','loj90@sbcglobal.net','SJC','PHX','10/02/2015','8:05PM','9:50PM','179','80.00','4291'])
-upcoming_trips.append(['8ABYGC','Lorenzo','Javier','loj90@sbcglobal.net','PHX','SJC','10/06/2015','5:40AM','7:35AM','2787','60.00','2989'])
-upcoming_trips.append(['HHGRHL','Lorenzo','Javier','loj90@sbcglobal.net','SJC','ONT','10/30/2015','8:20PM','9:30PM','2953','119.00','6798'])
-upcoming_trips.append(['HN9RRZ','Lorenzo','Javier','loj90@sbcglobal.net','LAX','SJC','11/02/2015','8:45AM','9:55AM','1147','63.00','3184'])
-upcoming_trips.append(['832STR','Lorenzo','Javier','loj90@sbcglobal.net','SJC','PHX','11/04/2015','6:35AM','9:20AM','539','60.00','2989'])
-upcoming_trips.append(['832STR','Lorenzo','Javier','loj90@sbcglobal.net','PHX','SJC','11/08/2015','8:40PM','9:35PM','1117','144.00','8459'])
-
-airport_list = []
-airport_list.append(['OAK','Oakland, CA - OAK'])
-airport_list.append(['SJC','San Jose, CA - SJC'])
-airport_list.append(['SFO','San Francisco, CA - SFO'])
-airport_list.append(['ONT','Ontario/LA, CA - ONT'])
-airport_list.append(['SNA','Orange County/Santa Ana, CA - SN'])
-airport_list.append(['LAX','Los Angeles, CA - LAX'])
-airport_list.append(['LAS','Las Vegas, NV - LAS'])
-airport_list.append(['PHX','Phoenix, AZ - PHX'])
-airport_list.append(['SAN','San Diego, CA - SAN'])
-airport_list.append(['ALB','Albany, NY - ALB'])
-airport_list.append(['BUF','Buffalo/Niagara, NY - BUF'])
-airport_list.append(['ISP','Long Island/Islip, NY - ISP'])
-airport_list.append(['LGA','New York (LaGuardia), NY - LGA'])
-airport_list.append(['EWR','New York/Newark, NJ - EWR'])
-airport_list.append(['ROC','Rochester, NY - ROC'])
-airport_list.append(['SMF','Sacramento, CA - SMF'])
-airport_list.append(['SEA','Seattle/Tacoma, WA - SEA'])
-
 #####################################################################
 ## Set user input variables
 #####################################################################
@@ -184,7 +157,7 @@ br.find_control(name="destinationAirport").value = [destinationAirportCode]
 br.form["outboundDateString"] = outboundDate
 # br.find_control(id="outboundTimeOfDay",name="outboundTimeOfDay").value = ['NOON_TO_6PM']
 br.form["returnDateString"] = returnDate
-br.find_control(id="roundTrip",name="twoWayTrip").value = ['false']
+br.find_control(id="roundTrip",name="twoWayTrip").value = ['true']
 try:
 	if(pointsFlag == True):
 		br.find_control(name="fareType").value = ['POINTS']
