@@ -32,7 +32,7 @@ $CONFIRMATION_NUM = strtoupper(trim($_POST['CONFIRMATION_NUM']));
 $FIRST_NAME = strtoupper(trim($_POST['FIRST_NAME']));
 $LAST_NAME = strtoupper(trim($_POST['LAST_NAME']));
 
-$sql = "SELECT COUNT(*) FROM UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
+$sql = "SELECT COUNT(*) FROM RESERVED_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
 if ($res = $db->query($sql)) {
 	if ($res->fetchColumn() == 0) {
 		$command = "/usr/bin/python sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
