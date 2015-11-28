@@ -56,20 +56,20 @@ logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_route_map.log"
 ## Initiate mechanize, set parameters in form, and submit form
 #####################################################################
 print "\nRetrieving flight routes...\n"
-# try:
-# 	br = mechanize.Browser()
-# 	br.set_handle_robots(False)
-# 	results = br.open("https://www.southwest.com/flight/routemap_dyn.html")
-# 	resultsContent = results.read()
-# except:
-# 	logF = open(logFile, "a")
-# 	logMessage = "%s ERROR: Unable to retrieve flight routes\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-# 	logF.write(logMessage)
-# 	logF.close()
-# 	exit()
+try:
+	br = mechanize.Browser()
+	br.set_handle_robots(False)
+	results = br.open("https://www.southwest.com/flight/routemap_dyn.html")
+	resultsContent = results.read()
+except:
+	logF = open(logFile, "a")
+	logMessage = "%s ERROR: Unable to retrieve flight routes\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
+	logF.write(logMessage)
+	logF.close()
+	exit()
 
-with open(resultsFile,"r") as f:
-	resultsContent = f.read()
+# with open(resultsFile,"r") as f:
+# 	resultsContent = f.read()
 
 #####################################################################
 ## Search results string for errors
@@ -85,9 +85,9 @@ if errorMessage:
 	logF.write(logMessage)
 	logF.close()
 	exit()
-# else:
-# 	with open(resultsFile, "w") as f:
-# 	    f.write(resultsContent)
+else:
+	with open(resultsFile, "w") as f:
+	    f.write(resultsContent)
 
 db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 cursor = db.cursor()
@@ -106,7 +106,7 @@ if(pos1 != -1):
 						cursor.execute(sql)
 						results = cursor.fetchone()
 						if results[0] > 0 and routesServed != results[1]:
-							sql = "UPDATE AIRPORTS SET ROUTES_SERVED='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (json.dumps(values[x]),time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
+							sql = "UPDATE AIRPORTS SET ROUTES_SERVED='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (routesServed,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 							try:
 								cursor.execute(sql)
 								db.commit()
@@ -117,7 +117,6 @@ if(pos1 != -1):
 								logF.write(logMessage)
 								logF.close()
 						elif results[0] == 0:
-							print "%s %s" % (results[0],results[1])
 							sql = "INSERT INTO AIRPORTS (AIRPORT_CODE,ROUTES_SERVED,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s')" % (airportCode,routesServed,time.strftime("%Y-%m-%d %H:%M:%S"))
 							try:
 								cursor.execute(sql)
@@ -134,8 +133,10 @@ if(pos1 != -1):
 						logF.write(logMessage)
 						logF.close()
 else:
-	print "WARNING: Could not locate routes served json."
-
+	logF = open(logFile, "a")
+	logMessage = "%s ERROR: Could not locate 'routes' JSON\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
+	logF.write(logMessage)
+	logF.close()
 
 pos1 = resultsContent.find("var stations_info")
 if(pos1 != -1):
@@ -146,40 +147,32 @@ if(pos1 != -1):
 		for x in value:
 			if "display_name" in x:
 				airportName = (json.dumps(value[x])).replace('\"','')
-				print airportCode,airportName
 				if airportName:
-					sql = "SELECT COUNT(*) FROM AIRPORTS WHERE AIRPORT_CODE='%s'" % (airportCode)
+					sql = "SELECT COUNT(*),AIRPORT_NAME FROM AIRPORTS WHERE AIRPORT_CODE='%s'" % (airportCode)
 					try:
 						cursor.execute(sql)
 						results = cursor.fetchone()
-						# print results[0]
-						# if results[0] > 0 and routesServed != results[1]:
-						# 	sql = "UPDATE AIRPORTS SET ROUTES_SERVED='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (json.dumps(values[x]),time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-						# 	try:
-						# 		cursor.execute(sql)
-						# 		db.commit()
-						# 	except:
-						# 		db.rollback()
-						# 		logF = open(logFile, "a")
-						# 		logMessage = "%s ERROR: Unable to update routesServed [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-						# 		logF.write(logMessage)
-						# 		logF.close()
-						# elif results[0] == 0:
-						# 	print "%s %s" % (results[0],results[1])
-						# 	sql = "INSERT INTO AIRPORTS (AIRPORT_CODE,ROUTES_SERVED,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s')" % (airportCode,routesServed,time.strftime("%Y-%m-%d %H:%M:%S"))
-						# 	try:
-						# 		cursor.execute(sql)
-						# 		db.commit()
-						# 	except:
-						# 		db.rollback()
-						# 		logF = open(logFile, "a")
-						# 		logMessage = "%s ERROR: Unable to insert airport [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-						# 		logF.write(logMessage)
-						# 		logF.close()
+						if results[0] > 0 and airportName != results[1]:
+							sql = "UPDATE AIRPORTS SET AIRPORT_NAME='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (airportName,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
+							try:
+								cursor.execute(sql)
+								db.commit()
+							except:
+								db.rollback()
+								logF = open(logFile, "a")
+								logMessage = "%s ERROR: Unable to update airport name [airportName:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportName)
+								logF.write(logMessage)
+								logF.close()
 					except:
 						logF = open(logFile, "a")
 						logMessage = "%s ERROR: Unable to check airports [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 						logF.write(logMessage)
 						logF.close()
 else:
-	print "WARNING: Could not locate airport info json."
+	print "WARNING: Could not locate airport info json"
+	logF = open(logFile, "a")
+	logMessage = "%s ERROR: Could not locate 'stations_info' JSON\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
+	logF.write(logMessage)
+	logF.close()
+
+db.close()
