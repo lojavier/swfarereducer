@@ -66,7 +66,7 @@ except:
 	logMessage = "%s ERROR: Unable to retrieve flight routes\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
 	logF.write(logMessage)
 	logF.close()
-	exit()
+	sys.exit(1)
 
 # with open(resultsFile,"r") as f:
 # 	resultsContent = f.read()
@@ -84,7 +84,7 @@ if errorMessage:
 	print logMessage
 	logF.write(logMessage)
 	logF.close()
-	exit()
+	sys.exit(1)
 else:
 	with open(resultsFile, "w") as f:
 	    f.write(resultsContent)

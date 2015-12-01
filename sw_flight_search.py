@@ -60,13 +60,9 @@ class MyHTMLParser(HTMLParser):
 					farePriceDollars = result[3].replace('$','')
 					temp = datetime.datetime.strptime(result[4], "%I:%M%p")
 					departTime = temp.strftime("%H:%M:%S")
-					# temp = time.strptime(departTime, "%I:%M%p")
-					# departTime24Hour = float(temp.tm_hour) + float(float(temp.tm_min) / 60)
 					departTag = result[5]
 					temp = datetime.datetime.strptime(result[6], "%I:%M%p")
 					arriveTime = temp.strftime("%H:%M:%S")
-					# temp = time.strptime(arriveTime, "%I:%M%p")
-					# arriveTime24Hour = float(temp.tm_hour) + float(float(temp.tm_min) / 60)
 					arriveTag = result[7]
 					flightRoute = result[8]
 					temp = flightRoute.lower()
@@ -108,8 +104,8 @@ class MyHTMLParserErrors(HTMLParser):
 ## Set directory path and file name for response & results html file
 #####################################################################
 cwd = os.getcwd()
-responseFile = cwd+"/logs/southwest_flight_response.html"
-resultsFile = cwd+"/logs/southwest_flight_results.html"
+responseFile = cwd+"/logs/sw_flight_response.html"
+resultsFile = cwd+"/logs/sw_flight_results.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_search.log"
 
 #####################################################################
@@ -135,7 +131,7 @@ except:
 	logMessage = "%s ERROR: Unable to fetch airport name with depart:%s and arrive:%s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode)
 	logF.write(logMessage)
 	logF.close()
-	exit()
+	sys.exit(1)
 
 departDate = sys.argv[3]
 temp = datetime.datetime.strptime(departDate, "%m/%d/%Y")
@@ -186,7 +182,7 @@ except:
 	logMessage = "%s ERROR: Unable to search flights [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,returnDate)
 	logF.write(logMessage)
 	logF.close()
-	exit()
+	sys.exit(1)
 
 #####################################################################
 ## Search results string for errors
@@ -201,7 +197,7 @@ if errorMessage:
 	print logMessage
 	logF.write(logMessage)
 	logF.close()
-	exit()
+	sys.exit(1)
 
 #####################################################################
 ## Search results string for flights

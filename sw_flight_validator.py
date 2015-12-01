@@ -14,51 +14,24 @@ from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
 
-global temp
-global outboundTime
-global returnTime
-global flightNum
-global currentDollarsPrice
-global currentPointsPrice
-global departTag
-global departTime
-global departTime24Hour
-global arriveTag
-global arriveTime
-global arriveTime24Hour
-global route
-global upcoming_trips
-global paidPrice
-global confirmationNum
-global firstName
-global lastName
-global notificationAddress
-global outboundArriveTime
-global outboundFlightNum
-global paidDollarsPrice
-global paidPointsPrice
-
 class MyHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
-		# print "Start tag:", tag
-		# for attr in attrs:
-		# 	print "     attr:", attr
-		global departureDateFlag
-		global departureCityFlag
-		global departureTimeFlag
-		global arrivalCityFlag
-		global arrivalTimeFlag
+		global departDateFlag
+		global departCityFlag
+		global departTimeFlag
+		global arriveCityFlag
+		global arriveTimeFlag
 		global strongFlag
 		global tdFlag
 		global fareTypeFlag
 		if "span" in tag:
 			for attr in attrs:
 				if "class" in attr[0] and "summary-travel-date" in attr[1]:
-					departureDateFlag = True
+					departDateFlag = True
 				if "class" in attr[0] and "nowrap" in attr[1] and "nextDayContainer" not in attr[1]:
-					departureTimeFlag = True
+					departTimeFlag = True
 				if "class" in attr[0] and "nextDayContainer" in attr[1]:
-					arrivalTimeFlag = True
+					arriveTimeFlag = True
 		elif "strong" in tag:
 			strongFlag = True
 		elif "td" in tag:
@@ -72,25 +45,25 @@ class MyHTMLParser(HTMLParser):
 			tdFlag = False
 	def handle_data(self, data):
 		global roundTripFlag
-		global departureCityCode1
-		global departureCity1
-		global departureDate1
-		global departureTime1
-		global departureCityCode2
-		global departureCity2
-		global departureDate2
-		global departureTime2
-		global departureCityFlag
-		global departureDateFlag
-		global departureTimeFlag
-		global arrivalCityCode1
-		global arrivalCity1
-		global arrivalTime1
-		global arrivalCityCode2
-		global arrivalCity2
-		global arrivalTime2
-		global arrivalCityFlag
-		global arrivalTimeFlag
+		global departAirportCode1
+		global departCity1
+		global departDate1
+		global departTime1
+		global departAirportCode2
+		global departCity2
+		global departDate2
+		global departTime2
+		global departCityFlag
+		global departDateFlag
+		global departTimeFlag
+		global arriveAirportCode1
+		global arriveCity1
+		global arriveTime1
+		global arriveAirportCode2
+		global arriveCity2
+		global arriveTime2
+		global arriveCityFlag
+		global arriveTimeFlag
 		global flightNum1
 		global flightNum2
 		global fareType1
@@ -101,286 +74,306 @@ class MyHTMLParser(HTMLParser):
 		global fareTypeFlag
 		data = data.strip()
 		if data:
-			# print "Data     :", data
 			# Departure of 1st flight (city)
-			if departureCityFlag and strongFlag and not roundTripFlag:
+			if departCityFlag and strongFlag and not roundTripFlag:
 				pos1 = data.find("(")
 				pos2 = data.find(")", pos1)
-				departureCityCode1 = data[(pos1+1):(pos2)]
-				departureCity1 = data.replace("(","- ")
-				departureCity1 = departureCity1.strip(')')
-				departureCityFlag = False
+				departAirportCode1 = data[(pos1+1):(pos2)]
+				departCity1 = data.replace("(","- ")
+				departCity1 = departCity1.strip(')')
+				departCityFlag = False
+				print departAirportCode1
 			# Departure of 1st flight (date)
-			elif departureDateFlag and tdFlag and not roundTripFlag:
-				departureDate1 = data
-				departureDateFlag = False
+			elif departDateFlag and tdFlag and not roundTripFlag:
+				temp = datetime.datetime.strptime(data, "%A, %B %d, %Y")
+				departDate1 = temp.strftime("%Y-%m-%d")
+				departDateFlag = False
+				print departDate1
 			# Departure of 1st flight (time)
-			elif departureTimeFlag and strongFlag and not roundTripFlag:
-				departureTime1 = data
-				departureTimeFlag = False
+			elif departTimeFlag and strongFlag and not roundTripFlag:
+				temp = datetime.datetime.strptime(data, "%I:%M %p")
+				departTime1 = temp.strftime("%H:%M:%S")
+				departTimeFlag = False
+				print departTime1
 			# Arrival of 1st flight (city)
-			elif arrivalCityFlag and strongFlag and not roundTripFlag:
+			elif arriveCityFlag and strongFlag and not roundTripFlag:
 				pos1 = data.find("(")
 				pos2 = data.find(")", pos1)
-				arrivalCityCode1 = data[(pos1+1):(pos2)]
-				arrivalCity1 = data.replace("(","- ")
-				arrivalCity1 = arrivalCity1.strip(')')
-				arrivalCityFlag = False
+				arriveAirportCode1 = data[(pos1+1):(pos2)]
+				arriveCity1 = data.replace("(","- ")
+				arriveCity1 = arriveCity1.strip(')')
+				arriveCityFlag = False
+				print arriveAirportCode1
 			# Arrival of 1st flight (time)
-			elif arrivalTimeFlag and strongFlag and not roundTripFlag:
-				arrivalTime1 = data
-				arrivalTimeFlag = False
+			elif arriveTimeFlag and strongFlag and not roundTripFlag:
+				temp = datetime.datetime.strptime(data, "%I:%M %p")
+				arriveTime1 = temp.strftime("%H:%M:%S")
+				arriveTimeFlag = False
+				print arriveTime1
 			# Flight number of 1st flight
 			elif flightNumFlag and strongFlag and not roundTripFlag:
-				flightNum1 = data.strip('#')
+				flightNum1 = data.replace('#','')
 				flightNumFlag = False
+				print flightNum1
 			# Departure of 2nd flight (city)
-			elif departureCityFlag and strongFlag and roundTripFlag:
+			elif departCityFlag and strongFlag and roundTripFlag:
 				pos1 = data.find("(")
 				pos2 = data.find(")", pos1)
-				departureCityCode2 = data[(pos1+1):(pos2)]
-				departureCity2 = data.replace("(","- ")
-				departureCity2 = departureCity2.strip(')')
-				departureCityFlag = False
+				departAirportCode2 = data[(pos1+1):(pos2)]
+				departCity2 = data.replace("(","- ")
+				departCity2 = departCity2.strip(')')
+				departCityFlag = False
+				print departAirportCode2
 			# Departure of 2nd flight (date)
-			elif departureDateFlag and tdFlag and roundTripFlag:
-				departureDate2 = data
-				departureDateFlag = False
+			elif departDateFlag and tdFlag and roundTripFlag:
+				temp = datetime.datetime.strptime(data, "%A, %B %d, %Y")
+				departDate2 = temp.strftime("%Y-%m-%d")
+				departDateFlag = False
+				print departDate2
 			# Departure of 2nd flight (date)
-			elif departureTimeFlag and strongFlag and roundTripFlag:
-				departureTime2 = data
-				departureTimeFlag = False
+			elif departTimeFlag and strongFlag and roundTripFlag:
+				temp = datetime.datetime.strptime(data, "%I:%M %p")
+				departTime2 = temp.strftime("%H:%M:%S")
+				departTimeFlag = False
+				print departTime2
 			# Arrival of 2nd flight (city)
-			elif arrivalCityFlag and strongFlag and roundTripFlag:
+			elif arriveCityFlag and strongFlag and roundTripFlag:
 				pos1 = data.find("(")
 				pos2 = data.find(")", pos1)
-				arrivalCityCode2 = data[(pos1+1):(pos2)]
-				arrivalCity2 = data.replace("(","- ")
-				arrivalCity2 = arrivalCity2.strip(')')
-				arrivalCityFlag = False
+				arriveAirportCode2 = data[(pos1+1):(pos2)]
+				arriveCity2 = data.replace("(","- ")
+				arriveCity2 = arriveCity2.strip(')')
+				arriveCityFlag = False
+				print arriveAirportCode2
 			# Arrival of 2nd flight (time)
-			elif arrivalTimeFlag and strongFlag and roundTripFlag:
-				arrivalTime2 = data
-				arrivalTimeFlag = False
+			elif arriveTimeFlag and strongFlag and roundTripFlag:
+				temp = datetime.datetime.strptime(data, "%I:%M %p")
+				arriveTime2 = temp.strftime("%H:%M:%S")
+				arriveTimeFlag = False
+				print arriveTime2
 			# Flight number of 2nd flight
 			elif flightNumFlag and strongFlag and roundTripFlag:
-				flightNum2 = data.strip('#')
+				flightNum2 = data.replace('#','')
 				flightNumFlag = False
+				print flightNum2
 			elif "Depart" in data:
-				departureCityFlag = True
+				departCityFlag = True
 			elif "Arrive in" in data:
-				arrivalCityFlag = True
+				arriveCityFlag = True
 			elif "Flight" in data:
 				flightNumFlag = True
 			elif fareTypeFlag and not roundTripFlag:
 				fareType1 = data
 				fareTypeFlag = False
 				roundTripFlag = True
+				print fareType1
+				print ""
 			elif fareTypeFlag and roundTripFlag:
 				fareTypeFlag = False
 				fareType2 = data
+				print fareType2
+				print ""
 			elif "errors" in data:
 				errorFlag = True
 			else:
-				departureCityFlag = False
-				departureDateFlag = False
-				departureTimeFlag = False
-				arrivalCityFlag = False
-				arrivalTimeFlag = False
+				departCityFlag = False
+				departDateFlag = False
+				departTimeFlag = False
+				arriveCityFlag = False
+				arriveTimeFlag = False
 				flightNumFlag = False
 
 #####################################################################
 ## Set user input variables
 #####################################################################
-# try:
-confirmationNum = sys.argv[1]
-firstName = sys.argv[2]
-lastName = sys.argv[3]
+confirmationNum = (sys.argv[1]).upper()
+firstName = (sys.argv[2]).upper()
+lastName = (sys.argv[3]).upper()
 
 data = {}
-departureDate1 = ""
-departureCity1 = ""
-departureTime1 = ""
-departureDate2 = ""
-departureCity2 = ""
-departureTime2 = ""
-arrivalCity1 = ""
-arrivalTime1 = ""
-arrivalCity2 = ""
-arrivalTime2 = ""
+departDate1 = ""
+departCity1 = ""
+departTime1 = ""
+departDate2 = ""
+departCity2 = ""
+departTime2 = ""
+arriveCity1 = ""
+arriveTime1 = ""
+arriveCity2 = ""
+arriveTime2 = ""
 flightNum1 = ""
 flightNum2 = ""
 fareType1 = ""
 fareType2 = ""
 currentDollarsPrice = ""
 currentPointsPrice = ""
-departureCityCode1 = ""
-departureCityCode2 = ""
-arrivalCityCode1 = ""
-arrivalCityCode2 = ""
-departureDateFlag = False
-departureCityFlag = False
-departureTimeFlag = False
-arrivalCityFlag = False
-arrivalTimeFlag = False
+departAirportCode1 = ""
+departAirportCode2 = ""
+arriveAirportCode1 = ""
+arriveAirportCode2 = ""
+departDateFlag = False
+departCityFlag = False
+departTimeFlag = False
+arriveCityFlag = False
+arriveTimeFlag = False
 flightNumFlag = False
 strongFlag = False
 tdFlag = False
 fareTypeFlag = False
 roundTripFlag = False
 errorFlag = False
-existFlag = False
 
 #####################################################################
-## Initiate mechanize, set parameters in form, and submit form
+## Set directory path and file name for response & results html file
 #####################################################################
 cwd = os.getcwd()
-resultsFile = cwd+"/southwest_conf_results.html"
-responseFile = cwd+"/southwest_conf_response.html"
+responseFile = cwd+"/logs/lookup-air-reservation.html"
+resultsFile = cwd+"/logs/view-air-reservation.html"
+logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_validator.log"
 
-#####################################################################
-## Check if flight information exists in DB
-#####################################################################
-# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-# cursor = db.cursor()
-# sql = "SELECT * FROM SWFAREREDUCERDB.UPCOMING_FLIGHTS WHERE CONFIRMATION_NUM='%s' AND FIRST_NAME='%s' AND LAST_NAME='%s' ORDER BY DEPART_DATE ASC" % (confirmationNum,firstName,lastName)
-# try:
-# 	cursor.execute(sql)
-# 	if cursor.rowcount > 0:
-# 		existFlag = True
-# 	else:
-# 		existFlag = False
-# except:
-# 	print "ERROR: Unable to fetch flight info with Conf #, first & last name"
-
-# db.close()
-
-####################################################################
-# If flight information does not exist in DB, retrieve flight 
-# information
-####################################################################
-# if not existFlag:
-try:
-	br = mechanize.Browser()
-	br.set_handle_robots(False)
-	response = br.open("https://www.southwest.com/flight/change-air-reservation.html")
-	# content = response.read()
-	# with open(responseFile, "w") as f:
-	#     f.write(content)
-	br.select_form(predicate=lambda f: f.attrs.get('id', None) == 'reservationLookupCriteria')
-	br.find_control(name="confirmationNumber").value = confirmationNum
-	br.find_control(name="firstName").value = firstName
-	br.find_control(name="lastName").value = lastName
+def main():
+	#####################################################################
+	## Check if flight information exists in DB
+	#####################################################################
+	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+	cursor = db.cursor()
+	sql = "SELECT COUNT(*) FROM RESERVED_FLIGHTS WHERE CONFIRMATION_NUM='%s' AND FIRST_NAME='%s' AND LAST_NAME='%s'" % (confirmationNum,firstName,lastName)
 	try:
-		result = br.submit()
-		southwest_conf_results_string = result.read()
-		with open(resultsFile, "w") as f:
-			f.write(southwest_conf_results_string)
+		cursor.execute(sql)
+		results = cursor.fetchone()
+		if results[0] > 0:
+			db.close()
+			return 0
 	except:
-		print "ERROR: Could not submit information"
+		logF = open(logFile, "a")
+		logMessage = "%s ERROR: Unable to check reserved flights [confirmationNum:%s|firstName:%s|lastName:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName)
+		logF.write(logMessage)
+		logF.close()
+		db.close()
 		sys.exit(1)
-# except mechanize.URLError as e:
-# 	# print e.code
-# 	print e
-# 	print "ERROR: Could not connect to browser\n"
-# 	sys.exit(1)
 
-except mechanize.HTTPError as e:
-	print "ERROR: Could not connect to browser\n"
-	print e.code
-	print e.reason.args
-	sys.exit(1)
+	####################################################################
+	# If flight information does not exist in DB, retrieve flight 
+	# information
+	####################################################################
+	try:
+		br = mechanize.Browser()
+		br.set_handle_robots(False)
+		br.set_handle_refresh(False)
+		response = br.open("https://www.southwest.com/flight/lookup-air-reservation.html")
+		responseContent = response.read()
+		with open(responseFile, "w") as f:
+		    f.write(responseContent)
+		# br.select_form(predicate=lambda f: f.attrs.get('id', None) == 'pnrFriendlyLookup_check_form')
+		formcount=0
+		for form in br.forms():
+			if str(form.attrs.get('id')) == "pnrFriendlyLookup_check_form":
+				break
+			formcount=formcount+1
+		br.select_form(nr=formcount)
+		br.find_control(id="pnrFriendlyLookup_option_confirmationNumber",name="searchType").value = ['ConfirmationNumber']
+		br.find_control(name="confirmationNumberFirstName").value = firstName
+		br.find_control(name="confirmationNumberLastName").value = lastName
+		br.find_control(name="confirmationNumber").value = confirmationNum
+		results = br.submit()
+		resultsContent = results.read()
+		with open(resultsFile, "w") as f:
+			f.write(resultsContent)
+	except:
+		print "ERROR: Could not connect to browser\n"
+		logF = open(logFile, "a")
+		logMessage = "%s ERROR: Unable to lookup reservation [confirmationNum:%s|firstName:%s|lastName:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName)
+		logF.write(logMessage)
+		logF.close()
+		db.close()
+		sys.exit(1)
 
-# with open(resultsFile, "r") as f:
-# 	southwest_conf_results_string = f.read()
-parser = MyHTMLParser()
-parser.feed(southwest_conf_results_string)
+	parser = MyHTMLParser()
+	parser.feed(resultsContent)
 
-if departureCity2 and departureCity1:
-	print departureTime1
-	print arrivalTime1
-	print departureTime2
-	print arrivalTime2
-	
-	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
-	departureDate1 = temp.strftime("%Y-%m-%d")
-	temp = datetime.datetime.strptime(departureDate2, "%A, %B %d, %Y")
-	departureDate2 = temp.strftime("%Y-%m-%d")
-	temp = datetime.datetime.strptime(departureTime1, "%I:%M %p")
-	departureTime1 = temp.strftime("%H:%M:%S")
-	temp = datetime.datetime.strptime(arrivalTime1, "%I:%M %p")
-	arrivalTime1 = temp.strftime("%H:%M:%S")
-	temp = datetime.datetime.strptime(departureTime2, "%I:%M %p")
-	departureTime2 = temp.strftime("%H:%M:%S")
-	temp = datetime.datetime.strptime(arrivalTime2, "%I:%M %p")
-	arrivalTime2 = temp.strftime("%H:%M:%S")
+	if departCity1 and departCity2:
+		# First flight
+		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
+		try:
+			cursor.execute(sql)
+			upcomingFlightID = cursor.fetchone()[0]
+		except:
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
+			logF.write(logMessage)
+			logF.close()
+			db.close()
+			sys.exit(1)
 
-	print departureTime1
-	print arrivalTime1
-	print departureTime2
-	print arrivalTime2
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
+		try:
+			cursor.execute(sql)
+			db.commit()
+		except:
+			db.rollback()
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
+			logF.write(logMessage)
+			logF.close()
+			db.close()
+			sys.exit(1)
 
-	data['flightCount'] = "2"
-	data['departureDate1'] = departureDate1
-	data['flightNum1'] = flightNum1
-	data['departureCity1'] = departureCity1
-	data['departureTime1'] = departureTime1
-	data['arrivalCity1'] = arrivalCity1
-	data['arrivalTime1'] = arrivalTime1
-	data['fareType1'] = fareType1
-	data['departureDate2'] = departureDate2
-	data['flightNum2'] = flightNum2
-	data['departureCity2'] = departureCity2
-	data['departureTime2'] = departureTime2
-	data['arrivalCity2'] = arrivalCity2
-	data['arrivalTime2'] = arrivalTime2
-	data['fareType2'] = fareType2
-	json_data = json.dumps(data)
-	print json_data
+		# Second flight
+		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode2,arriveAirportCode2,departDate2,departTime2,flightNum2)
+		try:
+			cursor.execute(sql)
+			upcomingFlightID = cursor.fetchone()[0]
+		except:
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode2,arriveAirportCode2,departDate2,departTime2,flightNum2)
+			logF.write(logMessage)
+			logF.close()
+			db.close()
+			sys.exit(1)
 
-	# db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-	# cursor = db.cursor()
-	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode2,arrivalCityCode2,departureDate2,departureTime2,arrivalTime2,flightNum2,fareType2)
-	# try:
-	# 	cursor.execute(sql)
-	# 	db.commit()
-	# except:
-	# 	db.rollback()
-	# 	print "ERROR: Unable to insert new flight info"
-	# db.close()
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType2)
+		try:
+			cursor.execute(sql)
+			db.commit()
+		except:
+			db.rollback()
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName,upcomingFlightID,fareType2)
+			logF.write(logMessage)
+			logF.close()
+			db.close()
+			sys.exit(1)
 
-elif not departureCity2 and departureCity1:
-	temp = datetime.datetime.strptime(departureDate1, "%A, %B %d, %Y")
-	departureDate1 = temp.strftime("%Y-%m-%d")
-	temp = datetime.datetime.strptime(departureTime1, "%I:%M %p")
-	departureTime1 = temp.strftime("%H:%M:%S")
-	temp = datetime.datetime.strptime(arrivalTime1, "%I:%M %p")
-	arrivalTime1 = temp.strftime("%H:%M:%S")
+	elif departCity1 and not departCity2:
+		# First flight
+		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
+		try:
+			cursor.execute(sql)
+			upcomingFlightID = cursor.fetchone()[0]
+		except:
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
+			logF.write(logMessage)
+			logF.close()
+			db.close()
+			sys.exit(1)
 
-	data['flightCount'] = "1"
-	data['departureDate1'] = departureDate1
-	data['flightNum1'] = flightNum1
-	data['departureCity1'] = departureCity1
-	data['departureTime1'] = departureTime1
-	data['arrivalCity1'] = arrivalCity1
-	data['arrivalTime1'] = arrivalTime1
-	data['fareType1'] = fareType1
-	json_data = json.dumps(data)
-	print json_data
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
+		try:
+			cursor.execute(sql)
+			db.commit()
+		except:
+			db.rollback()
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
+			logF.write(logMessage)
+			logF.close()
+			db.close()
+			sys.exit(1)
 
-	# cursor = db.cursor()
-	# sql = "INSERT INTO SWFAREREDUCERDB.UPCOMING_FLIGHTS(CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE,DEPART_TIME,ARRIVE_TIME,FLIGHT_NUM,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,departureCityCode1,arrivalCityCode1,departureDate1,departureTime1,arrivalTime1,flightNum1,fareType1)
-	# try:
-	# 	cursor.execute(sql)
-	# 	db.commit()
-	# except:
-	# 	db.rollback()
-	# 	print "ERROR: Unable to insert new flight info"
-	# db.close()
-elif not departureCity2 and not departureCity1:
-	data['flightCount'] = "0"
-	json_data = json.dumps(data)
-	print json_data
+	elif not departCity2 and not departCity1:
+		print "No flight exists"
 
-# else:
-# 	print existFlag
+	db.close()
+
+main()
