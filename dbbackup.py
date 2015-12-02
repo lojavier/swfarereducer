@@ -1,77 +1,74 @@
 #!/usr/bin/python
-###########################################################
-#
-# http://tecadmin.net/python-script-for-mysql-database-backup/
-#
-# This python script is used for mysql database backup
-# using mysqldump utility.
-#
-# Written by : Rahul Kumar
-# Website: http://tecadmin.net
-# Created date: Dec 03, 2013
-# Last modified: Dec 03, 2013
-# Tested with : Python 2.6.6
-# Script Revision: 1.1
-#
-##########################################################
-
-# Import required python libraries
 import os
+import sys
 import time
 import MySQLdb
 import datetime
 
+#####################################################################
 # MySQL database details to which backup to be done. Make sure below user having enough privileges to take databases backup. 
 # To take multiple databases backup, create any file like /backup/dbnames.txt and put databses names one on each line and assignd to DB_NAME variable.
+#####################################################################
+DATETIME = time.strftime('%Y_%m_%d_%H_%M_%S')
+cwd = os.getcwd()
+logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_dbbackup.log"
 
 DB_HOST = 'localhost'
 DB_USER = 'root'
 DB_USER_PASSWORD = 'swfarereducer'
-#DB_NAME = '/backup/dbnames.txt'
 DB_NAME = 'SWFAREREDUCERDB'
-BACKUP_PATH = '/home/lorenzo/Python/python-project/sql'
+BACKUP_DIR = cwd+"/sql/backup/"
+FILE_NAME = DB_NAME.lower() + "_" + DATETIME + ".sql"
+BACKUP_PATH = BACKUP_DIR + FILE_NAME
 
-# Getting current datetime to create seprate backup folder like "12012013-071334".
-DATETIME = time.strftime('%Y%m%d_%H%M%S')
-
-TODAYBACKUPPATH = BACKUP_PATH + DATETIME
-
+#####################################################################
 # Checking if backup folder already exists or not. If not exists will create it.
-print "creating backup folder"
-if not os.path.exists(TODAYBACKUPPATH):
-    os.makedirs(TODAYBACKUPPATH)
+#####################################################################
+if not os.path.exists(BACKUP_DIR):
+    os.makedirs(BACKUP_DIR)
 
+#####################################################################
 # Code for checking if you want to take single database backup or assinged multiple backups in DB_NAME.
-print "checking for databases names file."
+#####################################################################
 if os.path.exists(DB_NAME):
     file1 = open(DB_NAME)
-    multi = 1
-    print "Databases file found..."
-    print "Starting backup of all dbs listed in file " + DB_NAME
+    multi = True
 else:
-    print "Databases file not found..."
-    print "Starting backup of database " + DB_NAME
-    multi = 0
+    multi = False
 
+#####################################################################
 # Starting actual database backup process.
+#####################################################################
 if multi:
-   in_file = open(DB_NAME,"r")
-   flength = len(in_file.readlines())
-   in_file.close()
-   p = 1
-   dbfile = open(DB_NAME,"r")
+    in_file = open(DB_NAME,"r")
+    flength = len(in_file.readlines())
+    in_file.close()
+    p = 1
+    dbfile = open(DB_NAME,"r")
 
-   while p <= flength:
-       db = dbfile.readline()   # reading database name from file
-       db = db[:-1]         # deletes extra line
-       dumpcmd = "mysqldump -u " + DB_USER + " -p" + DB_USER_PASSWORD + " " + db + " > " + TODAYBACKUPPATH + "/" + db + ".sql"
-       os.system(dumpcmd)
-       p = p + 1
-   dbfile.close()
+    while p <= flength:
+        db = dbfile.readline()   # reading database name from file
+        db = db[:-1]         # deletes extra line
+        dumpcmd = "mysqldump -u " + DB_USER + " -p" + DB_USER_PASSWORD + " " + db + " > " + BACKUP_PATH
+        os.system(dumpcmd)
+        p = p + 1
+    dbfile.close()
 else:
-   db = DB_NAME
-   dumpcmd = "mysqldump -u " + DB_USER + " -p" + DB_USER_PASSWORD + " " + db + " > " + TODAYBACKUPPATH + "/" + db + ".sql"
-   os.system(dumpcmd)
+    db = DB_NAME
+    dumpcmd = "mysqldump -u " + DB_USER + " -p" + DB_USER_PASSWORD + " " + db + " > " + BACKUP_PATH
+    os.system(dumpcmd)
 
-print "Backup script completed"
-print "Your backups has been created in '" + TODAYBACKUPPATH + "' directory"
+#####################################################################
+# Remove old database files older than 60 days
+#####################################################################
+expirationDays = 60
+now = str(datetime.datetime.now())
+pattern = '%Y-%m-%d %H:%M:%S.%f'
+currentTime = int(time.mktime(time.strptime(now, pattern)))
+listdir = os.listdir(BACKUP_DIR)
+for file in listdir:
+    filePath = BACKUP_DIR+"/"+file
+    fileTime = int(os.path.getmtime(filePath))
+    fileAge = currentTime - fileTime
+    if fileAge > (60*60*24*expirationDays):
+        os.remove(filePath)

@@ -128,7 +128,7 @@ try:
 except:
 	db.close()
 	logF = open(logFile, "a")
-	logMessage = "%s ERROR: Unable to fetch airport name with depart:%s and arrive:%s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode)
+	logMessage = "%s ERROR: Unable to select airport name [depart:%s|arrive:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode)
 	logF.write(logMessage)
 	logF.close()
 	sys.exit(1)
