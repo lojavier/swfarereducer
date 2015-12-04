@@ -105,7 +105,12 @@ if(pos1 != -1):
 					try:
 						cursor.execute(sql)
 						results = cursor.fetchone()
-						if results[0] > 0 and routesServed != results[1]:
+						routesServed = routesServed.replace('[','')
+						routesServed = routesServed.replace(']','')
+						routesServed = routesServed.replace('\"','')
+						routesServed = routesServed.replace(' ','')
+						routesServed = routesServed.strip()
+						if results[0] > 0 and str(routesServed) != str(results[1]):
 							sql = "UPDATE AIRPORTS SET ROUTES_SERVED='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (routesServed,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 							try:
 								cursor.execute(sql)
