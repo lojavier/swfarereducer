@@ -142,23 +142,27 @@ print "\nSearching for flights...\n"
 if len(sys.argv) > 3:
 	daysAdvance = 1
 else:
-	daysAdvance = 1
+	daysAdvance = 60
 
 for dayCount in range(0,daysAdvance):
 	#####################################################################
 	## Select all airports and their routes served
 	#####################################################################
-	if len(sys.argv) > 1:
+	if len(sys.argv) > 1 and sys.argv[1] != "ALL" and sys.argv[2] != "ALL":
 		departAirportCode = sys.argv[1]
 		arriveAirportCode = sys.argv[2]
 		sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS WHERE AIRPORT_CODE='%s' AND ROUTES_SERVED LIKE '%%%s%%'" % (departAirportCode,arriveAirportCode)
+	elif len(sys.argv) > 1 and sys.argv[1] != "ALL" and sys.argv[2] == "ALL":
+		departAirportCode = sys.argv[1]
+		sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS WHERE AIRPORT_CODE='%s'" % (departAirportCode)
 	else:
 		sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS"
 	try:
 		cursor.execute(sql)
 		results = cursor.fetchall()
 		for row in results:
-			if len(sys.argv) > 1:
+			time.sleep(1)
+			if len(sys.argv) > 1 and sys.argv[2] != "ALL":
 				routesServed.append(arriveAirportCode)
 			else:
 				routesServed = row[1].split(',')
@@ -180,15 +184,9 @@ for dayCount in range(0,daysAdvance):
 				# completedFlightSearch.append(['SJC','ONT','2015-12-04'])
 				for x in range(0,len(completedFlightSearch)):
 					if inProgressFlightSearch[0] == completedFlightSearch[x]:
-						# print "in PROGRESS ",inProgressFlightSearch[0]
-						# print "Completed   ",completedFlightSearch[x]
-						# print True
 						flightSearchDone = True
 						break
 					else:
-						# print "in PROGRESS ",inProgressFlightSearch[0]
-						# print "Completed   ",completedFlightSearch[x]
-						# print False
 						flightSearchDone = False
 
 				if not flightSearchDone:
@@ -201,9 +199,6 @@ for dayCount in range(0,daysAdvance):
 						cursor.execute(sql)
 						results = cursor.fetchone()
 						if results[0] > 0:
-							# departDate = datetime.datetime.strptime(sys.argv[3], "%Y-%m-%d")
-							# returnDate = datetime.datetime.strptime(sys.argv[4], "%Y-%m-%d")
-
 							#####################################################################
 							## Initiate mechanize, set parameters in form, and submit form
 							#####################################################################
@@ -243,7 +238,6 @@ for dayCount in range(0,daysAdvance):
 								errorMessage = errorMessage[:endPos+1]
 								logF = open(logFile, "a")
 								logMessage = "%s ERROR: %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),errorMessage)
-								print logMessage
 								logF.write(logMessage)
 								logF.close()
 								errorMessage = ""

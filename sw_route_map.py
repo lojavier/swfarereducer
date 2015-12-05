@@ -8,11 +8,14 @@ import urllib2
 import MySQLdb
 import smtplib
 import datetime
+import requests
 import mechanize
+import googlemaps
 from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
+requests.packages.urllib3.disable_warnings()
 
 global errorFlag
 global errorMessageFlag
@@ -52,6 +55,8 @@ cwd = os.getcwd()
 resultsFile = cwd+"/routemap_dyn.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_route_map.log"
 routeMapUrl = "https://www.southwest.com/flight/routemap_dyn.html"
+ApiKey = "AIzaSyAKjyfvOmXQfzJ0RPdbtNPL5fnzV4njekI"
+gmaps = googlemaps.Client(key=ApiKey)
 
 #####################################################################
 ## Initiate mechanize, set parameters in form, and submit form
@@ -68,9 +73,6 @@ except:
 	logF.write(logMessage)
 	logF.close()
 	sys.exit(1)
-
-# with open(resultsFile,"r") as f:
-# 	resultsContent = f.read()
 
 #####################################################################
 ## Search results string for errors
@@ -152,21 +154,21 @@ if(pos1 != -1):
 	for airportCode,value in parsed_json.items():
 		for x in value:
 			if "display_name" in x:
-				airportName = (json.dumps(value[x])).replace('\"','')
-				if airportName:
-					sql = "SELECT COUNT(*),AIRPORT_NAME FROM AIRPORTS WHERE AIRPORT_CODE='%s'" % (airportCode)
+				airportCity = (json.dumps(value[x])).replace('\"','')
+				if airportCity:
+					sql = "SELECT COUNT(*),AIRPORT_CITY,AIRPORT_NAME,AIRPORT_LATITUDE,AIPORT_LONGITUDE FROM AIRPORTS WHERE AIRPORT_CODE='%s'" % (airportCode)
 					try:
 						cursor.execute(sql)
 						results = cursor.fetchone()
-						if results[0] > 0 and airportName != results[1]:
-							sql = "UPDATE AIRPORTS SET AIRPORT_NAME='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (airportName,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
+						if results[0] > 0 and airportCity != results[1]:
+							sql = "UPDATE AIRPORTS SET AIRPORT_CITY='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (airportCity,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 							try:
 								cursor.execute(sql)
 								db.commit()
 							except:
 								db.rollback()
 								logF = open(logFile, "a")
-								logMessage = "%s ERROR: Unable to update airport name [airportName:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportName)
+								logMessage = "%s ERROR: Unable to update airport name [airportCity:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCity)
 								logF.write(logMessage)
 								logF.close()
 					except:
@@ -174,6 +176,52 @@ if(pos1 != -1):
 						logMessage = "%s ERROR: Unable to check airports [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 						logF.write(logMessage)
 						logF.close()
+else:
+	print "WARNING: Could not locate airport info json"
+	logF = open(logFile, "a")
+	logMessage = "%s ERROR: Could not locate 'stations_info' JSON\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
+	logF.write(logMessage)
+	logF.close()
+
+
+sql = "SELECT AIRPORT_CITY,AIRPORT_LATITUDE,AIPORT_LONGITUDE FROM AIRPORTS"
+try:
+	cursor.execute(sql)
+	results = cursor.fetchall()
+	for row in results:
+		airportCity = row[0]
+		geocode_result = gmaps.geocode(airportCity)
+		for key1,value1 in geocode_result[0].items():
+			if "geometry" == key1:
+				geometry = value1
+				for key2,value2 in geometry.items():
+					if "location" == key2:
+						geometry_location = value2
+						for key3,value3 in geometry_location.items():
+							if "lat" == key3:
+								airportLatitude = value3
+							if "lng" == key3:
+								airportLongitude = value3
+			if "address_components" == key1:
+				address_components = value1
+				for key4,value4 in address_components[0].items():
+					if "long_name" == key4 and "port" in value4.lower():
+						airportName = value4
+						break
+					else:
+						airportName = None
+		print "('%s','%s','%s','%s','%s')," % (airportCode,airportCity,airportName,airportLatitude,airportLongitude)
+		
+		sql = "UPDATE AIRPORTS SET AIRPORT_CITY='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (airportCity,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
+		try:
+			cursor.execute(sql)
+			db.commit()
+		except:
+			db.rollback()
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to update airport name [airportCity:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCity)
+			logF.write(logMessage)
+			logF.close()
 else:
 	print "WARNING: Could not locate airport info json"
 	logF = open(logFile, "a")

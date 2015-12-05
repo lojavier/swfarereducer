@@ -33,7 +33,8 @@ $FIRST_NAME = strtoupper(trim($_POST['FIRST_NAME']));
 $LAST_NAME = strtoupper(trim($_POST['LAST_NAME']));
 
 $sql = "SELECT COUNT(*) FROM RESERVED_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRMATION_NUM."' AND FIRST_NAME='".$FIRST_NAME."' AND LAST_NAME='".$LAST_NAME."'";
-if ($res = $db->query($sql)) {
+try {
+	$res = $db->query($sql)
 	if ($res->fetchColumn() == 0) {
 		$command = "/usr/bin/python sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
 		exec($command, $output, $return);
@@ -172,7 +173,7 @@ if ($res = $db->query($sql)) {
 		</div>
 <?php
 	}
-} else {
+} (PDOException  $e) {
 ?>
 	<div class="main">
 	<form name="swform">
