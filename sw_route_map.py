@@ -51,6 +51,7 @@ errorMessage = ""
 cwd = os.getcwd()
 resultsFile = cwd+"/routemap_dyn.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_route_map.log"
+routeMapUrl = "https://www.southwest.com/flight/routemap_dyn.html"
 
 #####################################################################
 ## Initiate mechanize, set parameters in form, and submit form
@@ -59,7 +60,7 @@ print "\nRetrieving flight routes...\n"
 try:
 	br = mechanize.Browser()
 	br.set_handle_robots(False)
-	results = br.open("https://www.southwest.com/flight/routemap_dyn.html")
+	results = br.open(routeMapUrl)
 	resultsContent = results.read()
 except:
 	logF = open(logFile, "a")
