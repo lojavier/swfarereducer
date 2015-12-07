@@ -139,10 +139,11 @@ db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 cursor = db.cursor()
 
 print "\nSearching for flights...\n"
+start = time.time()
 if len(sys.argv) > 3:
 	daysAdvance = 1
 else:
-	daysAdvance = 60
+	daysAdvance = 90
 
 for dayCount in range(0,daysAdvance):
 	#####################################################################
@@ -223,7 +224,7 @@ for dayCount in range(0,daysAdvance):
 								    f.write(resultsContent)
 							except:
 								logF = open(logFile, "a")
-								logMessage = "%s ERROR: Unable to search flights via %s [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),flightUrl,departAirportCode,arriveAirportCode,departDate,returnDate)
+								logMessage = "%s ERROR: Unable to search flights via %s [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),flightUrl,departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d"),returnDate.strftime("%Y-%m-%d"))
 								logF.write(logMessage)
 								logF.close()
 								sys.exit(1)
@@ -392,3 +393,6 @@ for dayCount in range(0,daysAdvance):
 		sys.exit(1)
 
 db.close()
+
+end = time.time()
+print end - start
