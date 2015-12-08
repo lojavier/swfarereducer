@@ -10,12 +10,13 @@ import smtplib
 import datetime
 import requests
 import mechanize
-# import googlemaps
 from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
-requests.packages.urllib3.disable_warnings()
+
+# https://www.southwest.com/flight/request-schedule.html
+# https://www.southwest.com/html/air/airport-information.html
 
 global errorFlag
 global errorMessageFlag
@@ -62,8 +63,9 @@ cwd = os.getcwd()
 resultsFile = cwd+"/routemap_dyn.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_route_map.log"
 routeMapUrl = "https://www.southwest.com/flight/routemap_dyn.html"
-apiKey = "AIzaSyAKjyfvOmXQfzJ0RPdbtNPL5fnzV4njekI"
-# gmaps = googlemaps.Client(key=apiKey)
+apiKey2 = "AIzaSyAKjyfvOmXQfzJ0RPdbtNPL5fnzV4njekI"
+apiKey2 = "AIzaSyBUJlKSKL0gfyW8xujV6_LXi30C3EK_ov0"
+# gmaps = googlemaps.Client(key=apiKey2)
 
 #####################################################################
 ## Initiate mechanize, set parameters in form, and submit form
@@ -153,6 +155,9 @@ else:
 	logF.write(logMessage)
 	logF.close()
 
+# https://www.southwest.com/html/air/airport-information.html
+# Get airport name
+
 pos1 = resultsContent.find("var stations_info")
 if(pos1 != -1):
 	pos2 = resultsContent.find("{", pos1)
@@ -171,7 +176,6 @@ if(pos1 != -1):
 					cursor.execute(sql)
 					results = cursor.fetchone()
 					if results[0] > 0:
-						# print "('%s',%s','%s','%s,'%s','%s','%s')," % (results[0],airportCode,results[1],results[2],results[3],results[4],results[5])
 						if str(results[3]) == "None" and str(results[4]) == "None":
 							try:
 								googleAddress = airportCity.replace(" - ",' ')
@@ -179,12 +183,9 @@ if(pos1 != -1):
 								googleAddress = googleAddress.replace('(','')
 								googleAddress = googleAddress.replace(')','')
 								googleAddress = googleAddress.replace(' ','+')
-								geocodeApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s" % (googleAddress,apiKey)
-								# print geocodeApiUrl
+								geocodeApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=%s+Airport&key=%s" % (googleAddress,apiKey2)
 								apiResponse = requests.get(geocodeApiUrl)
 								geocodeApiJson = apiResponse.json()
-								# print json.dumps(geocodeApiJson, indent=4, sort_keys=True)
-								print ""
 								for key1,value1 in geocodeApiJson.items():
 									if "results" == key1:
 										for key2,value2 in value1[0].items():
@@ -201,7 +202,6 @@ if(pos1 != -1):
 											if "address_components" == key2:
 												address_components = value2
 												for key5,value5 in address_components[0].items():
-													# print key5,value5
 													if "long_name" == key5 and "port" in value5.lower() and not airportName:
 														airportName = value5
 														break
@@ -210,20 +210,18 @@ if(pos1 != -1):
 														break
 													elif "long_name" == key5 or "short_name" == key5:
 														airportName = value5
-												print airportName
 							except:
 								logF = open(logFile, "a")
 								logMessage = "%s ERROR: Unable to retrieve latitude/longitude [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 								logF.write(logMessage)
 								logF.close()
-								print ""
 						else:
 							airportLatitude = results[3]
 							airportLongitude = results[4]
 						
 						if str(results[5]) == "None" and airportLatitude and airportLongitude:
 							try:
-								timezoneApiUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=%s,%s&timestamp=%s&key=%s" % (airportLatitude,airportLongitude,timestamp,apiKey)
+								timezoneApiUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=%s,%s&timestamp=%s&key=%s" % (airportLatitude,airportLongitude,timestamp,apiKey2)
 								apiResponse = requests.get(timezoneApiUrl)
 								timezoneApiJson = apiResponse.json()
 								for key,value in timezoneApiJson.items():
@@ -236,9 +234,6 @@ if(pos1 != -1):
 								logF.write(logMessage)
 								logF.close()
 
-						# airportName = str(MySQLdb.escape_string(airportName))
-						airportCity = str(MySQLdb.escape_string(airportCity))
-						print "('%s','%s','%s,'%s','%s','%s')," % (airportLatitude,airportLongitude,airportTimezone,airportCode,airportCity,airportName)
 						if airportName and airportLatitude and airportLongitude and airportTimezone:
 							sql = "UPDATE AIRPORTS SET AIRPORT_CITY='%s',AIRPORT_NAME='%s',AIRPORT_LATITUDE='%s',AIRPORT_LONGITUDE='%s',AIRPORT_TIMEZONE='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (airportCity,airportName,airportLatitude,airportLongitude,airportTimezone,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 						elif airportName and airportLatitude and airportLongitude and not airportTimezone:
@@ -258,13 +253,11 @@ if(pos1 != -1):
 							logMessage = "%s ERROR: Unable to update airport info [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 							logF.write(logMessage)
 							logF.close()
-							print ""
 				except:
 					logF = open(logFile, "a")
 					logMessage = "%s ERROR: Unable to check airports [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
 					logF.write(logMessage)
 					logF.close()
-		# sys.exit(1)
 else:
 	print "WARNING: Could not locate airport info json"
 	logF = open(logFile, "a")

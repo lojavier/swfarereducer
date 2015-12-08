@@ -292,6 +292,9 @@ def main():
 	parser.feed(resultsContent)
 
 	if departCity1 and departCity2:
+		flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode1,arriveAirportCode1,departDate1,departDate1)
+		os.system(flightSearch)
+
 		# First flight
 		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
 		try:
@@ -305,7 +308,7 @@ def main():
 			db.close()
 			sys.exit(1)
 
-		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
 			cursor.execute(sql)
 			db.commit()
@@ -331,7 +334,7 @@ def main():
 			db.close()
 			sys.exit(1)
 
-		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType2)
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType2,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
 			cursor.execute(sql)
 			db.commit()
@@ -345,6 +348,9 @@ def main():
 			sys.exit(1)
 
 	elif departCity1 and not departCity2:
+		flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode1,arriveAirportCode1,departDate1,departDate1)
+		os.system(flightSearch)
+
 		# First flight
 		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
 		try:
@@ -358,7 +364,7 @@ def main():
 			db.close()
 			sys.exit(1)
 
-		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
 			cursor.execute(sql)
 			db.commit()

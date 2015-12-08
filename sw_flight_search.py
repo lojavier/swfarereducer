@@ -139,7 +139,7 @@ db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 cursor = db.cursor()
 
 print "\nSearching for flights...\n"
-start = time.time()
+
 if len(sys.argv) > 3:
 	daysAdvance = 1
 else:
@@ -393,6 +393,3 @@ for dayCount in range(0,daysAdvance):
 		sys.exit(1)
 
 db.close()
-
-end = time.time()
-print end - start
