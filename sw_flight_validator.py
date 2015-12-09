@@ -381,5 +381,6 @@ def main():
 		print "No flight exists"
 
 	db.close()
+	return 0
 
 main()
