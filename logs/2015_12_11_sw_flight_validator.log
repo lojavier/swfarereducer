@@ -1,0 +1,11 @@
+2015-12-11 09:10:52 ERROR: Unable to check upcoming flights [depart:SJC|arrive:MSY|date/time:2016-02-06 07:00:00|flight:3287]
+2015-12-11 09:12:16 ERROR: Unable to check upcoming flights [depart:SJC|arrive:MSY|date/time:2016-02-06 07:00:00|flight:3287]
+2015-12-11 14:29:00 ERROR: We were unable to retrieve your reservation from our database. Verify the following: The confirmation number is entered correctly.
+2015-12-11 14:29:15 ERROR: We were unable to retrieve your reservation from our database. Verify the following: The confirmation number is entered correctly.
+2015-12-11 14:37:38 ERROR: We were unable to retrieve your reservation from our database. Verify the following: The confirmation number is entered correctly. [firstName:LORENZO|lastName:JAVIER|confirmationNum:W8AFC6]
+2015-12-11 14:38:00 ERROR: Your browser settings are currently limiting your experience on southwest.com. In order to have full use of all the best features of southwest.com, please make sure to follow these simple steps to enable Javascript in your browser. [firstName:LORENZO|lastName:JAVIER|confirmationNum:R8AFC6]
+2015-12-11 14:39:28 ERROR: We were unable to retrieve your reservation from our database. Verify the following: The confirmation number is entered correctly. [firstName:LORENZO|lastName:JAVIER|confirmationNum:W8AFC6]
+2015-12-11 14:41:08 ERROR: Your browser settings are currently limiting your experience on southwest.com. In order to have full use of all the best features of southwest.com, please make sure to follow these simple steps to enable Javascript in your browser. [firstName:LORENZO|lastName:JAVIER|confirmationNum:R8AFC6]
+2015-12-11 14:42:49 ERROR: Unable to check upcoming flights [depart:SJC|arrive:MSY|date/time:2016-02-06 07:00:00|flight:3287]
+2015-12-11 14:43:02 ERROR: We were unable to retrieve your reservation from our database. Verify the following: The confirmation number is entered correctly. [firstName:LORENZO|lastName:JAVIER|confirmationNum:W8AFC6]
+2015-12-11 15:16:19 ERROR: We were unable to retrieve your reservation from our database. Verify the following: The confirmation number is entered correctly. [firstName:LORENZO|lastName:JAVIER|confirmationNum:W8AFC6]

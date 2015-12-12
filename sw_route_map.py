@@ -63,9 +63,8 @@ cwd = os.getcwd()
 resultsFile = cwd+"/routemap_dyn.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_route_map.log"
 routeMapUrl = "https://www.southwest.com/flight/routemap_dyn.html"
-apiKey2 = "AIzaSyAKjyfvOmXQfzJ0RPdbtNPL5fnzV4njekI"
+apiKey1 = "AIzaSyAKjyfvOmXQfzJ0RPdbtNPL5fnzV4njekI"
 apiKey2 = "AIzaSyBUJlKSKL0gfyW8xujV6_LXi30C3EK_ov0"
-# gmaps = googlemaps.Client(key=apiKey2)
 
 #####################################################################
 ## Initiate mechanize, set parameters in form, and submit form
@@ -183,7 +182,7 @@ if(pos1 != -1):
 								googleAddress = googleAddress.replace('(','')
 								googleAddress = googleAddress.replace(')','')
 								googleAddress = googleAddress.replace(' ','+')
-								geocodeApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=%s+Airport&key=%s" % (googleAddress,apiKey2)
+								geocodeApiUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=%s+Airport&key=%s" % (googleAddress,apiKey1)
 								apiResponse = requests.get(geocodeApiUrl)
 								geocodeApiJson = apiResponse.json()
 								for key1,value1 in geocodeApiJson.items():
@@ -221,7 +220,7 @@ if(pos1 != -1):
 						
 						if str(results[5]) == "None" and airportLatitude and airportLongitude:
 							try:
-								timezoneApiUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=%s,%s&timestamp=%s&key=%s" % (airportLatitude,airportLongitude,timestamp,apiKey2)
+								timezoneApiUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=%s,%s&timestamp=%s&key=%s" % (airportLatitude,airportLongitude,timestamp,apiKey1)
 								apiResponse = requests.get(timezoneApiUrl)
 								timezoneApiJson = apiResponse.json()
 								for key,value in timezoneApiJson.items():
@@ -264,5 +263,11 @@ else:
 	logMessage = "%s ERROR: Could not locate 'stations_info' JSON\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
 	logF.write(logMessage)
 	logF.close()
+
+# sql = "SELECT AIRPORT_CODE,AIRPORT_CITY,AIRPORT_NAME,AIRPORT_LATITUDE,AIRPORT_LONGITUDE,AIRPORT_TIMEZONE,ROUTES_SERVED FROM AIRPORTS ORDER BY AIRPORT_CITY ASC"
+# cursor.execute(sql)
+# results = cursor.fetchall()
+# for row in results:
+# 	print "('%s','%s','%s','%s','%s','%s','%s','%s')," % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],(time.strftime("%Y-%m-%d %H:%M:%S")))
 
 db.close()

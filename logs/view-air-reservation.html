@@ -127,7 +127,7 @@
     var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.com";
 
     var analyticsSendJavascriptLoaded                     = false;
-    var transactionType                                   =  "CHANGE";
+    var transactionType                                   =  "";
 
     var noMatchOnFilterErrorMessage                       = "Airport not found.";
     var returnAirportDefaultStations                      = [{stationCode:"RoundTrip",stationName:"Return City or Airport Code"}];
@@ -162,16 +162,11 @@ var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.co
 	
     
     <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/swa_framework.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/flight_search_fields.css"/>
+	<link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/flight_search_fields.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/pnrFriendlyLookup.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/pnrFriendlyLookup_detail.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/flora.datepicker.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/globalNav.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/retrieval.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/itinerarySections.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/jquery.autocomplete.air.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/icsPopup.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/viewReservationUpsellHotelSearchResults.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/flora.datepicker.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/globalNav.css" media="all"/>
+	<link rel="stylesheet" type="text/css" href="/assets/v1511003/styles/jquery.autocomplete.air.css" media="all"/>
 
     
 </head>
@@ -597,1064 +592,50 @@ var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.co
 
 					<div id="sw_content">
 						
-    <noscript>
-        <div class="oopsError_wrapper" id="error_wrapper">
-            <ul id="errors">
-                <li>Your browser settings are currently limiting your experience on <strong>southwest.com</strong>. In order to have full use of all the best features of <strong>southwest.com</strong>, please make sure to follow these simple steps to enable <a href="/html/help/help_js_disabled.shtml" target="_blank">Javascript</a> in your browser.</li>
-            </ul>
-        </div>
-    </noscript>
-    
-    
-    
-    <div class="pnr_section" id="pnr_pnrFriendlyLookupDetail_page">
-        <div class="swa_content_inner" id="pnr_pnrFriendlyLookupDetail_page_inner">
+    <div class="pnr_section" id="pnr_pnrFriendlyLookup_page">
+        <div class="swa_content_inner">
             
-            <div id="swa_page_header">
-                <h1 class="swa_page_title">
-                    Your Flight for Saturday, December 26, 2015
-                </h1>
                 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="swa_printAndShare_container doNotPrintFlag">
-    <div class="swa_printAndShare_link_container">
-        <a class="swa_printAndShare_link swa_printAndShare_link_expandable" href="#" aria-expanded="false" >Print & Share</a>
-    </div>
-</div>
-<div id="swa_printAndShare_content" class="swa_printAndShare_content">
-    <div class="swa_printAndShare_content_innner">
-        <ul>
-            
-                <li><a class="swa_printAndShare_printLink" href="#">Print Page</a></li>
+<div id="error_wrapper" class="oopsError-a11y-wrapper a11y" tabindex="-1">
+    <div role="document">
+        <span class="oopsError-a11y-message">Oops!</span>
+        
             
             
-                <li><a id="sendEmailLink" class="swa_printAndShare_emailLink swa_feature_pnrEmailItineraryLink_emailLink" href="#">E-mail</a></li>
+                <ul id="errors" class="list_errors">
             
-            
-                <li><a id="saveToMyCalendar" class="swa_printAndShare_addToCalendarLink swa_feature_pnr_addToCalendarLink" href="#">Add to Calendar</a></li>
-            
-            
-                <li><a class="swa_printAndShare_getFlightStatusLink" href="/flight/flight-notification-subscribe.html?fn=5897&dac=SJC&aac=ONT&dd=12/26/2015">Get Flight Status</a></li>
+        
+        
+                
+                    <li>We were unable to retrieve your reservation from our database. Verify the following: <ul><li>The confirmation number is entered correctly.</li><li>The passenger name on the reservation is entered correctly.</li><li>The reservation was purchased online via southwest.com or swabiz.com or mobile.southwest.com or Southwest Vacations. Purchases made through Southwest Groups, Southwest ticket counters, or other Travel Agencies cannot be accessed on southwest.com.</li></ul><br/>If you have questions or require further assistance, please contact a Southwest Airlines Customer Representative at 1-800-I-FLY-SWA (1-800-435-9792).
+                      (<!-- mp_trans_disable_start -->SW107023-a3xGsF44Suu2iOLH95eoVA<!-- mp_trans_disable_end -->)</li>
+                
             
         </ul>
-    </div>
+	</div>
 </div>
-                <div class="swa_clearer"></div>
-                <br />
-                <p>
-                    This is your confirmation and itinerary.
-                    
-                    <span class="doNotPrintFlag">
-                        &nbsp;Please print this page.
-                    </span>
-                </p>
+<div id="errors_props_wrapper">
+	<script type="text/javascript">s.prop57="SW107023";
+s.prop58="We were unable to retrieve your reservation from our database. Verify the following:   The confirma";
+</script>
+</div>
+<script type="text/javascript" src="/assets/v1511003/scripts/a11y_errors.js"></script>
+<script>
+$(document).ready(function() {
+    $.arialive('This form has the following errors');
+});
+</script>
+            
+
+            <!-- Page Header -->
+            <div id="swa_page_header">
+                <h1 id="swa_page_header_title">View/Share Itinerary</h1>
             </div>
-            
-            
-            
-            <div class="airItinWrapper">
-		
-		
 
-
-
-
-
-
-
-<input type="hidden" id="save_new_trip_name_url" value="/flight/trips/rename"/>
-
-<div class="trip_details_container ">
-	
-
-	<div class="swa_itinerary_rounded_container swa_itinerary_pnrLookup">
-        
-        
-		<div class="trip_itinerary_calendar_title_container newCalWrapper">
-            <div id="tripDetailsHeader">
-                <div class="calendarDayOfWeek">
-                    <div class="month">Dec 26</div>
-                    <div class="dayOfWeek">Sat</div>
-                </div>
+            <div id="swa_header_intro">
+                <p class="swa_page_description">Enter your trip details below to view an upcoming itinerary, check in online and print boarding passes, share itinerary details, and more.</p>
             </div>
-			
-				
-					
-				
-			
-
-			<div class="trip_name_read_only_container">
-				<h2 class="trip_itinerary_title showRenameTripButton">
-					12/26/15 - Ontario
-				</h2>
-				
-					
-                    <span class="sw2">
-					    <input class="rename_trip_button doNotPrintFlag swa-button swa-button_transparent" type="button" value="Rename Trip"/>
-                    </span>
-					<input name="trip_id" type="hidden" value="7a9fc462-ed86-480e-a246-ec677f27ddd5"/>
-				
-			</div>
-			
-				<div class="trip_name_editable_container">
-					
-					<input class="trip_name_field" type="text" value="12/26/15 - Ontario" maxlength="50"/>
-                    <span class="sw2">
-					    <input class="save_new_trip_name_button swa-button swa-button_transparent" type="button" value="Save New Trip Name"/>
-                    </span>
-				</div>
-			
-		</div>
-
-        
-		<div class="trip_itinerary_products">
-	
-		<div class="trip_retrieved_product">
-			
-				
-				<div class="trip_itinerary_detail_table_container">
-    <span class="plane_icon_confirmation_label icon_confirmation_label"></span>
-
-    <div class="itinerary_container air_itinerary_container_with_vertical_label a11y-wrapper">
-        
-        <a name="air_subsection_purchased"></a>
-        
-
-        
-
-
-    
-
-
-
-
-
-
-
-
-    
-        
-        
-            
-        
-        
-        
-            
-            
-        
-    
-    
-
-
-<div class="itinerary_alt_text">Air</div>
-<div id="airConfirmationSummary_RTG7KW" class="itineraries_header a11y-wrapper">
-     <div class="itineraries_header_upper_links">
-          
-    
-
-    <div class="showHideDetailsContainer doNotPrintFlag a11y-wrapper">
-        <button type="button"
-            class="showHideDetails_link hideSubSectionLinkWithMinusButton a11y-link"
-            aria-expanded="true" data-a11y-label="for Confirmation Number RTG7KW">
-            
-        </button>
-    </div>
-
-
-          
-             
-                    <span class="reservationActions doNotPrintFlag">
-                    
-                        
-                            <div class="reservations-actions--item">
-                                <a class="swa_printAndShare_emailLink swa_printAndShare_resendReceiptLink reservations-actions--item-link a11y-link" href="#">
-                                    Resend Receipt
-                                    <span class='screenreader-only'> for Confirmation Number RTG7KW </span>
-                                </a>
-                                |
-                            </div>
-                        
-                    
-                    
-                         
-                         <div class="reservations-actions--item">
-                             <form name="changeReservation_RTG7KW" method="POST" action="/flight/change-air-reservation.html" id="changeReservation_RTG7KW" >
-                                <input type="hidden" name="confirmationNumber" value="RTG7KW">
-                                <input type="hidden" name="firstName" value="DANIELLE">
-                                <input type="hidden" name="lastName" value="GONZALEZ">
-                                <a id="changeReservationLink_RTG7KW" class="reservations-actions--item-link a11y-link" href="javascript: document.changeReservation_RTG7KW.submit()">
-                                    Change
-                                    <span class='screenreader-only'> for Confirmation Number RTG7KW </span>
-                                </a>
-                                |
-                             </form>
-                         </div>
-                     
-
-                         
-                         <div class="reservations-actions--item">
-                            <form name="cancelReservation_RTG7KW" method="POST" action="/flight/cancel-air-reservation.html?from=%2Fflight%2Fview-air-reservation.html%3Fint%3D" id="cancelReservation_RTG7KW" >
-                                <input type="hidden" name="confirmationNumber" value="RTG7KW">
-                                <input type="hidden" name="firstName" value="DANIELLE">
-                                <input type="hidden" name="lastName" value="GONZALEZ">
-                                <a id="cancelReservationLink_RTG7KW" class="reservations-actions--item-link a11y-link" href="javascript: document.cancelReservation_RTG7KW.submit()">
-                                    Cancel
-                                    <span class='screenreader-only'> for Confirmation Number RTG7KW </span>
-                                </a>
-                            </form>
-                         </div>
-                    </span>
-               
-          
-     </div>
-
-     <div class="itineraries_header_data">
-          <h3 class="flightItinerary air_flight_itinerary">
-               San Jose, CA - SJC
-
-    
-    
-        
-        &nbsp;to&nbsp;
-        Ontario/LA, CA - ONT
-    
-
-
-               <span class='screenreader-only'> for Confirmation Number RTG7KW </span>
-          </h3>
-
-          <p class="flightDates">
-               12/26/2015
-               
-                    &nbsp;-&nbsp;
-                    12/29/2015
-               
-          </p>
-         
-     </div>
-
-     <div class="itineraries_header_confirmation">
-          
-            <p class="itineraries_header_confirmation_number_container">
-                Confirmation #<span class="confirmation_number"><!-- mp_trans_disable_start -->RTG7KW<!-- mp_trans_disable_end --></span>
-            </p>
-          
-
-          <div class="doNotPrintFlag checkin-buttons--container sw2">
-               
-                   
-                       <span>
-                           
-                           <a id="earlybirdCheckIn_button_RTG7KW" class="earlybirdCheckIn_button_pnrLookup swa-button swa-button_transparent" href="/flight/early-bird-retrieve-reservation.html?confNum=RTG7KW&firstName=DANIELLE&lastName=GONZALEZ&fromAirConfirmation&cid=&int=AIRCONFPAGEEBIRD&SRC&RRID&RMID">
-                                Add EarlyBird Check-In
-                                <span class='screenreader-only'> for Confirmation Number RTG7KW </span>
-                           </a>
-                       </span>
-                   
-               
-               
-          </div>
-     </div>
-
-     <div class="clearfix"></div>
-
-</div>
-
-
-        <div class="collapsibleSection">
-            
-
-                
-    
-	
-	
-	
-		
-        
-		
-			
-			
-				
-			
-		
-		
-        
-            
-        
-            
-
-   
-
-
-
-
-
-
-
-
-
-
-
-<table class="air_itinerary_passengers_table look-up-itinerary--passengers-table">
-    <thead>
-        <tr class="passenger_table_header_row">
-            <th class="pax_name_header" scope="col">Passenger(s)</th>
-            <th class="rapid_rewards_header" scope="col">
-                
-                    Rapid Rewards #
-                
-            </th>
-            
-                <th class="disabilities_options_header" scope="col">Disability Options</th>
-            
-            <th class="options_header" scope="col">
-                <span>Additional Info</span>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-    
-        
-        
-                <tr class="row_without_divisor">
-                    <th id="passenger_adult_RTG7KW_0" class="passenger_row_name" scope="row">
-                        <!-- mp_trans_disable_start -->DANIELLE GONZALEZ<!-- mp_trans_disable_end -->
-                    </th>
-                    
-                        
-                        
-                            
-                                
-                                    <td class="passenger_row_rr_number">
-                                        00020310992015
-                                    </td>
-                                
-                                
-                            
-                        
-                    
-                    
-                        <td>
-                            <form method="POST" modelAttribute="pnrFriendlyLookupFormDisabilities" name="changeItineraryForm" action="/flight/view-air-reservation.html?changeDisabilities">
-                                <div class="disabilityAssistanceOptionsLink">
-                                    <input type="hidden" name="confirmationNumber" value="RTG7KW">
-                                    <input type="hidden" name="confirmationNumberFirstName" value="DANIELLE">
-                                    <input type="hidden" name="confirmationNumberLastName" value="GONZALEZ">
-                                    <input class="disabilityAssistEntry disability_button1" type="submit" name="changeDisabilityOptions1" value="Add/Edit"/>
-                                    
-                                </div>
-                            </form>
-                            
-                            
-                        </td>
-                    
-                    <td>
-                        
-                            
-                            
-                                
-                                    
-                                        
-                                        
-                                        
-                                        
-                                    
-                                
-                            
-                        
-                        
-                    </td>
-                </tr>
-                
-
-    
-    </tbody>
-</table>
-        
-        
-    
-
-
-            
-
-            
-
-            
-                
-                
-                    
-                
-            
-
-            <table class="airProductItineraryTable airItineraryTable itinerary-table itinerary-table--confirmation-page" summary="This data table contains your Air Itinerary">
-                <thead>
-                    <tr>
-                        <th class="itinerary-table--date-header itinerary-table--header" scope="col">Travel Date</th>
-                        <th class="itinerary-table--segment-header itinerary-table--header" scope="col">Flight Segments</th>
-                        <th class="itinerary-table--summary-header itinerary-table--header" scope="col">Flight Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        
-                        
-                        
-                        
-                        
-<tr id="airItinerarydepart_RTG7KW" class="tableRowOdd jb-air-itinerary-segment jb-air-itinerary-depart">
-    
-        
-    
-    
-    
-    
-    
-        <th class="itinerary-table--travel-date-info" scope="row">
-            
-                <span class="departOrReturn">Depart</span>
-            
-            <span class="screenreader-only">December 26, Saturday</span>
-            <div class="calendarDayOfWeek depart" aria-hidden="true">
-                <div class="month">Dec 26</div>
-                <div class="dayOfWeek">Sat</div>
-            </div>
-        </th>
-    
-    <td class="itinerary-table--cell itinerary-table--segments">
-        <ol class="itinerary-table--segment">
-        
-            
-                
-                    
-                    
-                
-                
-            
-            
-            <li class="itinerary-table--segment-item ">
-                <div class="itinerary-table--segment-flight-info ">
-                    <div class="itinerary-table--segment-flight-time">
-    
-    <strong>
-                <span class="nowrap">07:30 AM</span>
-            </strong>
-</div>
-                    <div class="itinerary-table--segment-flight-stops routingDetailsStops">
-    
-    
-    Depart <strong>
-            San Jose, CA (SJC)
-            </strong> on Southwest Airlines
-    <br/>
-    
-</div>
-                </div>
-                <div class="itinerary-table--segment-flight-operator">
-                    <span class="itinerary-table--segment-flight-number">Flight<br />
-                        <strong>#5897</strong>
-                    </span>
-                    <span class="flightLogo">
-                        
-                            <img src="/assets/images/logos/logo_wn_air_flight_details_50x23.gif" alt="Operated by Southwest" height="23px" width="50px">
-
-                        
-                    </span>
-                </div>
-            </li>
-            <li class="itinerary-table--segment-item">
-                <div class="itinerary-table--segment-flight-info">
-                    <div class="itinerary-table--segment-flight-time">
-    <span style="float: right">
-        <strong>
-                <span class="nowrap nextDayContainer">
-                    08:40 AM
-                    
-                </span>
-                </strong>
-    </span>
-</div>
-                    <div class="itinerary-table--segment-flight-stops routingDetailsStops">
-    Arrive in <strong>
-            Ontario/LA, CA (ONT)
-            </strong>
-</div>
-                </div>
-                <div class="itinerary-table--segment-flight-operator">
-                    <span class="itinerary-table--segment-flight-wifi">
-                        
-                    </span>
-                </div>
-            </li>
-        
-        </ol>
-    </td>
-    <td class="itinerary-table--summary itinerary-table--cell">
-        <span class="itinerary-table--summary-travel-date">Saturday, December 26, 2015</span>
-        <span class="travelFlightDuration">Travel Time 1<span aria-hidden='true'> h </span><span class='screenreader-only'>hours</span>10<span aria-hidden='true'> m</span><span class='screenreader-only'>minutes</span></span> <br />
-        <span class="stops">(Nonstop)</span>
-        
-            
-
-
-
-
-    
-    
-        
-            
-                <div class="fareProductName">
-                    <a href="/html/air/fare-information.html#discount" class="headerText itinerary-table--summary-fare-product" target="_blank">
-                        Wanna Get Away
-                        <span class="screenreader-only">(opens new window)</span>
-                    </a>
-                </div>
-            
-        
-    
-
-
-
-        
-
-        
-        
-    </td>
-</tr>
-                    
-                        
-                        
-                        
-                        
-                        
-<tr id="airItineraryreturn_RTG7KW" class="tableRowEven jb-air-itinerary-segment jb-air-itinerary-return">
-    
-        
-    
-    
-    
-    
-    
-        <th class="itinerary-table--travel-date-info" scope="row">
-            
-                <span class="departOrReturn">Return</span>
-            
-            <span class="screenreader-only">December 29, Tuesday</span>
-            <div class="calendarDayOfWeek return" aria-hidden="true">
-                <div class="month">Dec 29</div>
-                <div class="dayOfWeek">Tue</div>
-            </div>
-        </th>
-    
-    <td class="itinerary-table--cell itinerary-table--segments">
-        <ol class="itinerary-table--segment">
-        
-            
-                
-                    
-                    
-                
-                
-            
-            
-            <li class="itinerary-table--segment-item ">
-                <div class="itinerary-table--segment-flight-info ">
-                    <div class="itinerary-table--segment-flight-time">
-    
-    <strong>
-                <span class="nowrap">06:10 AM</span>
-            </strong>
-</div>
-                    <div class="itinerary-table--segment-flight-stops routingDetailsStops">
-    
-    
-    Depart <strong>
-            Ontario/LA, CA (ONT)
-            </strong> on Southwest Airlines
-    <br/>
-    
-</div>
-                </div>
-                <div class="itinerary-table--segment-flight-operator">
-                    <span class="itinerary-table--segment-flight-number">Flight<br />
-                        <strong>#3117</strong>
-                    </span>
-                    <span class="flightLogo">
-                        
-                            <img src="/assets/images/logos/logo_wn_air_flight_details_50x23.gif" alt="Operated by Southwest" height="23px" width="50px">
-
-                        
-                    </span>
-                </div>
-            </li>
-            <li class="itinerary-table--segment-item">
-                <div class="itinerary-table--segment-flight-info">
-                    <div class="itinerary-table--segment-flight-time">
-    <span style="float: right">
-        <strong>
-                <span class="nowrap nextDayContainer">
-                    07:25 AM
-                    
-                </span>
-                </strong>
-    </span>
-</div>
-                    <div class="itinerary-table--segment-flight-stops routingDetailsStops">
-    Arrive in <strong>
-            San Jose, CA (SJC)
-            </strong>
-</div>
-                </div>
-                <div class="itinerary-table--segment-flight-operator">
-                    <span class="itinerary-table--segment-flight-wifi">
-                        
-                    </span>
-                </div>
-            </li>
-        
-        </ol>
-    </td>
-    <td class="itinerary-table--summary itinerary-table--cell">
-        <span class="itinerary-table--summary-travel-date">Tuesday, December 29, 2015</span>
-        <span class="travelFlightDuration">Travel Time 1<span aria-hidden='true'> h </span><span class='screenreader-only'>hours</span>15<span aria-hidden='true'> m</span><span class='screenreader-only'>minutes</span></span> <br />
-        <span class="stops">(Nonstop)</span>
-        
-            
-
-
-
-
-    
-    
-        
-            
-                <div class="fareProductName">
-                    <a href="/html/air/fare-information.html#discount" class="headerText itinerary-table--summary-fare-product" target="_blank">
-                        Wanna Get Away
-                        <span class="screenreader-only">(opens new window)</span>
-                    </a>
-                </div>
-            
-        
-    
-
-
-
-        
-
-        
-        
-    </td>
-</tr>
-                    
-                </tbody>
-            </table>
-
-            
-                <div class="itineraryNote">
-                    <!--<div class="pricingNoteTitle"><span>This itinerary is operated by Southwest Airlines.</span></div>-->
-<div class="pricingNoteContent">
-	<strong>What you need to know to travel:</strong>
-	<ul>
-		<li><strong>Check-in</strong>: Be sure to arrive at the departure gate with your boarding pass at least 10 minutes before your scheduled departure time. Otherwise, your reserved space may be cancelled and you won't be eligible for denied booking compensation.</li>
-		<li><strong>No Show Policy</strong>: If you are not planning to travel on any portion of this itinerary, please cancel your reservation at least 10 minutes prior to scheduled departure of the flight.  For tickets purchased on or after May 10, 2013 and travel beginning September 13, 2013, Customers who fail to cancel reservations for a Wanna Get Away or DING! fare segment at least ten (10) minutes prior to travel and who do not board the flight will be considered a no show, and all remaining, unused funds on this reservation will be forfeited, including  Business Select and Anytime funds.</li>
-	</ul>
-</div>
-                </div>
-            
-
-            
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-
-			
-			
-			
-
-			
-				
-			
-		</div>
-	
-
-	
-		
-		
-
-		
-
-		
-
-		
-
-		
-		
-
-
-
-
-    
-        
-        
-                   
-        
-       
-    
-	<div class="view_search_results_container_add_another">
-         
-
-
-
-
-
-
-
-
-
-
-
-
-    <div id="view_search_results" class="trip_itinerary_detail_table_container view_reservation_upsell_hotel_table">
-        <div class="itinerary_container hotel_itinerary_container_with_vertical_label ">
-            <div class="view_alternate_upsell_search_results confirmation_page_outer_container doNotPrintFlag ">
-    
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    var searchResultsPoller  = new SWA.Poller({
-                        url: searchPollerUrl,
-                        divId: "view_search_results_body",
-                        noResultsMessage: "/fragments/app/page_components/cross_sell/hotel_generic_cross_sell_view.shtml",
-                        onUpdateContent: function() {
-                            $("#hotelSearchForm").attr("action", "/hotels/select-hotel.html");
-                            SWA.HotelInterstitial.setupHandlers();
-                        },
-                        noResultsEvent: function() {
-                            SWA.Poller.prototype.shouldSendOmnitureInformation("Hotel Cross Sell View Reservation Page");
-                        }
-                    });
-                });
-            </script>
-    
-    
-<div id="view_hotel_search" class="carhotel_alternate_upsell_outer_container hotel_alternate_upsell_outer_container">
-    <div id="view_search_alternate_hotel" class="view_search_alternate">
-        <div class="view_search_alternate_header">
-            <span class="crosssell_icon hotel_crosssell_icon"> </span>
-            
-	            
-	            
-	            
-	                <h3 class="cross-sell--hotel-header">Book a Hotel</h3>
-	            
-            
-            
-            
-            
-                
-                    <div class="view_search_alternate_module_promo_text">
-                           Earn up to 750 Rapid Rewards Points on all Hotel Bookings
-                    </div>
-                
-                
-            
-            <div class="swa_clearer"></div>
-        </div>
-        
-         <div class="swa_clearer"></div>
-        
-               <div id="view_search_results_body" class="view_search_alternate_body generic">
-                   <div class="view_search_alternate_search_result_container">
-                       <div class="loading_cross_sell_hotel">
-                           <div id="carhotel_alternate_upsell_hotel_generic_swacom" class="carhotel_alternate_upsell_generic_content">
-    <p class="loading"><img class="waitSnake" src="/assets/images/snake_transparent.gif" alt=""/> Retrieving Partner Rates</p>
-</div>
-                       </div>
-                       <noscript>
-                       
-                           
-                               <div id="carhotel_alternate_upsell_hotel_generic_swacom" class="carhotel_alternate_upsell_generic_content carhotel_alternate_upsell_generic_content_generic">
-    <p><strong>Southwest makes it easy to book your hotel room for a great price.</strong></p>
-    <p>$0 Southwest Cancel Fees <span>+</span> 40,000 Hotels to Choose From <span>+</span> Rapid Rewards&reg; Points</p>
-</div>
-                           
-                           
-                       </noscript>
-                   </div>
-                   <div class="swa_clearer"></div>
-               </div>
-        
-        <if test="false">
-            
-                
-                     
-
-
-
-
-
-
-
-
-
-
-
-
-                
-                
-                
-            
-        </if>
-        
-	       <div class="view_search_alternate_footer">
-	             
-	            <form id="hotelSearchForm" action="/flight/hotels/search-hotels.html" method="get">
-	                <input type="hidden" name="marketSearchKeyword" value="Ontario, CA"/>
-	                <input type="hidden" name="checkInDate" value="12/26/2015"/>
-	                <input type="hidden" name="checkOutDate" value="12/29/2015"/>
-	                <input type="hidden" name="adults" value="1"/>
-	                <input type="hidden" name="children" value="0"/>
-	                <input type="hidden" id="showSearchForm" name="showSearchForm" value="true"/>
-	                <input type="hidden" value="true" name="fromPricingCrossSell"/>
-	                
-	                    
-	                        <input type="hidden" value="VIEWITINHTLCRSSELLMORE" name="int"/>
-	                        <button class="view_search_alternate_footer_submit"  name="submitButton" type="submit" role="link" />
-	                            View More Hotels
-	                        </button>
-	                    
-	                    
-	                 
-	            </form>
-	        </div>
-        
-    </div>
-</div>
-
-</div>
-
-            <div class="swa_clearer"></div>
-        </div>
-    </div>
-   
-	</div>
-
-
-
-	<div class="car_itinerary_container_with_vertical_label retrieve_add_another_car_section doNotPrintFlag">
-	    <h3 class="cross-sell--car-header">Book a Car</h3>
-		<div class="retrieve_browse_message">
-			
-				Choose from <strong>14</strong> different rental companies.
-			
-		</div>
-		<div class="retrieve_add_another">
-			
-			<a id="browse_cars_link" href="/car-rentals/search-car-rentals.html">Add a car</a>
-		</div>
-	</div>
-
-
-
-	
-</div>
-
-        
-
-		
-
-	
-
-
-
-
-
-    
-        
-        
-        
-        
-    
-    
-
-
-
-	
-		<script type="text/javascript" src="/assets/v1511003/scripts/carHotelInTripCancellationModal.js"></script>
-		<div id="trip_products_associated_with_car_hotel_being_cancelled_modal" class="popup_outer_container popup_outer_container_tall_gradient trip_product_cancellation_modal">
-
-	
-		
-		
-			
-			
-		
-	
-	<div class="popup_topbar_container popup_topbar_container_tall_gradient">
-		<h5 class="product_air">Cancel Air Reservation</h5>
-		<h5 class="product_car">Cancel Car Reservation</h5>
-		<h5 class="product_hotel">Cancel Hotel Reservation</h5>
-		
-
-
-
-
-
-
-
-
-
-
-
-<span class="popup_close_container simplemodal-close">
-    <span class="closeImg"></span><span>Close</span>
-</span>
-
-	</div>
-
-	<div class="popup_content_container">
-
-		<p class="cancellation_modal_disclaimer product_air">This cancellation will be for your Air reservation only. Please don&#039;t forget that there are other products attached to this trip.</p>
-		<p class="cancellation_modal_disclaimer product_car">This cancellation will be for your Car reservation only. Please don't forget that there are other products attached to this trip.</p>
-		<p class="cancellation_modal_disclaimer product_hotel">This cancellation will be for your Hotel reservation only. Please don't forget that there are other products attached to this trip.</p>
-		
-		<div id="cancellation_modal_product_of_interest">
-			
-		</div>
-
-		<p class="cancellation_modal_associated_products_title">
-			Items associated with this Trip
-		</p>
-		
-            
-
-
-    
-        
-
-        
-
-        
-
-        
-           
-
-
-
-
-
-
-
-
-        
-    
-    
-
-
-			<div class="tripProductSeparator"></div>
-			
-			    
-                    
-				        <div class="itineraries_header air_itinerary_container_with_image">
-	<div class="itinerary_alt_text">Air</div>
-	<div class="itineraries_header_data">
-		<p class="flightItinerary_modal air_flight_itinerary">
-			San Jose, CA - SJC
-			
-			&nbsp;to&nbsp;
-			Ontario/LA, CA - ONT
-		</p>
-
-		<p class="flightDates_modal">
-			12/26/2015
-			
-				&nbsp;-&nbsp;
-				12/29/2015
-			
-		</p>
-	</div>
-
-	<div class="itineraries_header_confirmation">
-		<p class="itineraries_header_confirmation_number_container">
-			Confirmation #
-			<span class="confirmation_number">RTG7KW</span></p>
-		
-	</div>
-
-	<div class="clearfix"></div>
-</div>
-
-                    
-			    
-			
-			
-			
-		
-        
-            <div class="unavailable_products">
-                
-                
-                
-            </div>
-        
-	</div>
-</div>
-
-	
-	
-
-
-		<script type="text/javascript">
-			$(document).ready(function () {
-				$(document).trigger('itinerary_loaded');
-			});
-		</script>
-	</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
-            <div class="swa_ad_wrapper">
-                    
-					
-					
-
-					
-            </div>
-            <div class="doNotPrintFlag">
 
             <div class="swa_forms_required_header clear_left">
 	<p class="required"><sup>*</sup>Required</p>
@@ -1689,7 +670,7 @@ var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.co
 								<label for="confirmationNumberFirstName"><span class="required">* </span>Passenger First Name</label>
 							</div>
 							<div class="swa_forms_inputContainer">
-								<input id="confirmationNumberFirstName" name="confirmationNumberFirstName" class="text-field" aria-required="true" type="text" value="DANIELLE" maxlength="30"/>
+								<input id="confirmationNumberFirstName" name="confirmationNumberFirstName" class="text-field" aria-required="true" type="text" value="LORENZO" maxlength="30"/>
 							</div>
 						</div>
 						<div class="swa_forms_fieldContainer">
@@ -1697,7 +678,7 @@ var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.co
 								<label for="confirmationNumberLastName"><span class="required">* </span>Passenger Last Name</label>
 							</div>
 							<div class="swa_forms_inputContainer">
-								<input id="confirmationNumberLastName" name="confirmationNumberLastName" class="text-field" aria-required="true" type="text" value="GONZALEZ" maxlength="30"/>
+								<input id="confirmationNumberLastName" name="confirmationNumberLastName" class="text-field" aria-required="true" type="text" value="JAVIER" maxlength="30"/>
 							</div>
 						</div>
 						<div class="swa_forms_fieldContainer">
@@ -1705,7 +686,7 @@ var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.co
 								<label for="confirmationNumber"><span class="required">* </span>Confirmation Number</label>
 							</div>
 							<div class="swa_forms_inputContainer">
-								<input id="confirmationNumber" name="confirmationNumber" class="text-field" aria-required="true" type="text" value="RTG7KW" maxlength="6"/>
+								<input id="confirmationNumber" name="confirmationNumber" class="text-field" aria-required="true" type="text" value="W8AFC6" maxlength="6"/>
 							</div>
 						</div>
 
@@ -1775,13 +756,13 @@ var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.co
 								<div class="date_field">
                                     <select id="outboundDate" name="creditCardDepartureDate" class="text-field dateInput outboundDate">
                                         
-                                            <option value="Monday 12/07/2015">Monday 12/07/2015</option>
+                                            <option value="Friday 12/11/2015">Friday 12/11/2015</option>
                                         
-                                            <option value="Tuesday 12/08/2015">Tuesday 12/08/2015</option>
+                                            <option value="Saturday 12/12/2015">Saturday 12/12/2015</option>
                                         
-                                            <option value="Wednesday 12/09/2015">Wednesday 12/09/2015</option>
+                                            <option value="Sunday 12/13/2015">Sunday 12/13/2015</option>
                                         
-                                            <option value="Thursday 12/10/2015">Thursday 12/10/2015</option>
+                                            <option value="Monday 12/14/2015">Monday 12/14/2015</option>
                                         
                                     </select>
 								</div>
@@ -1833,127 +814,15 @@ var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.co
 </form>
 
 
-       </div>
-   </div>
-   </div>
-
-    <img src="/assets/images/fare_product_pointer_noShadow_bottom.gif" alt="Save to Calendar Pointer" id="ics_pointer" style="position:absolute; display:none; z-index:2;"/>
-    <div id="icsDiv" class="priceItineraryPopupTable icsPopupTable icsPopup" style="display:none">
-        <div id="icsData" class="icsPopupDetails">
-            <h5>Add To Calendar</h5>
-
-            
-            
-
-            <span style="display: block;" id="closeICS" class="icsPopupDetailsClose">
-                <span class="closeImg"></span>
-                <span>Close</span>
-            </span>
-        </div>
-
-        <div class="icsPopupDetailsContainer">
-            <table summary="This table contains information about saving trip to outlook">
-
-                <tr class="leftColumn">
-                    <td>
-                        Export your <strong>SJC to ONT</strong> trip
-                        on <strong>12/26/2015</strong>
-                    </td>
-                </tr>
-                <tr class="leftColumn">
-                    <td style="border-bottom: 1px dotted #cccccc !important;padding-bottom: 4px">
-                        
-
-                        <a title="Export your Outbound trip to an Outlook appointment" href="/flight/download-outbound-retrieval-ics.html?productType=AIR&confirmationNumber=RTG7KW&firstName=DANIELLE&lastName=GONZALEZ&flightType=outbound&startDate=2457383&calType=OUTLOOK"><span class="confirmation_utility_icon confirmation_utility_icon_outlook"></span>Outlook&reg;</a>
-                        
-                        
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a title="Export your Outbound trip to an iCal compatible appointment" href="/flight/download-outbound-retrieval-ics.html?productType=AIR&confirmationNumber=RTG7KW&firstName=DANIELLE&lastName=GONZALEZ&flightType=outbound&startDate=2457383&calType=ICAL"><span class="confirmation_utility_icon confirmation_utility_icon_ical"></span>iCal compatible</a>
-                    </td>
-                </tr>
-                
-                    <tr class="leftColumn">
-                        <td >
-                            Export your <strong>ONT to SJC</strong> trip
-                            on <strong>12/29/2015</strong>
-                        </td>
-                    </tr>
-                    <tr class="leftColumn">
-                        <td>
-                                
-
-                                <a title="Export your Inbound trip to an Outlook appointment" href="/flight/download-inbound-retrieval-ics.html?productType=AIR&confirmationNumber=RTG7KW&firstName=DANIELLE&lastName=GONZALEZ&flightType=inbound&startDate=2457386&calType=OUTLOOK"><span class="confirmation_utility_icon confirmation_utility_icon_outlook"></span>Outlook&reg;</a>
-                                
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                
-                                <a title="Export your Inbound trip to an iCal compatible appointment" href="/flight/download-inbound-retrieval-ics.html?productType=AIR&confirmationNumber=RTG7KW&firstName=DANIELLE&lastName=GONZALEZ&flightType=inbound&startDate=2457386&calType=ICAL"><span class="confirmation_utility_icon confirmation_utility_icon_ical"></span>iCal compatible</a>
-                        </td>
-                    </tr>
-                
-            </table>
         </div>
     </div>
-	
-	<div id="swa_feature_pnrLookup_resendReceiptModal" style="display:none" role="document" tabindex="-1">
-	
-    
-      
-    <div id="swa_feature_pnrLookup_resendReceiptModal_init">
-                
-        	
-        	
-        	
-        	
-        
-	        <h4>E-mail Reservation</h4>
-	        <p>We have the following email on file for this reservation. Would you like us to resend a confirmation e-mail with your reservation details to this address?</p>
-
-	        <form id="itineraryResendReceiptForm" action="/flight/pnrFriendlyLookup/resendReceipt.json" method="POST">
-	            <fieldset>
-	                <p>E-mail: DANIELLE.GONZALEZ519@GMAIL.COM <p>
-	            </fieldset>
-	            <div class="swa_forms_submitButtonContainer swa_feature_pnrLookup_resendReceiptModal_footer sw2">
-	                <input type="hidden" name="resendPnrNumber" value="RTG7KW" />
-	                <input type="hidden" name="resendFirstName" value="DANIELLE" />
-	                <input type="hidden" name="resendLastName" value="GONZALEZ" />
-                    <a href="#" class="swa_dialog_closeButton swa-button swa-button_transparent">Cancel</a>
-	                <input class="resendReceiptSubmitButton swa-button swa-button_primary" type="submit" value="Send"/>
-	            </div>
-	        </form>
-        
-                
-    </div>
-    
-    <div id="swa_feature_pnrLookup_resendReceiptModal_error">
-       
-       
-       
-       
-        <div class="swa_panels_panel">
-            <p>We&#039;re sorry, we were unable to find an e-mail address or fax number on file for this reservation.</p>
-        </div>
-        <div class="swa_panels_panel">
-            <p>If you have questions or require further assistance, please contact Southwest Airlines <a href="/html/customer-service/index.html">Customer Service</a>.</p>
-        </div>
-        <div class="swa_forms_submitButtonContainer swa_feature_pnrLookup_resendReceiptModal_footer sw2">
-            <a href="#" class="swa_dialog_closeButton swa-button swa-button_transparent">Cancel</a>
-        </div>
-    </div>
-    <div id="swa_feature_pnrLookup_resendReceiptModal_progress">
-        <div class="swa_loader"><img src="/assets/images/snake_transparent.gif" /></div>
-    </div>
-</div>
-
-    
 
 
-	<script type="text/javascript" src="/assets/v1511003/scripts/analytics/trip/viewItinerary.js"></script>
+	<script type="text/javascript" src="/assets/v1511003/scripts/analytics/trip/airViewReservation.js"></script>
 
 
-    
 
-    
-    
+
 
 
 					</div>
@@ -2437,14 +1306,7 @@ Southwest Airlines Co. All Rights Reserved. Use of the Southwest websites and ou
 </script>
 
 
-        
-            <script type="text/javascript" src="/assets/v1511003/scripts/modalPnrFriendlyLookupResendReceipt.js"></script>
-        
-        <script type="text/javascript">
-            var seatSelectionPollerUrl = "/reservations/seatSelectionAjax.html";
-            var searchPollerUrl = "/flight/view-air-reservation-search-results-hotel-ajax.html";
-        </script>
-        
+    
 <script type="text/javascript">
     
         
@@ -2456,7 +1318,7 @@ Southwest Airlines Co. All Rights Reserved. Use of the Southwest websites and ou
 
 var routes          = 
 {"CAK":{
-	"routesServed":["ABQ","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BOS","BUR","BWI","CUN","DAL","DCA","DEN","ECP","ELP","FLL","GEG","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","ONT","ORF","PBI","PDX","PHL","PHX","PUJ","PVD","RDU","RIC","RNO","RSW","SAN","SAT","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUS"]
+	"routesServed":["ABQ","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BOS","BUR","BWI","CUN","DAL","DCA","DEN","DSM","ECP","ELP","FLL","GEG","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","ONT","ORF","PBI","PDX","PHL","PHX","PUJ","PVD","RDU","RIC","RNO","RSW","SAN","SAT","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUS"]
 },"ALB":{
 	"routesServed":["ABQ","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHX","PIT","PNS","PUJ","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"ABQ":{
@@ -2464,7 +1326,7 @@ var routes          =
 },"AMA":{
 	"routesServed":["ABQ","ALB","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"AUA":{
-	"routesServed":["ABQ","ALB","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BWI","CAK","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","ELP","EWR","FNT","GEG","GRR","GSP","HOU","HRL","ICT","IND","ISP","JAX","LAS","LAX","LBB","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ORF","PBI","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","ROC","RSW","SAN","SAT","SDF","SEA","SMF","STL","TPA","TUL"]
+	"routesServed":["ABQ","ALB","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BWI","CAK","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","ECP","ELP","EWR","FNT","GEG","GRR","GSP","HOU","HRL","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SJC","SLC","SMF","STL","TPA","TUL"]
 },"ATL":{
 	"routesServed":["ABQ","ALB","AMA","AUA","AUS","BDL","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"AUS":{
@@ -2472,11 +1334,11 @@ var routes          =
 },"BWI":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","ICT","IND","ISP","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"BZE":{
-	"routesServed":["ABQ","ATL","AUS","BNA","CRP","DAL","DEN","ELP","HOU","HRL","LAS","LAX","MAF","MCO","MDW","MEM","MSY","OAK","OKC","SAN","SAT","STL","TPA","TUL"]
+	"routesServed":["ABQ","ATL","AUS","BNA","CRP","DAL","DEN","ELP","HOU","HRL","LAS","LAX","MAF","MCI","MCO","MDW","MEM","MSY","OAK","OKC","SAN","SAT","STL","TPA","TUL"]
 },"BHM":{
 	"routesServed":["ABQ","ALB","AMA","AUA","AUS","BDL","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"BOI":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PNS","PVD","PVR","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PNS","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },
 "BOT":{
 	"routesServed":[]
@@ -2485,15 +1347,15 @@ var routes          =
 },"BUF":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PWM","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"BUR":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SLC","SMF","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","STL","TPA","TUL","TUS"]
 },"SJD":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","IND","ISP","JAX","LAS","LAX","LBB","LGA","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUL"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","IND","ISP","JAX","LAS","LAX","LBB","LGA","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUL"]
 },"CUN":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"CHS":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CLE","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","HOU","HRL","IAD","ICT","IND","ISP","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"CLT":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BUR","BWI","BZE","CLE","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PWM","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CLE","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"MDW":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MEM","MEX","MHT","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },
@@ -2507,27 +1369,27 @@ var routes          =
 },"CMH":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLT","CRP","CUN","DAL","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"CRP":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CUN","DAL","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","GEG","GSP","HOU","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ORF","PDX","PHL","PHX","PIT","PNS","PVD","PVR","PWM","RDU","RIC","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CUN","DAL","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","GEG","GRR","GSP","HOU","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ORF","PDX","PHL","PHX","PIT","PNS","PVD","PVR","PWM","RDU","RIC","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"DAL":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"DAY":{
-	"routesServed":["ABQ","ALB","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CRP","CUN","DAL","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CRP","CUN","DAL","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"DEN":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"DSM":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DCA","DEN","DTW","ECP","ELP","EWR","FLL","GEG","GSP","HOU","IAD","ICT","IND","ISP","JAX","LAS","LAX","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DCA","DEN","DTW","ECP","ELP","EWR","FLL","GEG","GSP","HOU","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"DTW":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","ECP","ELP","EWR","FLL","GEG","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"ELP":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"FNT":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","ECP","ELP","EWR","FLL","GEG","GRR","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","ECP","ELP","EWR","FLL","GEG","GRR","GSP","HOU","HRL","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"FLL":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MCI","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"RSW":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TUL","TUS"]
 },"GRR":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","ECP","ELP","EWR","FLL","FNT","GEG","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","ECP","ELP","EWR","FLL","FNT","GEG","GSP","HOU","HRL","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"GSP":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CLE","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"HRL":{
@@ -2549,22 +1411,22 @@ var routes          =
 },"LIT":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","MAF","MBJ","MCI","MCO","MDW","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"ISP":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GRR","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHX","PIT","PNS","PUJ","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GRR","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHX","PIT","PNS","PUJ","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"LAX":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","STL","TPA","TUL","TUS"]
 },
 "LOS":{
 	"routesServed":[]
 },"SDF":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"LBB":{
-	"routesServed":["ABQ","ALB","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LGA","LIR","LIT","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PVR","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LGA","LIR","LIT","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PVR","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"MHT":{
 	"routesServed":["ABQ","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHX","PIT","PNS","PUJ","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"MEM":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","MAF","MBJ","MCI","MCO","MDW","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"MEX":{
-	"routesServed":["ABQ","AMA","ATL","AUS","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLT","CMH","CRP","DAL","DCA","DEN","DTW","ECP","ELP","EWR","FLL","GEG","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","PDX","PHL","PHX","PIT","RDU","RNO","RSW","SAN","SAT","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLT","CMH","CRP","DAL","DCA","DEN","DTW","ECP","ELP","EWR","FLL","GEG","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","PDX","PHL","PHX","PIT","RDU","RNO","RSW","SAN","SAT","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },
 "MMA":{
 	"routesServed":[]
@@ -2579,7 +1441,7 @@ var routes          =
 },"BNA":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"NAS":{
-	"routesServed":["ABQ","ALB","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BWI","CHS","CLE","CLT","CMH","DAL","DEN","DTW","GSP","HOU","IND","ISP","JAX","LAS","LAX","LBB","MCI","MDW","MEM","MHT","MKE","MSY","OAK","OKC","ORF","PDX","PHX","PIT","PVD","PWM","RDU","ROC","SAN","SAT","SDF","SEA","SFO","SLC","SMF","STL"]
+	"routesServed":["ABQ","ALB","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BWI","CHS","CLE","CLT","CMH","DAL","DEN","DTW","GRR","GSP","HOU","IND","ISP","JAX","LAS","LAX","LBB","MCI","MDW","MEM","MHT","MKE","MSY","OAK","OKC","ORF","PDX","PHX","PIT","PVD","PWM","RDU","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL"]
 },"MSY":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },
@@ -2607,9 +1469,9 @@ var routes          =
 },"MCO":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TUL","TUS"]
 },"ECP":{
-	"routesServed":["ABQ","ALB","AMA","AUS","BDL","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","AUS","BDL","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PUJ","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"PNS":{
-	"routesServed":["ABQ","ALB","AMA","AUA","AUS","BDL","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ELP","EWR","FLL","GEG","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PVD","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","AUA","AUS","BDL","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ELP","EWR","FLL","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PVD","PVR","PWM","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"PHL":{
 	"routesServed":["ABQ","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BUF","BUR","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PBI","PDX","PHX","PIT","PNS","PUJ","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"PHX":{
@@ -2623,13 +1485,13 @@ var routes          =
 },"PVD":{
 	"routesServed":["ABQ","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHX","PIT","PNS","PUJ","RDU","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"PVR":{
-	"routesServed":["ABQ","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUR","BWI","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","ELP","EWR","FLL","GEG","GSP","HOU","HRL","IAD","IND","JAX","LAS","LAX","LBB","LGA","MAF","MCI","MCO","MDW","MEM","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PDX","PHL","PHX","PIT","PNS","RDU","RNO","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","ECP","ELP","EWR","FLL","GEG","GRR","GSP","HOU","HRL","IAD","IND","JAX","LAS","LAX","LBB","LGA","MAF","MCI","MCO","MDW","MEM","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PDX","PHL","PHX","PIT","PNS","RDU","RNO","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"PUJ":{
 	"routesServed":["ABQ","ALB","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BWI","CAK","CHS","CLE","CLT","CMH","DAL","DAY","DCA","DEN","DSM","DTW","EWR","FLL","FNT","GRR","GSP","HOU","IAD","ICT","IND","ISP","JAX","LAS","LAX","LGA","LIT","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ORF","PBI","PDX","PHL","PHX","PIT","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUS"]
 },"RDU":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","NAS","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"RNO":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJO","SJU","SLC","SNA","STL","TPA","TUL","TUS"]
 },"RIC":{
 	"routesServed":["ABQ","ATL","AUA","AUS","BHM","BNA","BOI","BOS","BUR","CAK","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IND","JAX","LAS","LAX","LBB","LIT","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PBI","PDX","PHX","PIT","PNS","PUJ","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"ROC":{
@@ -2650,13 +1512,13 @@ var routes          =
 },"SJC":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SJD","SJO","SJU","SLC","SNA","STL","TPA","TUL","TUS"]
 },"SJO":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","ECP","ELP","FLL","FNT","GRR","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","ORF","PHX","PIT","PNS","PVD","PWM","RDU","ROC","SAN","SAT","SDF","SJC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOS","BUF","BUR","BWI","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DTW","ECP","ELP","FLL","FNT","GRR","GSP","HOU","HRL","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","ORF","PDX","PHX","PIT","PNS","PVD","PWM","RDU","ROC","SAN","SAT","SDF","SEA","SJC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"SJU":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"SEA":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PHL","PHX","PIT","PNS","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"GEG":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SFO","SJC","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PHL","PHX","PIT","PNS","PVD","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"STL":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","TPA","TUL","TUS"]
 },"TPA":{
@@ -2666,16 +1528,16 @@ var routes          =
 },"TUL":{
 	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","BZE","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","FNT","GEG","GRR","GSP","HOU","HRL","IAD","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUS"]
 },"IAD":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DEN","DSM","DTW","ELP","FLL","GEG","GSP","HOU","ICT","IND","JAX","LAS","LAX","LBB","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PBI","PDX","PHX","PNS","PUJ","PVD","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DEN","DSM","DTW","ELP","FLL","GEG","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PBI","PDX","PHX","PNS","PUJ","PVD","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },"DCA":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BOS","BUF","BUR","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PBI","PDX","PHX","PNS","PUJ","PVR","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUA","AUS","BHM","BNA","BOI","BOS","BUF","BUR","BZE","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DEN","DSM","DTW","ECP","ELP","FLL","FNT","GEG","GRR","GSP","HOU","HRL","ICT","IND","JAX","LAS","LAX","LBB","LIR","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","PBI","PDX","PHX","PNS","PUJ","PVR","PWM","RDU","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJD","SJO","SJU","SLC","SMF","SNA","STL","TPA","TUL","TUS"]
 },
 "WDC":{
 	"routesServed":[]
 },"PBI":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FNT","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TUL","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DAY","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FNT","GEG","GRR","GSP","HOU","HRL","IAD","ICT","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MCI","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PDX","PHL","PHX","PIT","PUJ","PVD","PVR","PWM","RDU","RIC","RNO","ROC","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TUL","TUS"]
 },"ICT":{
-	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","GEG","GSP","HOU","HRL","IAD","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MEX","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","RDU","RIC","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUS"]
+	"routesServed":["ABQ","ALB","AMA","ATL","AUS","BDL","BHM","BNA","BOI","BOS","BUF","BUR","BWI","CAK","CHS","CLE","CLT","CMH","CRP","CUN","DAL","DCA","DEN","DSM","DTW","ECP","ELP","EWR","FLL","GEG","GSP","HOU","HRL","IAD","IND","ISP","JAX","LAS","LAX","LBB","LGA","LIT","MAF","MBJ","MCI","MCO","MDW","MEM","MHT","MKE","MSP","MSY","OAK","OKC","OMA","ONT","ORF","PBI","PDX","PHL","PHX","PIT","PNS","PUJ","PVD","RDU","RIC","RNO","RSW","SAN","SAT","SDF","SEA","SFO","SJC","SJU","SLC","SMF","SNA","STL","TPA","TUS"]
 }}
 
 var stations_info   = 
@@ -3857,8 +2719,8 @@ var stations_info   =
 
 
 </script>
-        <script type="text/javascript" src="/assets/v1511003/scripts/pnrFriendlyLookupDetailCombined.js"></script>
-    
+    <script type="text/javascript" src="/assets/v1511003/scripts/pnrFriendlyLookupCombined.js"></script>
+
 <script type="text/javascript" src="/assets/v1511003/scripts/framework/utility.js"></script>
 <script type="text/javascript" src="/assets/v1511003/scripts/framework/components/overlay.js"></script>
 

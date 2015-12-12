@@ -173,8 +173,6 @@ class MyHTMLParser(HTMLParser):
 				fareType2 = data
 				print fareType2
 				print ""
-			elif "errors" in data:
-				errorFlag = True
 			else:
 				departCityFlag = False
 				departDateFlag = False
@@ -183,12 +181,35 @@ class MyHTMLParser(HTMLParser):
 				arriveTimeFlag = False
 				flightNumFlag = False
 
+class MyHTMLParserErrors(HTMLParser):
+	def handle_starttag(self, tag, attrs):
+		global errorFlag
+		global errorMessageFlag
+		if "div" in tag:
+			for attr in attrs:
+				if "class" in attr[0].lower() and "oopserror" in attr[1].lower() and "a11y" in attr[1].lower():
+					errorFlag = True
+		if errorFlag and "li" in tag:
+			errorMessageFlag = True
+	def handle_endtag(self, tag):
+		global errorFlag
+		global errorMessageFlag
+		if "li" in tag and errorFlag and errorMessageFlag:
+			errorFlag = False
+			errorMessageFlag = False
+	def handle_data(self, data):
+		global errorFlag
+		global errorMessageFlag
+		global errorMessage
+		if errorFlag and errorMessageFlag:
+			errorMessage = errorMessage+data
+
 #####################################################################
 ## Set user input variables
 #####################################################################
-confirmationNum = (sys.argv[1]).upper()
-firstName = (sys.argv[2]).upper()
-lastName = (sys.argv[3]).upper()
+firstName = (sys.argv[1]).upper()
+lastName = (sys.argv[2]).upper()
+confirmationNum = (sys.argv[3]).upper()
 
 data = {}
 departDate1 = ""
@@ -222,6 +243,8 @@ tdFlag = False
 fareTypeFlag = False
 roundTripFlag = False
 errorFlag = False
+errorMessageFlag = False
+errorMessage = ""
 
 #####################################################################
 ## Set directory path and file name for response & results html file
@@ -230,8 +253,10 @@ cwd = os.getcwd()
 responseFile = cwd+"/logs/lookup-air-reservation.html"
 resultsFile = cwd+"/logs/view-air-reservation.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_validator.log"
+reservationUrl = "https://www.southwest.com/flight/lookup-air-reservation.html"
 
 def main():
+	global errorMessage
 	#####################################################################
 	## Check if flight information exists in DB
 	#####################################################################
@@ -250,7 +275,7 @@ def main():
 		logF.write(logMessage)
 		logF.close()
 		db.close()
-		sys.exit(1)
+		return 1
 
 	####################################################################
 	# If flight information does not exist in DB, retrieve flight 
@@ -260,7 +285,7 @@ def main():
 		br = mechanize.Browser()
 		br.set_handle_robots(False)
 		br.set_handle_refresh(False)
-		response = br.open("https://www.southwest.com/flight/lookup-air-reservation.html")
+		response = br.open(reservationUrl)
 		responseContent = response.read()
 		with open(responseFile, "w") as f:
 		    f.write(responseContent)
@@ -280,19 +305,34 @@ def main():
 		with open(resultsFile, "w") as f:
 			f.write(resultsContent)
 	except:
-		print "ERROR: Could not connect to browser\n"
 		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to lookup reservation [confirmationNum:%s|firstName:%s|lastName:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName)
+		logMessage = "%s ERROR: Unable to lookup reservation via %s [firstName:%s|lastName:%s|confirmationNum:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservationUrl,firstName,lastName,confirmationNum)
 		logF.write(logMessage)
 		logF.close()
 		db.close()
-		sys.exit(1)
+		return 1
 
+	#####################################################################
+	## Search results string for errors
+	#####################################################################
+	parser = MyHTMLParserErrors()
+	parser.feed(resultsContent)
+	if errorMessage:
+		endPos = errorMessage.rfind(".")
+		errorMessage = errorMessage[:endPos+1]
+		logF = open(logFile, "a")
+		logMessage = "%s ERROR: %s [firstName:%s|lastName:%s|confirmationNum:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),errorMessage,firstName,lastName,confirmationNum)
+		logF.write(logMessage)
+		logF.close()
+		errorMessage = ""
+		db.close()
+		return 1
+	
 	parser = MyHTMLParser()
 	parser.feed(resultsContent)
 
 	if departCity1 and departCity2:
-		flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode1,arriveAirportCode1,departDate1,departDate1)
+		flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode1,arriveAirportCode1,departDate1,departDate2)
 		os.system(flightSearch)
 
 		# First flight
@@ -306,7 +346,7 @@ def main():
 			logF.write(logMessage)
 			logF.close()
 			db.close()
-			sys.exit(1)
+			return 1
 
 		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
@@ -319,7 +359,7 @@ def main():
 			logF.write(logMessage)
 			logF.close()
 			db.close()
-			sys.exit(1)
+			return 1
 
 		# Second flight
 		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode2,arriveAirportCode2,departDate2,departTime2,flightNum2)
@@ -332,7 +372,7 @@ def main():
 			logF.write(logMessage)
 			logF.close()
 			db.close()
-			sys.exit(1)
+			return 1
 
 		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType2,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
@@ -345,7 +385,7 @@ def main():
 			logF.write(logMessage)
 			logF.close()
 			db.close()
-			sys.exit(1)
+			return 1
 
 	elif departCity1 and not departCity2:
 		flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode1,arriveAirportCode1,departDate1,departDate1)
@@ -362,7 +402,7 @@ def main():
 			logF.write(logMessage)
 			logF.close()
 			db.close()
-			sys.exit(1)
+			return 1
 
 		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
@@ -375,10 +415,15 @@ def main():
 			logF.write(logMessage)
 			logF.close()
 			db.close()
-			sys.exit(1)
+			return 1
 
 	elif not departCity2 and not departCity1:
-		print "No flight exists"
+		logF = open(logFile, "a")
+		logMessage = "%s ERROR: No flight information was found via %s [firstName:%s|lastName:%s|confirmationNum:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),resultsFile,firstName,lastName,confirmationNum)
+		logF.write(logMessage)
+		logF.close()
+		db.close()
+		return 1
 
 	db.close()
 	return 0

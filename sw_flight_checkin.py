@@ -27,7 +27,7 @@ def sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriv
 		EMAIL_TO = [notificationAddress]
 		EMAIL_SPACE = ", "
 		EMAIL_SUBJECT = "FLIGHT CHECKIN ALERT!"
-		DATA = "[CONF#%s] [%s->%s] [%s] [FLIGHT#%s] https://www.southwest.com/flight/retrieveCheckinDoc.html" % (confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
+		DATA = "[CONF#%s] [%s->%s] [%s] [FLIGHT#%s] southwest.com/flight/retrieveCheckinDoc.html" % (confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
 	
 		msg = MIMEText(DATA)
 		msg['Subject'] = EMAIL_SUBJECT
@@ -87,7 +87,7 @@ def main():
 			# print "%s %s %s %s %s %s" % (notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
 			if not sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum):
 				try:
-					sql = "UPDATE RESERVED_FLIGHTS SET CHECKIN_ALERT='%s',UPDATE_TIMESTAMP='%s' WHERE RESERVED_FLIGHT_ID='%s'" % ('1',time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
+					sql = "UPDATE RESERVED_FLIGHTS SET CHECKIN_ALERT='%s',CHECKIN_ALERT_TIMESTAMP='%s' WHERE RESERVED_FLIGHT_ID='%s'" % ('1',time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
 					cursor.execute(sql)
 					db.commit()
 				except:
