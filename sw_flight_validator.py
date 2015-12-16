@@ -207,9 +207,9 @@ class MyHTMLParserErrors(HTMLParser):
 #####################################################################
 ## Set user input variables
 #####################################################################
-firstName = (sys.argv[1]).upper()
-lastName = (sys.argv[2]).upper()
-confirmationNum = (sys.argv[3]).upper()
+confirmationNum = (sys.argv[1]).upper()
+firstName = (sys.argv[2]).upper()
+lastName = (sys.argv[3]).upper()
 
 data = {}
 departDate1 = ""

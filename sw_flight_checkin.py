@@ -54,6 +54,9 @@ cwd = os.getcwd()
 # resultsFile = cwd+"/logs/view-air-reservation.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_checkin.log"
 
+## ADD timezone feature ****************
+## ADD delete of flights that occurred in past ****************
+
 def main():
 	#####################################################################
 	## Retrieve list of upcoming reserved flights

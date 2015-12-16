@@ -54,12 +54,122 @@ cwd = os.getcwd()
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_fare_reducer.log"
 
 def main():
+	flightSearchArray = []
 	farePriceAlert = False
 	#####################################################################
 	## Retrieve list of upcoming reserved flights
 	#####################################################################
 	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	cursor = db.cursor()
+
+	sql = "SELECT DISTINCT GROUP_CONCAT(UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME ASC), \
+			GROUP_CONCAT(UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME ASC), \
+			GROUP_CONCAT(DATE_FORMAT(UPCOMING_FLIGHTS.DEPART_DATE_TIME, '%Y-%m-%d') ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME ASC) \
+			FROM UPCOMING_FLIGHTS \
+			RIGHT JOIN RESERVED_FLIGHTS \
+			ON UPCOMING_FLIGHTS.UPCOMING_FLIGHT_ID=RESERVED_FLIGHTS.UPCOMING_FLIGHT_ID \
+			GROUP BY RESERVED_FLIGHTS.CONFIRMATION_NUM \
+			ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME DESC,UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE ASC,UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE ASC"
+	# sql = "SELECT DISTINCT RESERVED_FLIGHTS.CONFIRMATION_NUM,UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE,UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE,DATE_FORMAT(UPCOMING_FLIGHTS.DEPART_DATE_TIME, '%Y-%m-%d') AS A,DATE_FORMAT(UPCOMING_FLIGHTS.DEPART_DATE_TIME, '%Y-%m-%d') AS B,GROUP_CONCAT(DATE_FORMAT(UPCOMING_FLIGHTS.DEPART_DATE_TIME, '%Y-%m-%d')) \
+	# 		FROM UPCOMING_FLIGHTS \
+	# 		RIGHT JOIN RESERVED_FLIGHTS \
+	# 		ON UPCOMING_FLIGHTS.UPCOMING_FLIGHT_ID=RESERVED_FLIGHTS.UPCOMING_FLIGHT_ID \
+	# 		GROUP BY RESERVED_FLIGHTS.CONFIRMATION_NUM \
+	# 		ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME ASC"
+	try:
+		cursor.execute(sql)
+		results = cursor.fetchall()
+		for row in results:
+			if "," in row[0]:
+				departAirportCode1 = row[0].split(',')[0]
+				arriveAirportCode1 = row[0].split(',')[1]
+			else:
+				departAirportCode1 = row[0].split(',')[0]
+				arriveAirportCode1 = False
+
+			if  "," in row[1]:
+				departAirportCode2 = row[1].split(',')[0]
+				arriveAirportCode2 = row[1].split(',')[1]
+			else:
+				departAirportCode2 = row[1].split(',')[0]
+				arriveAirportCode2 = False
+			
+			if  "," in row[2]:
+				departDate = row[2].split(',')[0]
+				returnDate = row[2].split(',')[1]
+			else:
+				departDate = row[2].split(',')[0]
+				returnDate = False
+
+			print departAirportCode1,arriveAirportCode1,departAirportCode2,arriveAirportCode2,departDate,returnDate
+			print departAirportCode1,departAirportCode2,departDate
+			print arriveAirportCode1,arriveAirportCode2,returnDate
+
+			i = 0
+			departFlag = False
+			returnFlag = False
+			# Roundtrip flight with same airports. i.e SJC->LAS and LAS->SJC
+			if departAirportCode1 == arriveAirportCode2 and departAirportCode2 == arriveAirportCode1:
+				if len(flightSearchArray) > 0:
+					for i in range(0,len(flightSearchArray)):
+						if departAirportCode1 == flightSearchArray[i][0] and arriveAirportCode1 == flightSearchArray[i][1] and departDate == flightSearchArray[i][2]:
+							departFlag = True
+						elif arriveAirportCode1 == flightSearchArray[i][0] and departAirportCode1 == flightSearchArray[i][1] and returnDate == flightSearchArray[i][2]:
+							returnFlag = True
+					if not departFlag:
+						flightSearchArray.append([departAirportCode1,arriveAirportCode1,departDate,False])
+					if not returnFlag:
+						flightSearchArray.append([arriveAirportCode1,departAirportCode1,returnDate,False])
+				else:
+					flightSearchArray.append([departAirportCode1,arriveAirportCode1,departDate,False])
+					flightSearchArray.append([arriveAirportCode1,departAirportCode1,returnDate,False])
+			# Roundtrip flight with different airports. i.e SJC->LAS and LAS->OAK
+			elif departAirportCode1 != arriveAirportCode2 and departAirportCode2 == arriveAirportCode1:
+				if len(flightSearchArray) > 0:
+					for i in range(0,len(flightSearchArray)):
+						if departAirportCode1 == flightSearchArray[i][0] and arriveAirportCode1 == flightSearchArray[i][1] and departDate == flightSearchArray[i][2]:
+							departFlag = True
+						elif departAirportCode2 == flightSearchArray[i][0] and arriveAirportCode2 == flightSearchArray[i][1] and returnDate == flightSearchArray[i][2]:
+							returnFlag = True
+					if not departFlag:
+						flightSearchArray.append([departAirportCode1,arriveAirportCode1,departDate,False])
+					if not returnFlag:
+						flightSearchArray.append([departAirportCode2,arriveAirportCode2,returnDate,False])
+				else:
+					flightSearchArray.append([departAirportCode1,arriveAirportCode1,departDate,False])
+					flightSearchArray.append([departAirportCode2,arriveAirportCode2,returnDate,False])
+			# One way flight. i.e. SJC->LAS
+			elif not returnDate:
+				if len(flightSearchArray) > 0:
+					returnDate = ( datetime.datetime.strptime(departDate, "%Y-%m-%d") + datetime.timedelta(days=1) ).strftime("%Y-%m-%d")
+					for i in range(0,len(flightSearchArray)):
+						if departAirportCode1 == flightSearchArray[i][0] and departAirportCode2 == flightSearchArray[i][1] and departDate == flightSearchArray[i][2]:
+							departFlag = True
+					if not departFlag:
+						flightSearchArray.append([departAirportCode1,departAirportCode2,departDate,False])
+				else:
+					flightSearchArray.append([departAirportCode1,departAirportCode2,departDate,False])
+			print ""
+		flightSearchArray = sorted(flightSearchArray, key=lambda x: (x[2], x[0], x[1], x[3]), reverse=False)
+		print len(flightSearchArray)
+		for i in range(0,len(flightSearchArray))
+			for x in flightSearchArray:
+				departAirportCode = x[0]
+				arriveAirportCode = x[1]
+				departDate = x[2]
+				print x
+				if x[1] == "OAK":
+					flightSearchArray.remove(x)
+			
+		print ""
+		for x in flightSearchArray:
+			print x
+
+	except:
+		return 1
+
+	return 1
+
 	sql = "SELECT DISTINCT UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE,UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE,DATE_FORMAT(UPCOMING_FLIGHTS.DEPART_DATE_TIME, '%Y-%m-%d') \
 			FROM UPCOMING_FLIGHTS \
 			RIGHT JOIN RESERVED_FLIGHTS \
@@ -116,6 +226,8 @@ def main():
 			elif fareLabel == "DOLLARS" and farePricePaid > farePriceDollars:
 				farePrice = farePriceDollars
 				farePriceAlert = True
+			else:
+				farePriceAlert = False
 
 			if farePriceAlert:
 				if not sendPriceAlert(notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum,farePricePaid,farePrice,fareLabel):

@@ -14,33 +14,6 @@ from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
 
-# def send_mail():
-# SMTP_SERVER = "smtp.gmail.com"
-# SMTP_PORT = 587
-# SMTP_USERNAME = "swfarereducer@gmail.com"
-# SMTP_PASSWORD = "swfarereducer1"
-# EMAIL_FROM = 'swfarereducer@gmail.com'
-# EMAIL_TO = ['loj90@sbcglobal.net']
-# EMAIL_SUBJECT = "Demo Email : "
-# DATE_FORMAT = "%d/%m/%Y"
-# EMAIL_SPACE = ", "
-# DATA='This is the content of the email.'
-# try:
-# 	msg = MIMEText(DATA)
-# 	msg['Subject'] = EMAIL_SUBJECT + " %s" % (date.today().strftime(DATE_FORMAT))
-# 	msg['To'] = EMAIL_SPACE.join(EMAIL_TO)
-# 	msg['From'] = EMAIL_FROM
-# 	mail = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-# 	mail.starttls()
-# 	mail.login(SMTP_USERNAME, SMTP_PASSWORD)
-# 	mail.sendmail(EMAIL_FROM, EMAIL_TO, msg.as_string())
-# 	mail.quit()
-# 	# smtpObj = smtplib.SMTP('localhost')
-# 	# smtpObj.sendmail(sender, receivers, message)         
-# 	print "Successfully sent email"
-# except smtplib.SMTPException:
-# 	print "Error: unable to send email"
-
 class MyHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
 		global temp
