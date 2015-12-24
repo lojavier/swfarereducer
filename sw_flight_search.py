@@ -181,8 +181,8 @@ for dayCount in range(0,daysAdvance):
 								br.set_handle_robots(False)
 								response = br.open(flightUrl)
 								responseContent = response.read()
-								with open(responseFile, "w") as f:
-								    f.write(responseContent)
+								# with open(responseFile, "w") as f:
+								#     f.write(responseContent)
 								br.select_form(name="buildItineraryForm")
 								br.find_control(name="originAirport").value = [departAirportCode]
 								br.find_control(name="destinationAirport").value = [arriveAirportCode]
@@ -193,8 +193,8 @@ for dayCount in range(0,daysAdvance):
 								br.find_control(name="fareType").value = ['POINTS']
 								results = br.submit()
 								resultsContent = results.read()
-								with open(resultsFile, "w") as f:
-								    f.write(resultsContent)
+								# with open(resultsFile, "w") as f:
+								#     f.write(resultsContent)
 							except:
 								logF = open(logFile, "a")
 								logMessage = "%s ERROR: Unable to search flights via %s [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),flightUrl,departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d"),returnDate.strftime("%Y-%m-%d"))

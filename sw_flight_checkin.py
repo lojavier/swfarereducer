@@ -22,7 +22,7 @@ def sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriv
 		SMTP_SERVER = "smtp.gmail.com"
 		SMTP_PORT = 587
 		SMTP_USERNAME = "swfarereducer@gmail.com"
-		SMTP_PASSWORD = "calilife4me"
+		SMTP_PASSWORD = ""
 		EMAIL_FROM = 'swfarereducer@gmail.com'
 		EMAIL_TO = [notificationAddress]
 		EMAIL_SPACE = ", "
@@ -47,19 +47,11 @@ utc_datetime = datetime.datetime.utcnow()
 currentUtcDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
 checkinAlertDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24,minutes=checkinAlertMinutes)
 
-print utc_datetime
-print currentUtcDateTime
-print checkinAlertDateTime
-print ""
-
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
 cwd = os.getcwd()
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_checkin.log"
-
-## ADD timezone feature ****************
-## ADD delete of flights that occurred in past ****************
 
 def main():
 	#####################################################################
@@ -116,9 +108,8 @@ def main():
 		logF.write(logMessage)
 		logF.close()
 		db.close()
-		sys.exit(1)
+		return 1
 
-	print ""
 	#####################################################################
 	## Retrieve list of upcoming reserved flights
 	#####################################################################
@@ -157,30 +148,30 @@ def main():
 				notificationAddress = "%s%s" % (phoneNum,textEmail)
 			else:
 				notificationAddress = email
-			# print "%s %s %s %s %s %s" % (notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
-			# if not sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum):
-			# 	try:
-			# 		sql = "UPDATE RESERVED_FLIGHTS SET CHECKIN_ALERT='%s',CHECKIN_ALERT_TIMESTAMP='%s' WHERE RESERVED_FLIGHT_ID='%s'" % ('1',time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-			# 		cursor.execute(sql)
-			# 		db.commit()
-			# 	except:
-			# 		db.rollback()
-			# 		logF = open(logFile, "a")
-			# 		logMessage = "%s ERROR: Unable to update checkin alert flag [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-			# 		logF.write(logMessage)
-			# 		logF.close()
-			# else:
-			# 	logF = open(logFile, "a")
-			# 	logMessage = "%s ERROR: Unable to send checkin alert [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-			# 	logF.write(logMessage)
-			# 	logF.close()
+			print "%s %s %s %s %s %s" % (notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
+			if not sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum):
+				try:
+					sql = "UPDATE RESERVED_FLIGHTS SET CHECKIN_ALERT='%s',CHECKIN_ALERT_TIMESTAMP='%s' WHERE RESERVED_FLIGHT_ID='%s'" % ('1',time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
+					cursor.execute(sql)
+					db.commit()
+				except:
+					db.rollback()
+					logF = open(logFile, "a")
+					logMessage = "%s ERROR: Unable to update checkin alert flag [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
+					logF.write(logMessage)
+					logF.close()
+			else:
+				logF = open(logFile, "a")
+				logMessage = "%s ERROR: Unable to send checkin alert [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
+				logF.write(logMessage)
+				logF.close()
 	except:
 		logF = open(logFile, "a")
 		logMessage = "%s ERROR: Unable to select reserved flights for checkin\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
 		logF.write(logMessage)
 		logF.close()
 		db.close()
-		sys.exit(1)
+		return 1
 
 	db.close()
 	return 0

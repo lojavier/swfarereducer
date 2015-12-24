@@ -22,7 +22,7 @@ def sendPriceAlert(notificationAddress,confirmationNum,departAirportCode,arriveA
 		SMTP_SERVER = "smtp.gmail.com"
 		SMTP_PORT = 587
 		SMTP_USERNAME = "swfarereducer@gmail.com"
-		SMTP_PASSWORD = "calilife4me"
+		SMTP_PASSWORD = ""
 		EMAIL_FROM = 'swfarereducer@gmail.com'
 		EMAIL_TO = [notificationAddress]
 		EMAIL_SPACE = ", "
@@ -46,11 +46,9 @@ def sendPriceAlert(notificationAddress,confirmationNum,departAirportCode,arriveA
 		return 1
 
 #####################################################################
-## Set directory path and file name for response & results html file
+## Set directory path and file name for logs
 #####################################################################
 cwd = os.getcwd()
-# responseFile = cwd+"/logs/lookup-air-reservation.html"
-# resultsFile = cwd+"/logs/view-air-reservation.html"
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_fare_reducer.log"
 
 def main():
