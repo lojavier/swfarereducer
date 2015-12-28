@@ -76,6 +76,7 @@ def main():
 	try:
 		cursor.execute(sql)
 		results = cursor.fetchone()
+		print results
 		if str(results[0]) != "None":
 			reservedFlightIdArray = results[0].split(',')
 			for reservedFlightId in reservedFlightIdArray:
