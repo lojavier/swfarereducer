@@ -258,7 +258,6 @@ if(pos1 != -1):
 					logF.write(logMessage)
 					logF.close()
 else:
-	print "WARNING: Could not locate airport info json"
 	logF = open(logFile, "a")
 	logMessage = "%s ERROR: Could not locate 'stations_info' JSON\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
 	logF.write(logMessage)

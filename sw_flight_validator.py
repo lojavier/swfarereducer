@@ -82,19 +82,19 @@ class MyHTMLParser(HTMLParser):
 				departCity1 = data.replace("(","- ")
 				departCity1 = departCity1.strip(')')
 				departCityFlag = False
-				print departAirportCode1
+				# print departAirportCode1
 			# Departure of 1st flight (date)
 			elif departDateFlag and tdFlag and not roundTripFlag:
 				temp = datetime.datetime.strptime(data, "%A, %B %d, %Y")
 				departDate1 = temp.strftime("%Y-%m-%d")
 				departDateFlag = False
-				print departDate1
+				# print departDate1
 			# Departure of 1st flight (time)
 			elif departTimeFlag and strongFlag and not roundTripFlag:
 				temp = datetime.datetime.strptime(data, "%I:%M %p")
 				departTime1 = temp.strftime("%H:%M:%S")
 				departTimeFlag = False
-				print departTime1
+				# print departTime1
 			# Arrival of 1st flight (city)
 			elif arriveCityFlag and strongFlag and not roundTripFlag:
 				pos1 = data.find("(")
@@ -103,18 +103,18 @@ class MyHTMLParser(HTMLParser):
 				arriveCity1 = data.replace("(","- ")
 				arriveCity1 = arriveCity1.strip(')')
 				arriveCityFlag = False
-				print arriveAirportCode1
+				# print arriveAirportCode1
 			# Arrival of 1st flight (time)
 			elif arriveTimeFlag and strongFlag and not roundTripFlag:
 				temp = datetime.datetime.strptime(data, "%I:%M %p")
 				arriveTime1 = temp.strftime("%H:%M:%S")
 				arriveTimeFlag = False
-				print arriveTime1
+				# print arriveTime1
 			# Flight number of 1st flight
 			elif flightNumFlag and strongFlag and not roundTripFlag:
 				flightNum1 = data.replace('#','')
 				flightNumFlag = False
-				print flightNum1
+				# print flightNum1
 			# Departure of 2nd flight (city)
 			elif departCityFlag and strongFlag and roundTripFlag:
 				pos1 = data.find("(")
@@ -123,19 +123,19 @@ class MyHTMLParser(HTMLParser):
 				departCity2 = data.replace("(","- ")
 				departCity2 = departCity2.strip(')')
 				departCityFlag = False
-				print departAirportCode2
+				# print departAirportCode2
 			# Departure of 2nd flight (date)
 			elif departDateFlag and tdFlag and roundTripFlag:
 				temp = datetime.datetime.strptime(data, "%A, %B %d, %Y")
 				departDate2 = temp.strftime("%Y-%m-%d")
 				departDateFlag = False
-				print departDate2
+				# print departDate2
 			# Departure of 2nd flight (date)
 			elif departTimeFlag and strongFlag and roundTripFlag:
 				temp = datetime.datetime.strptime(data, "%I:%M %p")
 				departTime2 = temp.strftime("%H:%M:%S")
 				departTimeFlag = False
-				print departTime2
+				# print departTime2
 			# Arrival of 2nd flight (city)
 			elif arriveCityFlag and strongFlag and roundTripFlag:
 				pos1 = data.find("(")
@@ -144,18 +144,18 @@ class MyHTMLParser(HTMLParser):
 				arriveCity2 = data.replace("(","- ")
 				arriveCity2 = arriveCity2.strip(')')
 				arriveCityFlag = False
-				print arriveAirportCode2
+				# print arriveAirportCode2
 			# Arrival of 2nd flight (time)
 			elif arriveTimeFlag and strongFlag and roundTripFlag:
 				temp = datetime.datetime.strptime(data, "%I:%M %p")
 				arriveTime2 = temp.strftime("%H:%M:%S")
 				arriveTimeFlag = False
-				print arriveTime2
+				# print arriveTime2
 			# Flight number of 2nd flight
 			elif flightNumFlag and strongFlag and roundTripFlag:
 				flightNum2 = data.replace('#','')
 				flightNumFlag = False
-				print flightNum2
+				# print flightNum2
 			elif "Depart" in data:
 				departCityFlag = True
 			elif "Arrive in" in data:
@@ -166,13 +166,13 @@ class MyHTMLParser(HTMLParser):
 				fareType1 = data
 				fareTypeFlag = False
 				roundTripFlag = True
-				print fareType1
-				print ""
+				# print fareType1
+				# print ""
 			elif fareTypeFlag and roundTripFlag:
 				fareTypeFlag = False
 				fareType2 = data
-				print fareType2
-				print ""
+				# print fareType2
+				# print ""
 			else:
 				departCityFlag = False
 				departDateFlag = False
@@ -207,11 +207,7 @@ class MyHTMLParserErrors(HTMLParser):
 #####################################################################
 ## Set user input variables
 #####################################################################
-confirmationNum = (sys.argv[1]).upper()
-firstName = (sys.argv[2]).upper()
-lastName = (sys.argv[3]).upper()
-
-data = {}
+data = []
 departDate1 = ""
 departCity1 = ""
 departTime1 = ""
@@ -226,8 +222,6 @@ flightNum1 = ""
 flightNum2 = ""
 fareType1 = ""
 fareType2 = ""
-currentDollarsPrice = ""
-currentPointsPrice = ""
 departAirportCode1 = ""
 departAirportCode2 = ""
 arriveAirportCode1 = ""
@@ -257,6 +251,31 @@ reservationUrl = "https://www.southwest.com/flight/lookup-air-reservation.html"
 
 def main():
 	global errorMessage
+	global responseFile
+	global resultsFile
+	global logFile
+	global reservationUrl
+	confirmationNum = (sys.argv[1]).upper()
+	firstName = (sys.argv[2]).upper()
+	lastName = (sys.argv[3]).upper()
+	global departDate1
+	global departCity1
+	global departTime1
+	global departDate2
+	global departCity2
+	global departTime2
+	global arriveCity1
+	global arriveTime1
+	global arriveCity2
+	global arriveTime2
+	global flightNum1
+	global flightNum2
+	global fareType1
+	global fareType2
+	global departAirportCode1
+	global departAirportCode2
+	global arriveAirportCode1
+	global arriveAirportCode2
 	#####################################################################
 	## Check if flight information exists in DB
 	#####################################################################
@@ -287,8 +306,8 @@ def main():
 		br.set_handle_refresh(False)
 		response = br.open(reservationUrl)
 		responseContent = response.read()
-		with open(responseFile, "w") as f:
-		    f.write(responseContent)
+		# with open(responseFile, "w") as f:
+		#     f.write(responseContent)
 		# br.select_form(predicate=lambda f: f.attrs.get('id', None) == 'pnrFriendlyLookup_check_form')
 		formcount=0
 		for form in br.forms():
@@ -302,8 +321,8 @@ def main():
 		br.find_control(name="confirmationNumber").value = confirmationNum
 		results = br.submit()
 		resultsContent = results.read()
-		with open(resultsFile, "w") as f:
-			f.write(resultsContent)
+		# with open(resultsFile, "w") as f:
+		# 	f.write(resultsContent)
 	except:
 		logF = open(logFile, "a")
 		logMessage = "%s ERROR: Unable to lookup reservation via %s [firstName:%s|lastName:%s|confirmationNum:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservationUrl,firstName,lastName,confirmationNum)

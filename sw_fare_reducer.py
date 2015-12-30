@@ -52,6 +52,7 @@ cwd = os.getcwd()
 logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_fare_reducer.log"
 
 def main():
+	global logFile
 	flightSearchArray = []
 	farePriceAlert = False
 	#####################################################################

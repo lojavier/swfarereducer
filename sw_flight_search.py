@@ -86,10 +86,6 @@ flightUrl = "https://www.southwest.com/flight/"
 ## Setup global variables
 #####################################################################
 temp = ""
-departAirportCode = ""
-arriveAirportCode = ""
-departDate = ""
-returnDate = ""
 departTag = "depart"
 departTime = "12:00AM"
 arriveTag = "arrive"
@@ -103,266 +99,288 @@ pointsFlag = False
 errorFlag = False
 errorMessageFlag = False
 errorMessage = ""
-routesServed = []
-inProgressFlightSearch = []
-completedFlightSearch = []
-flightSearchDone = False
 
-db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
-cursor = db.cursor()
+def main():
+	global responseFile
+	global resultsFile
+	global logFile
+	global flightUrl
+	routesServed = []
+	inProgressFlightSearch = []
+	completedFlightSearch = []
+	flightSearchDone = False
+	departAirportCode = ""
+	arriveAirportCode = ""
+	departDate = ""
+	returnDate = ""
+	global departTag
+	global departTime
+	global arriveTag
+	global arriveTime
+	global flightRoute
+	global flightNum
+	global fareType
+	global farePriceDollars
+	global farePricePoints
+	global pointsFlag
+	global errorFlag
+	global errorMessageFlag
+	global errorMessage
+	
+	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+	cursor = db.cursor()
 
-print "\nSearching for flights...\n"
-
-if len(sys.argv) > 3:
-	daysAdvance = 1
-else:
-	daysAdvance = 90
-
-for dayCount in range(0,daysAdvance):
-	#####################################################################
-	## Select all airports and their routes served
-	#####################################################################
-	if len(sys.argv) > 1 and sys.argv[1] != "ALL" and sys.argv[2] != "ALL":
-		departAirportCode = sys.argv[1]
-		arriveAirportCode = sys.argv[2]
-		sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS WHERE AIRPORT_CODE='%s' AND ROUTES_SERVED LIKE '%%%s%%'" % (departAirportCode,arriveAirportCode)
-	elif len(sys.argv) > 1 and sys.argv[1] != "ALL" and sys.argv[2] == "ALL":
-		departAirportCode = sys.argv[1]
-		sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS WHERE AIRPORT_CODE='%s'" % (departAirportCode)
+	if len(sys.argv) > 3:
+		daysAdvance = 1
 	else:
-		sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS"
-	try:
-		cursor.execute(sql)
-		results = cursor.fetchall()
-		for row in results:
-			time.sleep(1)
-			if len(sys.argv) > 1 and sys.argv[2] != "ALL":
-				routesServed.append(arriveAirportCode)
-			else:
-				routesServed = row[1].split(',')
-			for arriveAirportCode in routesServed:
-				departAirportCode = row[0]
+		daysAdvance = 90
 
-				if len(sys.argv) > 3:
-					departDate = datetime.datetime.strptime(sys.argv[3], "%Y-%m-%d")
-					returnDate = datetime.datetime.strptime(sys.argv[4], "%Y-%m-%d")
+	for dayCount in range(0,daysAdvance):
+		#####################################################################
+		## Select all airports and their routes served
+		#####################################################################
+		if len(sys.argv) > 1 and sys.argv[1] != "ALL" and sys.argv[2] != "ALL":
+			departAirportCode = sys.argv[1]
+			arriveAirportCode = sys.argv[2]
+			sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS WHERE AIRPORT_CODE='%s' AND ROUTES_SERVED LIKE '%%%s%%'" % (departAirportCode,arriveAirportCode)
+		elif len(sys.argv) > 1 and sys.argv[1] != "ALL" and sys.argv[2] == "ALL":
+			departAirportCode = sys.argv[1]
+			sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS WHERE AIRPORT_CODE='%s'" % (departAirportCode)
+		else:
+			sql = "SELECT AIRPORT_CODE,ROUTES_SERVED FROM AIRPORTS"
+		try:
+			cursor.execute(sql)
+			results = cursor.fetchall()
+			for row in results:
+				time.sleep(1)
+				if len(sys.argv) > 1 and sys.argv[2] != "ALL":
+					routesServed.append(arriveAirportCode)
 				else:
-					departDate = datetime.datetime.strptime(time.strftime("%Y-%m-%d"), "%Y-%m-%d") + datetime.timedelta(days=dayCount+1)
-					returnDate = datetime.datetime.strptime(time.strftime("%Y-%m-%d"), "%Y-%m-%d") + datetime.timedelta(days=dayCount+2)
-				#####################################################################
-				## Compare the in progress depart and arrive flight and depart date
-				## with the completed flight searches
-				#####################################################################
-				inProgressFlightSearch = []
-				inProgressFlightSearch.append([departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d")])
-				# completedFlightSearch.append(['SJC','ONT','2015-12-04'])
-				for x in range(0,len(completedFlightSearch)):
-					if inProgressFlightSearch[0] == completedFlightSearch[x]:
-						flightSearchDone = True
-						break
+					routesServed = row[1].split(',')
+				for arriveAirportCode in routesServed:
+					departAirportCode = row[0]
+
+					if len(sys.argv) > 3:
+						departDate = datetime.datetime.strptime(sys.argv[3], "%Y-%m-%d")
+						returnDate = datetime.datetime.strptime(sys.argv[4], "%Y-%m-%d")
 					else:
-						flightSearchDone = False
-
-				if not flightSearchDone:
+						departDate = datetime.datetime.strptime(time.strftime("%Y-%m-%d"), "%Y-%m-%d") + datetime.timedelta(days=dayCount+1)
+						returnDate = datetime.datetime.strptime(time.strftime("%Y-%m-%d"), "%Y-%m-%d") + datetime.timedelta(days=dayCount+2)
 					#####################################################################
-					## Select one of the airports from routes served to cross check a 
-					## return flight
+					## Compare the in progress depart and arrive flight and depart date
+					## with the completed flight searches
 					#####################################################################
-					sql = "SELECT COUNT(*) FROM AIRPORTS WHERE AIRPORT_CODE='%s' AND ROUTES_SERVED LIKE '%%%s%%'" % (arriveAirportCode,departAirportCode)
-					try:
-						cursor.execute(sql)
-						results = cursor.fetchone()
-						if results[0] > 0:
-							#####################################################################
-							## Initiate mechanize, set parameters in form, and submit form
-							#####################################################################
-							try:
-								br = mechanize.Browser()
-								br.set_handle_robots(False)
-								response = br.open(flightUrl)
-								responseContent = response.read()
-								# with open(responseFile, "w") as f:
-								#     f.write(responseContent)
-								br.select_form(name="buildItineraryForm")
-								br.find_control(name="originAirport").value = [departAirportCode]
-								br.find_control(name="destinationAirport").value = [arriveAirportCode]
-								br.form["outboundDateString"] = departDate.strftime("%m/%d/%Y")
-								# br.find_control(id="outboundTimeOfDay",name="outboundTimeOfDay").value = ['NOON_TO_6PM']
-								br.form["returnDateString"] = returnDate.strftime("%m/%d/%Y")
-								br.find_control(id="roundTrip",name="twoWayTrip").value = ['true']
-								br.find_control(name="fareType").value = ['POINTS']
-								results = br.submit()
-								resultsContent = results.read()
-								# with open(resultsFile, "w") as f:
-								#     f.write(resultsContent)
-							except:
-								logF = open(logFile, "a")
-								logMessage = "%s ERROR: Unable to search flights via %s [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),flightUrl,departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d"),returnDate.strftime("%Y-%m-%d"))
-								logF.write(logMessage)
-								logF.close()
-								sys.exit(1)
+					inProgressFlightSearch = []
+					inProgressFlightSearch.append([departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d")])
+					for x in range(0,len(completedFlightSearch)):
+						if inProgressFlightSearch[0] == completedFlightSearch[x]:
+							flightSearchDone = True
+							break
+						else:
+							flightSearchDone = False
+					if not flightSearchDone:
+						#####################################################################
+						## Select one of the airports from routes served to cross check a 
+						## return flight
+						#####################################################################
+						sql = "SELECT COUNT(*) FROM AIRPORTS WHERE AIRPORT_CODE='%s' AND ROUTES_SERVED LIKE '%%%s%%'" % (arriveAirportCode,departAirportCode)
+						try:
+							cursor.execute(sql)
+							results = cursor.fetchone()
+							if results[0] > 0:
+								#####################################################################
+								## Initiate mechanize, set parameters in form, and submit form
+								#####################################################################
+								try:
+									br = mechanize.Browser()
+									br.set_handle_robots(False)
+									response = br.open(flightUrl)
+									responseContent = response.read()
+									# with open(responseFile, "w") as f:
+									#     f.write(responseContent)
+									br.select_form(name="buildItineraryForm")
+									br.find_control(name="originAirport").value = [departAirportCode]
+									br.find_control(name="destinationAirport").value = [arriveAirportCode]
+									br.form["outboundDateString"] = departDate.strftime("%m/%d/%Y")
+									# br.find_control(id="outboundTimeOfDay",name="outboundTimeOfDay").value = ['NOON_TO_6PM']
+									br.form["returnDateString"] = returnDate.strftime("%m/%d/%Y")
+									br.find_control(id="roundTrip",name="twoWayTrip").value = ['true']
+									br.find_control(name="fareType").value = ['POINTS']
+									results = br.submit()
+									resultsContent = results.read()
+									# with open(resultsFile, "w") as f:
+									#     f.write(resultsContent)
+								except:
+									logF = open(logFile, "a")
+									logMessage = "%s ERROR: Unable to search flights via %s [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),flightUrl,departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d"),returnDate.strftime("%Y-%m-%d"))
+									logF.write(logMessage)
+									logF.close()
+									return 1
 
-							#####################################################################
-							## Search results string for errors
-							#####################################################################
-							parser = MyHTMLParserErrors()
-							parser.feed(resultsContent)
-							if errorMessage:
-								endPos = errorMessage.rfind(".")
-								errorMessage = errorMessage[:endPos+1]
-								logF = open(logFile, "a")
-								logMessage = "%s ERROR: %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),errorMessage)
-								logF.write(logMessage)
-								logF.close()
-								errorMessage = ""
-							
-							#####################################################################
-							## Search results string for flights
-							#####################################################################
-							departDay = departDate.strftime("%A") # temp
-							departDate = departDate.strftime("%Y-%m-%d")
-							returnDate = returnDate.strftime("%Y-%m-%d")
-							parser = MyHTMLParser()
-							print "%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
-							for x in range(1,30):
-								inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"C\"")
-								if(inputPosBeg != -1):
-									inputPosEnd = resultsContent.find("</label>", inputPosBeg)
-									outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
-									parser.feed(outboundFlightResult)
-									fareType="Wanna Get Away"
-								else:
-									inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"B\"")
+								#####################################################################
+								## Search results string for errors
+								#####################################################################
+								parser = MyHTMLParserErrors()
+								parser.feed(resultsContent)
+								if errorMessage:
+									endPos = errorMessage.rfind(".")
+									errorMessage = errorMessage[:endPos+1]
+									logF = open(logFile, "a")
+									logMessage = "%s ERROR: %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),errorMessage)
+									logF.write(logMessage)
+									logF.close()
+									errorMessage = ""
+								
+								#####################################################################
+								## Search results string for flights
+								#####################################################################
+								departDay = departDate.strftime("%A") # temp
+								departDate = departDate.strftime("%Y-%m-%d")
+								returnDate = returnDate.strftime("%Y-%m-%d")
+								parser = MyHTMLParser()
+								# print "%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
+								for x in range(1,30):
+									inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"C\"")
 									if(inputPosBeg != -1):
 										inputPosEnd = resultsContent.find("</label>", inputPosBeg)
 										outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
 										parser.feed(outboundFlightResult)
-										fareType="Anytime"
+										fareType="Wanna Get Away"
 									else:
-										inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"A\"")
+										inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"B\"")
 										if(inputPosBeg != -1):
 											inputPosEnd = resultsContent.find("</label>", inputPosBeg)
 											outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
 											parser.feed(outboundFlightResult)
-											fareType="Business Select"
+											fareType="Anytime"
 										else:
-											fareType = False
-								if fareType:
-									print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
-									sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
-									try:
-										cursor.execute(sql)
-										results = cursor.fetchone()
-										if results[0] > 0:
-											if results[1] != int(farePriceDollars) or results[2] != int(farePricePoints):
-												sql = "UPDATE UPCOMING_FLIGHTS SET FARE_PRICE_DOLLARS='%s',FARE_PRICE_POINTS='%s',FARE_TYPE='%s',UPDATE_TIMESTAMP='%s' WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+											inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"A\"")
+											if(inputPosBeg != -1):
+												inputPosEnd = resultsContent.find("</label>", inputPosBeg)
+												outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
+												parser.feed(outboundFlightResult)
+												fareType="Business Select"
+											else:
+												fareType = False
+									if fareType:
+										# print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
+										sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+										try:
+											cursor.execute(sql)
+											results = cursor.fetchone()
+											if results[0] > 0:
+												if results[1] != int(farePriceDollars) or results[2] != int(farePricePoints):
+													sql = "UPDATE UPCOMING_FLIGHTS SET FARE_PRICE_DOLLARS='%s',FARE_PRICE_POINTS='%s',FARE_TYPE='%s',UPDATE_TIMESTAMP='%s' WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+													try:
+														cursor.execute(sql)
+														db.commit()
+													except:
+														db.rollback()
+														logF = open(logFile, "a")
+														logMessage = "%s ERROR: Unable to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
+														logF.write(logMessage)
+														logF.close()
+											else:
+												sql = "INSERT INTO UPCOMING_FLIGHTS (DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE_TIME,ARRIVE_DATE_TIME,FLIGHT_NUM,FLIGHT_ROUTE,FARE_PRICE_DOLLARS,FARE_PRICE_POINTS,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s %s','%s %s','%s','%s','%s','%s','%s','%s')" % (departAirportCode,arriveAirportCode,departDate,departTime,departDate,arriveTime,flightNum,flightRoute,farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"))
 												try:
 													cursor.execute(sql)
 													db.commit()
 												except:
 													db.rollback()
 													logF = open(logFile, "a")
-													logMessage = "%s ERROR: Unable to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
+													logMessage = "%s ERROR: Unable to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
 													logF.write(logMessage)
 													logF.close()
-										else:
-											sql = "INSERT INTO UPCOMING_FLIGHTS (DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE_TIME,ARRIVE_DATE_TIME,FLIGHT_NUM,FLIGHT_ROUTE,FARE_PRICE_DOLLARS,FARE_PRICE_POINTS,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s %s','%s %s','%s','%s','%s','%s','%s','%s')" % (departAirportCode,arriveAirportCode,departDate,departTime,departDate,arriveTime,flightNum,flightRoute,farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"))
-											try:
-												cursor.execute(sql)
-												db.commit()
-											except:
-												db.rollback()
-												logF = open(logFile, "a")
-												logMessage = "%s ERROR: Unable to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
-												logF.write(logMessage)
-												logF.close()
-									except:
-										logF = open(logFile, "a")
-										logMessage = "%s ERROR: Unable to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
-										logF.write(logMessage)
-										logF.close()
-							completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
-							print ""
-							
-							departDate = returnDate
-							temp = departAirportCode
-							departAirportCode = arriveAirportCode
-							arriveAirportCode = temp
-							departDate = datetime.datetime.strptime(departDate, "%Y-%m-%d") # temp
-							departDay = departDate.strftime("%A") # temp
-							departDate = departDate.strftime("%Y-%m-%d") # temp
-							print "%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
-							for x in range(1,30):
-								inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"C\"")
-								if(inputPosBeg != -1):
-									inputPosEnd = resultsContent.find("</label>", inputPosBeg)
-									outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
-									parser.feed(outboundFlightResult)
-									fareType="Wanna Get Away"
-								else:
-									inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"B\"")
+										except:
+											logF = open(logFile, "a")
+											logMessage = "%s ERROR: Unable to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+											logF.write(logMessage)
+											logF.close()
+								completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
+								# print ""
+								
+								departDate = returnDate
+								temp = departAirportCode
+								departAirportCode = arriveAirportCode
+								arriveAirportCode = temp
+								departDate = datetime.datetime.strptime(departDate, "%Y-%m-%d") # temp
+								departDay = departDate.strftime("%A") # temp
+								departDate = departDate.strftime("%Y-%m-%d") # temp
+								# print "%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
+								for x in range(1,30):
+									inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"C\"")
 									if(inputPosBeg != -1):
 										inputPosEnd = resultsContent.find("</label>", inputPosBeg)
 										outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
 										parser.feed(outboundFlightResult)
-										fareType="Anytime"
+										fareType="Wanna Get Away"
 									else:
-										inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"A\"")
+										inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"B\"")
 										if(inputPosBeg != -1):
 											inputPosEnd = resultsContent.find("</label>", inputPosBeg)
 											outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
 											parser.feed(outboundFlightResult)
-											fareType="Business Select"
+											fareType="Anytime"
 										else:
-											fareType = False
-								if fareType:
-									print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
-									sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
-									try:
-										cursor.execute(sql)
-										results = cursor.fetchone()
-										if results[0] > 0:
-											if results[1] != int(farePriceDollars) or results[2] != int(farePricePoints):
-												sql = "UPDATE UPCOMING_FLIGHTS SET FARE_PRICE_DOLLARS='%s',FARE_PRICE_POINTS='%s',FARE_TYPE='%s',UPDATE_TIMESTAMP='%s' WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+											inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"A\"")
+											if(inputPosBeg != -1):
+												inputPosEnd = resultsContent.find("</label>", inputPosBeg)
+												outboundFlightResult = resultsContent[(inputPosBeg):(inputPosEnd+8)]
+												parser.feed(outboundFlightResult)
+												fareType="Business Select"
+											else:
+												fareType = False
+									if fareType:
+										# print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
+										sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+										try:
+											cursor.execute(sql)
+											results = cursor.fetchone()
+											if results[0] > 0:
+												if results[1] != int(farePriceDollars) or results[2] != int(farePricePoints):
+													sql = "UPDATE UPCOMING_FLIGHTS SET FARE_PRICE_DOLLARS='%s',FARE_PRICE_POINTS='%s',FARE_TYPE='%s',UPDATE_TIMESTAMP='%s' WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+													try:
+														cursor.execute(sql)
+														db.commit()
+													except:
+														db.rollback()
+														logF = open(logFile, "a")
+														logMessage = "%s ERROR: Unable to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
+														logF.write(logMessage)
+														logF.close()
+											else:
+												sql = "INSERT INTO UPCOMING_FLIGHTS (DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE_TIME,ARRIVE_DATE_TIME,FLIGHT_NUM,FLIGHT_ROUTE,FARE_PRICE_DOLLARS,FARE_PRICE_POINTS,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s %s','%s %s','%s','%s','%s','%s','%s','%s')" % (departAirportCode,arriveAirportCode,departDate,departTime,departDate,arriveTime,flightNum,flightRoute,farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"))
 												try:
 													cursor.execute(sql)
 													db.commit()
 												except:
 													db.rollback()
 													logF = open(logFile, "a")
-													logMessage = "%s ERROR: Unable to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
+													logMessage = "%s ERROR: Unable to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
 													logF.write(logMessage)
 													logF.close()
-										else:
-											sql = "INSERT INTO UPCOMING_FLIGHTS (DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE_TIME,ARRIVE_DATE_TIME,FLIGHT_NUM,FLIGHT_ROUTE,FARE_PRICE_DOLLARS,FARE_PRICE_POINTS,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s %s','%s %s','%s','%s','%s','%s','%s','%s')" % (departAirportCode,arriveAirportCode,departDate,departTime,departDate,arriveTime,flightNum,flightRoute,farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"))
-											try:
-												cursor.execute(sql)
-												db.commit()
-											except:
-												db.rollback()
-												logF = open(logFile, "a")
-												logMessage = "%s ERROR: Unable to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
-												logF.write(logMessage)
-												logF.close()
-									except:
-										logF = open(logFile, "a")
-										logMessage = "%s ERROR: Unable to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
-										logF.write(logMessage)
-										logF.close()
-							completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
-							print ""
-					except:
-						logF = open(logFile, "a")
-						logMessage = "%s ERROR: Unable to search return route [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,returnDate)
-						logF.write(logMessage)
-						logF.close()
-						sys.exit(1)
-	except:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to retrieve airport routes\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-		logF.write(logMessage)
-		logF.close()
-		db.close()
-		sys.exit(1)
+										except:
+											logF = open(logFile, "a")
+											logMessage = "%s ERROR: Unable to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+											logF.write(logMessage)
+											logF.close()
+								completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
+								# print ""
+						except:
+							logF = open(logFile, "a")
+							logMessage = "%s ERROR: Unable to search return route [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,returnDate)
+							logF.write(logMessage)
+							logF.close()
+							return 1
+		except:
+			logF = open(logFile, "a")
+			logMessage = "%s ERROR: Unable to retrieve airport routes\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
+			logF.write(logMessage)
+			logF.close()
+			db.close()
+			return 1
 
-db.close()
+	db.close()
+	return 0
+
+main()
