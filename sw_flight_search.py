@@ -99,6 +99,7 @@ pointsFlag = False
 errorFlag = False
 errorMessageFlag = False
 errorMessage = ""
+debugFlag = True
 
 def main():
 	global responseFile
@@ -126,7 +127,8 @@ def main():
 	global errorFlag
 	global errorMessageFlag
 	global errorMessage
-	
+	global debugFlag
+
 	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	cursor = db.cursor()
 
@@ -232,13 +234,14 @@ def main():
 									errorMessage = ""
 								
 								#####################################################################
-								## Search results string for flights
+								## Search results string for departing flights
 								#####################################################################
 								departDay = departDate.strftime("%A") # temp
 								departDate = departDate.strftime("%Y-%m-%d")
 								returnDate = returnDate.strftime("%Y-%m-%d")
 								parser = MyHTMLParser()
-								# print "%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
+								if debugFlag:
+									print "\n%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
 								for x in range(1,30):
 									inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"C\"")
 									if(inputPosBeg != -1):
@@ -263,7 +266,8 @@ def main():
 											else:
 												fareType = False
 									if fareType:
-										# print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
+										if debugFlag:
+											print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
 										sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
 										try:
 											cursor.execute(sql)
@@ -297,8 +301,10 @@ def main():
 											logF.write(logMessage)
 											logF.close()
 								completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
-								# print ""
 								
+								#####################################################################
+								## Search results string for return flights
+								#####################################################################
 								departDate = returnDate
 								temp = departAirportCode
 								departAirportCode = arriveAirportCode
@@ -306,7 +312,8 @@ def main():
 								departDate = datetime.datetime.strptime(departDate, "%Y-%m-%d") # temp
 								departDay = departDate.strftime("%A") # temp
 								departDate = departDate.strftime("%Y-%m-%d") # temp
-								# print "%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
+								if debugFlag:
+									print "\n%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
 								for x in range(1,30):
 									inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"C\"")
 									if(inputPosBeg != -1):
@@ -331,7 +338,8 @@ def main():
 											else:
 												fareType = False
 									if fareType:
-										# print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
+										if debugFlag:
+											print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
 										sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
 										try:
 											cursor.execute(sql)
@@ -365,7 +373,6 @@ def main():
 											logF.write(logMessage)
 											logF.close()
 								completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
-								# print ""
 						except:
 							logF = open(logFile, "a")
 							logMessage = "%s ERROR: Unable to search return route [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,returnDate)
