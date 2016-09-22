@@ -14,15 +14,22 @@ import mechanize
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
-from sw_logger import LOG_INFO
+from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
 
 # https://www.southwest.com/flight/request-schedule.html
 # https://www.southwest.com/html/air/airport-information.html
 # https://www.southwest.com/flight/routemap_dyn.html
 
-global errorFlag
-global errorMessageFlag
-global errorMessage
+errorFlag = False
+errorMessageFlag = False
+errorMessage = ""
+timestamp = int(time.time())
+airportCode = ""
+airportCity = ""
+airportName = ""
+airportTimezone = ""
+airportLatitude = 0
+airportLongitude = 0
 
 class MyHTMLParserErrors(HTMLParser):
 	def handle_starttag(self, tag, attrs):
@@ -47,22 +54,11 @@ class MyHTMLParserErrors(HTMLParser):
 		if errorFlag and errorMessageFlag:
 			errorMessage = errorMessage+data
 
-errorFlag = False
-errorMessageFlag = False
-errorMessage = ""
-timestamp = int(time.time())
-airportCode = ""
-airportCity = ""
-airportName = ""
-airportTimezone = ""
-airportLatitude = 0
-airportLongitude = 0
-
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
-cwd = os.getcwd()
-resultsFile = cwd+"/routemap_dyn.html"
+cwd = os.path.dirname(os.path.realpath(__file__))
+resultsFile = cwd+"/../docs/routemap_dyn.html"
 routeMapUrl = "https://www.southwest.com/flight/routemap_dyn.html"
 apiKey1 = "AIzaSyAKjyfvOmXQfzJ0RPdbtNPL5fnzV4njekI"
 apiKey2 = "AIzaSyBUJlKSKL0gfyW8xujV6_LXi30C3EK_ov0"
@@ -77,14 +73,9 @@ try:
 	results = br.open(routeMapUrl)
 	resultsContent = results.read()
 except:
-	LOG_ERROR(os.path.basename(__file__),"Succesful")
-	logF = open(logFile, "a")
-	logMessage = "%s ERROR: Unable to retrieve flight routes\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-	logF.write(logMessage)
-	logF.close()
+	LOG_ERROR(os.path.basename(__file__),"Failed to retrieve flight routes")
 	sys.exit(1)
 
-LOG_INFO(os.path.basename(__file__),"Succesful")
 #####################################################################
 ## Search results string for errors
 #####################################################################
@@ -94,11 +85,6 @@ if errorMessage:
 	endPos = errorMessage.rfind(".")
 	errorMessage = errorMessage[:endPos+1]
 	LOG_ERROR(os.path.basename(__file__),errorMessage)
-	logF = open(logFile, "a")
-	logMessage = "%s ERROR: %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),errorMessage)
-	print logMessage
-	logF.write(logMessage)
-	logF.close()
 	sys.exit(1)
 else:
 	with open(resultsFile, "w") as f:
@@ -132,10 +118,7 @@ if(pos1 != -1):
 								db.commit()
 							except:
 								db.rollback()
-								logF = open(logFile, "a")
-								logMessage = "%s ERROR: Unable to update routesServed [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-								logF.write(logMessage)
-								logF.close()
+								LOG_ERROR(os.path.basename(__file__),"Failed to update routesServed [airportCode:%s]" % (airportCode))
 						elif results[0] == 0:
 							sql = "INSERT INTO AIRPORTS (AIRPORT_CODE,ROUTES_SERVED,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s')" % (airportCode,routesServed,time.strftime("%Y-%m-%d %H:%M:%S"))
 							try:
@@ -143,24 +126,14 @@ if(pos1 != -1):
 								db.commit()
 							except:
 								db.rollback()
-								logF = open(logFile, "a")
-								logMessage = "%s ERROR: Unable to insert airport [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-								logF.write(logMessage)
-								logF.close()
+								LOG_ERROR(os.path.basename(__file__),"Failed to insert airport [airportCode:%s]" % (airportCode))
 					except:
-						logF = open(logFile, "a")
-						logMessage = "%s ERROR: Unable to check airports - routesServed [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-						logF.write(logMessage)
-						logF.close()
+						LOG_ERROR(os.path.basename(__file__),"Failed to check airports - routesServed [airportCode:%s]" % (airportCode))
 else:
-	logF = open(logFile, "a")
-	logMessage = "%s ERROR: Could not locate 'routes' JSON\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-	logF.write(logMessage)
-	logF.close()
+	LOG_ERROR(os.path.basename(__file__),"Failed to locate 'routes' JSON")
 
 # https://www.southwest.com/html/air/airport-information.html
 # Get airport name
-
 pos1 = resultsContent.find("var stations_info")
 if(pos1 != -1):
 	pos2 = resultsContent.find("{", pos1)
@@ -214,14 +187,11 @@ if(pos1 != -1):
 													elif "long_name" == key5 or "short_name" == key5:
 														airportName = value5
 							except:
-								logF = open(logFile, "a")
-								logMessage = "%s ERROR: Unable to retrieve latitude/longitude [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-								logF.write(logMessage)
-								logF.close()
+								LOG_ERROR(os.path.basename(__file__),"Failed to retrieve latitude/longitude [airportCode:%s]" % airportCode)
 						else:
 							airportLatitude = results[3]
 							airportLongitude = results[4]
-						
+
 						if str(results[5]) == "None" and airportLatitude and airportLongitude:
 							try:
 								timezoneApiUrl = "https://maps.googleapis.com/maps/api/timezone/json?location=%s,%s&timestamp=%s&key=%s" % (airportLatitude,airportLongitude,timestamp,apiKey1)
@@ -232,10 +202,7 @@ if(pos1 != -1):
 										airportTimezone = value
 										break
 							except:
-								logF = open(logFile, "a")
-								logMessage = "%s ERROR: Unable to retrieve timezone [airportCode:%s|apiResponse:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode,apiResponse)
-								logF.write(logMessage)
-								logF.close()
+								LOG_ERROR(os.path.basename(__file__),"Failed to retrieve timezone [airportCode:%s|apiResponse:%s]" % airportCode,apiResponse)
 
 						if airportName and airportLatitude and airportLongitude and airportTimezone:
 							sql = "UPDATE AIRPORTS SET AIRPORT_CITY='%s',AIRPORT_NAME='%s',AIRPORT_LATITUDE='%s',AIRPORT_LONGITUDE='%s',AIRPORT_TIMEZONE='%s',UPDATE_TIMESTAMP='%s' WHERE AIRPORT_CODE='%s'" % (airportCity,airportName,airportLatitude,airportLongitude,airportTimezone,time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
@@ -252,20 +219,11 @@ if(pos1 != -1):
 							db.commit()
 						except:
 							db.rollback()
-							logF = open(logFile, "a")
-							logMessage = "%s ERROR: Unable to update airport info [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-							logF.write(logMessage)
-							logF.close()
+							LOG_ERROR(os.path.basename(__file__),"Failed to update airport info [airportCode:%s]" % airportCode)
 				except:
-					logF = open(logFile, "a")
-					logMessage = "%s ERROR: Unable to check airports [airportCode:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),airportCode)
-					logF.write(logMessage)
-					logF.close()
+					LOG_ERROR(os.path.basename(__file__),"Failed to check airports [airportCode:%s]" % airportCode)
 else:
-	logF = open(logFile, "a")
-	logMessage = "%s ERROR: Could not locate 'stations_info' JSON\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-	logF.write(logMessage)
-	logF.close()
+	LOG_ERROR(os.path.basename(__file__),"Failed to locate 'stations_info' JSON")
 
 # sql = "SELECT AIRPORT_CODE,AIRPORT_CITY,AIRPORT_NAME,AIRPORT_LATITUDE,AIRPORT_LONGITUDE,AIRPORT_TIMEZONE,ROUTES_SERVED FROM AIRPORTS ORDER BY AIRPORT_CITY ASC"
 # cursor.execute(sql)
@@ -274,3 +232,5 @@ else:
 # 	print "('%s','%s','%s','%s','%s','%s','%s','%s')," % (row[0],row[1],row[2],row[3],row[4],row[5],row[6],(time.strftime("%Y-%m-%d %H:%M:%S")))
 
 db.close()
+
+LOG_INFO(os.path.basename(__file__),"Success!")

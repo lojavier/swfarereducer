@@ -13,6 +13,26 @@ from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
+from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
+
+#####################################################################
+## Setup global variables
+#####################################################################
+temp = ""
+departTag = "depart"
+departTime = "12:00AM"
+arriveTag = "arrive"
+arriveTime = "12:00AM"
+flightRoute = ""
+flightNum = "0"
+fareType = ""
+farePriceDollars = "0"
+farePricePoints = "0"
+pointsFlag = False
+errorFlag = False
+errorMessageFlag = False
+errorMessage = ""
+debugFlag = True
 
 class MyHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
@@ -76,31 +96,14 @@ class MyHTMLParserErrors(HTMLParser):
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
-cwd = os.getcwd()
-responseFile = cwd+"/logs/sw_flight_response.html"
-resultsFile = cwd+"/logs/sw_flight_results.html"
-logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_search.log"
+cwd = os.path.dirname(os.path.realpath(__file__))
+responseFile = cwd+"/../docs/sw_flight_response.html"
+resultsFile = cwd+"/../docs/sw_flight_results.html"
 flightUrl = "https://www.southwest.com/flight/"
 
-#####################################################################
-## Setup global variables
-#####################################################################
-temp = ""
-departTag = "depart"
-departTime = "12:00AM"
-arriveTag = "arrive"
-arriveTime = "12:00AM"
-flightRoute = ""
-flightNum = "0"
-fareType = ""
-farePriceDollars = "0"
-farePricePoints = "0"
-pointsFlag = False
-errorFlag = False
-errorMessageFlag = False
-errorMessage = ""
-debugFlag = True
-
+###########
+## main
+###########
 def main():
 	global responseFile
 	global resultsFile
@@ -213,10 +216,7 @@ def main():
 									# with open(resultsFile, "w") as f:
 									#     f.write(resultsContent)
 								except:
-									logF = open(logFile, "a")
-									logMessage = "%s ERROR: Unable to search flights via %s [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),flightUrl,departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d"),returnDate.strftime("%Y-%m-%d"))
-									logF.write(logMessage)
-									logF.close()
+									LOG_ERROR(os.path.basename(__file__),"Failed to search flights via %s [depart:%s|arrive:%s|date:%s|return:%s]" % flightUrl,departAirportCode,arriveAirportCode,departDate.strftime("%Y-%m-%d"),returnDate.strftime("%Y-%m-%d"))
 									return 1
 
 								#####################################################################
@@ -227,10 +227,7 @@ def main():
 								if errorMessage:
 									endPos = errorMessage.rfind(".")
 									errorMessage = errorMessage[:endPos+1]
-									logF = open(logFile, "a")
-									logMessage = "%s ERROR: %s\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),errorMessage)
-									logF.write(logMessage)
-									logF.close()
+									LOG_ERROR(os.path.basename(__file__),errorMessage)
 									errorMessage = ""
 								
 								#####################################################################
@@ -280,10 +277,7 @@ def main():
 														db.commit()
 													except:
 														db.rollback()
-														logF = open(logFile, "a")
-														logMessage = "%s ERROR: Unable to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
-														logF.write(logMessage)
-														logF.close()
+														LOG_ERROR(os.path.basename(__file__),"Failed to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]" % departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
 											else:
 												sql = "INSERT INTO UPCOMING_FLIGHTS (DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE_TIME,ARRIVE_DATE_TIME,FLIGHT_NUM,FLIGHT_ROUTE,FARE_PRICE_DOLLARS,FARE_PRICE_POINTS,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s %s','%s %s','%s','%s','%s','%s','%s','%s')" % (departAirportCode,arriveAirportCode,departDate,departTime,departDate,arriveTime,flightNum,flightRoute,farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"))
 												try:
@@ -291,15 +285,10 @@ def main():
 													db.commit()
 												except:
 													db.rollback()
-													logF = open(logFile, "a")
-													logMessage = "%s ERROR: Unable to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
-													logF.write(logMessage)
-													logF.close()
+													LOG_ERROR(os.path.basename(__file__),"Failed to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]" % departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
 										except:
-											logF = open(logFile, "a")
-											logMessage = "%s ERROR: Unable to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
-											logF.write(logMessage)
-											logF.close()
+											LOG_ERROR(os.path.basename(__file__),"Failed to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]" % departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
+
 								completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
 								
 								#####################################################################
@@ -338,8 +327,7 @@ def main():
 											else:
 												fareType = False
 									if fareType:
-										if debugFlag:
-											print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
+										LOG_DEBUG(os.path.basename(__file__),"$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType))
 										sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
 										try:
 											cursor.execute(sql)
@@ -352,10 +340,7 @@ def main():
 														db.commit()
 													except:
 														db.rollback()
-														logF = open(logFile, "a")
-														logMessage = "%s ERROR: Unable to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
-														logF.write(logMessage)
-														logF.close()
+														LOG_ERROR(os.path.basename(__file__),"Failed to update price [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]" % departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
 											else:
 												sql = "INSERT INTO UPCOMING_FLIGHTS (DEPART_AIRPORT_CODE,ARRIVE_AIRPORT_CODE,DEPART_DATE_TIME,ARRIVE_DATE_TIME,FLIGHT_NUM,FLIGHT_ROUTE,FARE_PRICE_DOLLARS,FARE_PRICE_POINTS,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s %s','%s %s','%s','%s','%s','%s','%s','%s')" % (departAirportCode,arriveAirportCode,departDate,departTime,departDate,arriveTime,flightNum,flightRoute,farePriceDollars,farePricePoints,fareType,time.strftime("%Y-%m-%d %H:%M:%S"))
 												try:
@@ -363,27 +348,15 @@ def main():
 													db.commit()
 												except:
 													db.rollback()
-													logF = open(logFile, "a")
-													logMessage = "%s ERROR: Unable to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints)
-													logF.write(logMessage)
-													logF.close()
+													LOG_ERROR(os.path.basename(__file__),"Failed to insert flight [depart:%s|arrive:%s|date:%s %s|flight:%s|dollars:%s|points:%s]" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum,farePriceDollars,farePricePoints))
 										except:
-											logF = open(logFile, "a")
-											logMessage = "%s ERROR: Unable to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
-											logF.write(logMessage)
-											logF.close()
+											LOG_ERROR(os.path.basename(__file__),"Failed to check flight [depart:%s|arrive:%s|date:%s %s|flight:%s]" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum))
 								completedFlightSearch.append([departAirportCode,arriveAirportCode,departDate])
 						except:
-							logF = open(logFile, "a")
-							logMessage = "%s ERROR: Unable to search return route [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,returnDate)
-							logF.write(logMessage)
-							logF.close()
+							LOG_ERROR(os.path.basename(__file__),"Failed to search return route [depart:%s|arrive:%s|date:%s|return:%s]" % (departAirportCode,arriveAirportCode,departDate,returnDate))
 							return 1
 		except:
-			logF = open(logFile, "a")
-			logMessage = "%s ERROR: Unable to retrieve airport routes\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-			logF.write(logMessage)
-			logF.close()
+			LOG_ERROR(os.path.basename(__file__),"Failed to retrieve airport routes")
 			db.close()
 			return 1
 

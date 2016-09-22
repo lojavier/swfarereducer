@@ -4,21 +4,21 @@ import sys
 import time
 import datetime
 
-debug=0
+debug=True
 datetime=""
-cwd = os.getcwd()
-logFile = cwd+"/logs/sys.log"
+cwd = os.path.dirname(os.path.realpath(__file__))
+logFile = cwd+"/../logs/sys.log"
 
 def LOG_INFO(name,msg):
 	global debug
 	global logFile
 	global datetime
 	get_datetime()
-	message = "%s info %s: %s\n" % (datetime,name,msg)
+	message = "%s info %s: %s" % (datetime,name,msg)
 	file = open(logFile, "a")
-	file.write(message)
+	file.write(message+"\n")
 	file.close()
-	if(debug == 1):
+	if(debug == True):
 		print message
 	return 0
 
@@ -27,11 +27,11 @@ def LOG_WARNING(name,msg):
 	global logFile
 	global datetime
 	get_datetime()
-	message = "%s warning %s: %s\n" % (datetime,name,msg)
+	message = "%s warning %s: %s" % (datetime,name,msg)
 	file = open(logFile, "a")
-	file.write(message)
+	file.write(message+"\n")
 	file.close()
-	if(debug == 1):
+	if(debug == True):
 		print message
 	return 0
 
@@ -40,11 +40,11 @@ def LOG_ERROR(name,msg):
 	global logFile
 	global datetime
 	get_datetime()
-	message = "%s error %s: %s\n" % (datetime,name,msg)
+	message = "%s error %s: %s" % (datetime,name,msg)
 	file = open(logFile, "a")
-	file.write(message)
+	file.write(message+"\n")
 	file.close()
-	if(debug == 1):
+	if(debug == True):
 		print message
 	return 0
 
@@ -52,11 +52,11 @@ def LOG_DEBUG(name,msg):
 	global debug
 	global logFile
 	global datetime
-	if(debug == 1):
+	if(debug == True):
 		get_datetime()
-		message = "%s debug %s: %s\n" % (datetime,name,msg)
+		message = "%s debug %s: %s" % (datetime,name,msg)
 		file = open(logFile, "a")
-		file.write(message)
+		file.write(message+"\n")
 		file.close()
 		print message
 	return 0
