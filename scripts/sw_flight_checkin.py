@@ -13,6 +13,7 @@ from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
+from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
 
 #####################################################################
 ## Send checkin alert
@@ -28,7 +29,6 @@ def sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriv
 		EMAIL_SPACE = ", "
 		EMAIL_SUBJECT = "FLIGHT CHECKIN ALERT!"
 		DATA = "[CONF#%s] [%s->%s] [%s] [FLIGHT#%s] southwest.com/flight/retrieveCheckinDoc.html" % (confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
-	
 		msg = MIMEText(DATA)
 		msg['Subject'] = EMAIL_SUBJECT
 		msg['To'] = EMAIL_SPACE.join(EMAIL_TO)
@@ -46,12 +46,6 @@ checkinAlertMinutes = 30
 utc_datetime = datetime.datetime.utcnow()
 currentUtcDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
 checkinAlertDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24,minutes=checkinAlertMinutes)
-
-#####################################################################
-## Set directory path and file name for response & results html file
-#####################################################################
-cwd = os.getcwd()
-logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_checkin.log"
 
 def main():
 	#####################################################################
@@ -85,10 +79,7 @@ def main():
 					db.commit()
 				except:
 					db.rollback()
-					logF = open(logFile, "a")
-					logMessage = "%s ERROR: Unable to delete reserved flight [id:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-					logF.write(logMessage)
-					logF.close()
+					LOG_ERROR(os.path.basename(__file__),"Failed to delete reserved flight [id:%s]" % (reservedFlightId))
 		if str(results[1]) != "None":
 			upcomingFlightIdArray = results[1].split(',')
 			for upcomingFlightId in upcomingFlightIdArray:
@@ -98,15 +89,9 @@ def main():
 					db.commit()
 				except:
 					db.rollback()
-					logF = open(logFile, "a")
-					logMessage = "%s ERROR: Unable to delete past flight [id:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),upcomingFlightId)
-					logF.write(logMessage)
-					logF.close()
+					LOG_ERROR(os.path.basename(__file__),"Failed to delete past flight [id:%s]" % (upcomingFlightId))
 	except:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to select past flights to delete\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"Failed to select past flights to delete")
 		db.close()
 		return 1
 
@@ -155,20 +140,11 @@ def main():
 					db.commit()
 				except:
 					db.rollback()
-					logF = open(logFile, "a")
-					logMessage = "%s ERROR: Unable to update checkin alert flag [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-					logF.write(logMessage)
-					logF.close()
+					LOG_ERROR(os.path.basename(__file__),"Failed to update checkin alert flag [reservedFlightId:%s]" % (reservedFlightId))
 			else:
-				logF = open(logFile, "a")
-				logMessage = "%s ERROR: Unable to send checkin alert [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-				logF.write(logMessage)
-				logF.close()
+				LOG_ERROR(os.path.basename(__file__),"Failed to send checkin alert [reservedFlightId:%s]" % (reservedFlightId))
 	except:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to select reserved flights for checkin\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"Failed to select reserved flights for checkin")
 		db.close()
 		return 1
 

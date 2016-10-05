@@ -13,6 +13,7 @@ from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
+from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
 
 class MyHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
@@ -243,11 +244,11 @@ errorMessage = ""
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
-cwd = os.getcwd()
-responseFile = cwd+"/logs/lookup-air-reservation.html"
-resultsFile = cwd+"/logs/view-air-reservation.html"
-logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_flight_validator.log"
+cwd = os.path.dirname(os.path.realpath(__file__))
+responseFile = cwd+"/../docs/lookup-air-reservation.html"
+resultsFile = cwd+"/../docs/view-air-reservation.html"
 reservationUrl = "https://www.southwest.com/flight/lookup-air-reservation.html"
+# https://www.southwest.com/flight/retrieveCheckinDoc.html
 
 def main():
 	global errorMessage
@@ -289,10 +290,7 @@ def main():
 			db.close()
 			return 0
 	except:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to check reserved flights [confirmationNum:%s|firstName:%s|lastName:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName)
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"Failed to check reserved flights [confirmationNum:%s|firstName:%s|lastName:%s]" % (confirmationNum,firstName,lastName))
 		db.close()
 		return 1
 
@@ -306,8 +304,8 @@ def main():
 		br.set_handle_refresh(False)
 		response = br.open(reservationUrl)
 		responseContent = response.read()
-		# with open(responseFile, "w") as f:
-		#     f.write(responseContent)
+		with open(responseFile, "w") as f:
+		    f.write(responseContent)
 		# br.select_form(predicate=lambda f: f.attrs.get('id', None) == 'pnrFriendlyLookup_check_form')
 		formcount=0
 		for form in br.forms():
@@ -315,19 +313,16 @@ def main():
 				break
 			formcount=formcount+1
 		br.select_form(nr=formcount)
-		br.find_control(id="pnrFriendlyLookup_option_confirmationNumber",name="searchType").value = ['ConfirmationNumber']
+		# br.find_control(id="pnrFriendlyLookup_option_confirmationNumber",name="searchType").value = ['ConfirmationNumber']
 		br.find_control(name="confirmationNumberFirstName").value = firstName
 		br.find_control(name="confirmationNumberLastName").value = lastName
 		br.find_control(name="confirmationNumber").value = confirmationNum
 		results = br.submit()
 		resultsContent = results.read()
-		# with open(resultsFile, "w") as f:
-		# 	f.write(resultsContent)
+		with open(resultsFile, "w") as f:
+			f.write(resultsContent)
 	except:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to lookup reservation via %s [firstName:%s|lastName:%s|confirmationNum:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservationUrl,firstName,lastName,confirmationNum)
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"Failed to lookup reservation via %s [firstName:%s|lastName:%s|confirmationNum:%s]" % (reservationUrl,firstName,lastName,confirmationNum))
 		db.close()
 		return 1
 
@@ -339,10 +334,7 @@ def main():
 	if errorMessage:
 		endPos = errorMessage.rfind(".")
 		errorMessage = errorMessage[:endPos+1]
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: %s [firstName:%s|lastName:%s|confirmationNum:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),errorMessage,firstName,lastName,confirmationNum)
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"%s [firstName:%s|lastName:%s|confirmationNum:%s]" % (errorMessage,firstName,lastName,confirmationNum))
 		errorMessage = ""
 		db.close()
 		return 1
@@ -351,75 +343,63 @@ def main():
 	parser.feed(resultsContent)
 
 	if departCity1 and departCity2:
-		flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode1,arriveAirportCode1,departDate1,departDate2)
+		flightSearch = "python %s/sw_flight_search.py %s %s %s %s" % (cwd,departAirportCode1,arriveAirportCode1,departDate1,departDate2)
 		os.system(flightSearch)
-
+		#############################################
 		# First flight
+		#############################################
 		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
 		try:
 			cursor.execute(sql)
 			upcomingFlightID = cursor.fetchone()[0]
 		except:
-			logF = open(logFile, "a")
-			logMessage = "%s ERROR: Unable to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
-			logF.write(logMessage)
-			logF.close()
+			LOG_ERROR(os.path.basename(__file__),"Failed to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1))
 			db.close()
 			return 1
 
-		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1,time.strftime("%Y-%m-%d %H:%M:%S"))
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
 			cursor.execute(sql)
 			db.commit()
 		except:
 			db.rollback()
-			logF = open(logFile, "a")
-			logMessage = "%s ERROR: Unable to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
-			logF.write(logMessage)
-			logF.close()
+			LOG_ERROR(os.path.basename(__file__),"Failed to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1))
 			db.close()
 			return 1
-
+		##################################################
 		# Second flight
+		##################################################
 		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode2,arriveAirportCode2,departDate2,departTime2,flightNum2)
 		try:
 			cursor.execute(sql)
 			upcomingFlightID = cursor.fetchone()[0]
 		except:
-			logF = open(logFile, "a")
-			logMessage = "%s ERROR: Unable to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode2,arriveAirportCode2,departDate2,departTime2,flightNum2)
-			logF.write(logMessage)
-			logF.close()
+			LOG_ERROR(os.path.basename(__file__),"Failed to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]" % (departAirportCode2,arriveAirportCode2,departDate2,departTime2,flightNum2))
 			db.close()
 			return 1
 
-		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType2,time.strftime("%Y-%m-%d %H:%M:%S"))
+		sql = "INSERT INTO RESERVED_FLIGHTS (CONFIRMATION_NUM,FIRST_NAME,LAST_NAME,UPCOMING_FLIGHT_ID,FARE_TYPE,UPDATE_TIMESTAMP) VALUES ('%s','%s','%s','%s','%s','%s')" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType2,time.strftime("%Y-%m-%d %H:%M:%S"))
 		try:
 			cursor.execute(sql)
 			db.commit()
 		except:
 			db.rollback()
-			logF = open(logFile, "a")
-			logMessage = "%s ERROR: Unable to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName,upcomingFlightID,fareType2)
-			logF.write(logMessage)
-			logF.close()
+			LOG_ERROR(os.path.basename(__file__),"Failed to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType2))
 			db.close()
 			return 1
 
 	elif departCity1 and not departCity2:
-		flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode1,arriveAirportCode1,departDate1,departDate1)
+		flightSearch = "python %s/sw_flight_search.py %s %s %s %s" % (cwd,departAirportCode1,arriveAirportCode1,departDate1,departDate1)
 		os.system(flightSearch)
-
+		#########################################
 		# First flight
+		#########################################
 		sql = "SELECT UPCOMING_FLIGHT_ID FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
 		try:
 			cursor.execute(sql)
 			upcomingFlightID = cursor.fetchone()[0]
 		except:
-			logF = open(logFile, "a")
-			logMessage = "%s ERROR: Unable to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1)
-			logF.write(logMessage)
-			logF.close()
+			LOG_ERROR(os.path.basename(__file__),"Failed to check upcoming flights [depart:%s|arrive:%s|date/time:%s %s|flight:%s]" % (departAirportCode1,arriveAirportCode1,departDate1,departTime1,flightNum1))
 			db.close()
 			return 1
 
@@ -429,18 +409,12 @@ def main():
 			db.commit()
 		except:
 			db.rollback()
-			logF = open(logFile, "a")
-			logMessage = "%s ERROR: Unable to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),confirmationNum,firstName,lastName,upcomingFlightID,fareType1)
-			logF.write(logMessage)
-			logF.close()
+			LOG_ERROR(os.path.basename(__file__),"Failed to insert reserved flight [confirmationNum:%s|firstName:%s|lastName:%s|upcomingFlightID:%s|fareType:%s]" % (confirmationNum,firstName,lastName,upcomingFlightID,fareType1))
 			db.close()
 			return 1
 
 	elif not departCity2 and not departCity1:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: No flight information was found via %s [firstName:%s|lastName:%s|confirmationNum:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),resultsFile,firstName,lastName,confirmationNum)
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"No flight information was found via %s [firstName:%s|lastName:%s|confirmationNum:%s]" % (resultsFile,firstName,lastName,confirmationNum))
 		db.close()
 		return 1
 

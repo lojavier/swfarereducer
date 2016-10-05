@@ -19,7 +19,7 @@ def LOG_INFO(name,msg):
 	file.write(message+"\n")
 	file.close()
 	if(debug == True):
-		print message
+		print msg
 	return 0
 
 def LOG_WARNING(name,msg):
@@ -32,7 +32,7 @@ def LOG_WARNING(name,msg):
 	file.write(message+"\n")
 	file.close()
 	if(debug == True):
-		print message
+		print msg
 	return 0
 
 def LOG_ERROR(name,msg):
@@ -45,7 +45,7 @@ def LOG_ERROR(name,msg):
 	file.write(message+"\n")
 	file.close()
 	if(debug == True):
-		print message
+		print msg
 	return 0
 
 def LOG_DEBUG(name,msg):
@@ -58,7 +58,7 @@ def LOG_DEBUG(name,msg):
 		file = open(logFile, "a")
 		file.write(message+"\n")
 		file.close()
-		print message
+		print msg
 	return 0
 
 def get_datetime():

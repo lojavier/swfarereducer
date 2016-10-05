@@ -32,7 +32,6 @@ pointsFlag = False
 errorFlag = False
 errorMessageFlag = False
 errorMessage = ""
-debugFlag = True
 
 class MyHTMLParser(HTMLParser):
 	def handle_starttag(self, tag, attrs):
@@ -130,7 +129,6 @@ def main():
 	global errorFlag
 	global errorMessageFlag
 	global errorMessage
-	global debugFlag
 
 	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	cursor = db.cursor()
@@ -164,7 +162,6 @@ def main():
 					routesServed = row[1].split(',')
 				for arriveAirportCode in routesServed:
 					departAirportCode = row[0]
-
 					if len(sys.argv) > 3:
 						departDate = datetime.datetime.strptime(sys.argv[3], "%Y-%m-%d")
 						returnDate = datetime.datetime.strptime(sys.argv[4], "%Y-%m-%d")
@@ -233,12 +230,11 @@ def main():
 								#####################################################################
 								## Search results string for departing flights
 								#####################################################################
-								departDay = departDate.strftime("%A") # temp
+								departDay = departDate.strftime("%A")
 								departDate = departDate.strftime("%Y-%m-%d")
 								returnDate = returnDate.strftime("%Y-%m-%d")
 								parser = MyHTMLParser()
-								if debugFlag:
-									print "\n%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
+								LOG_DEBUG(os.path.basename(__file__), "\n%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate))
 								for x in range(1,30):
 									inputPosBeg = resultsContent.find("<input id=\"Out"+str(x)+"C\"")
 									if(inputPosBeg != -1):
@@ -263,8 +259,7 @@ def main():
 											else:
 												fareType = False
 									if fareType:
-										if debugFlag:
-											print "$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType)
+										LOG_DEBUG(os.path.basename(__file__),"$%s (%s)\t%s %s %s %s (Flight # %s) %s %s" % (farePriceDollars,farePricePoints,departTime,departTag,arriveTime,arriveTag,flightNum,flightRoute,fareType))
 										sql = "SELECT COUNT(*),FARE_PRICE_DOLLARS,FARE_PRICE_POINTS FROM UPCOMING_FLIGHTS WHERE DEPART_AIRPORT_CODE='%s' AND ARRIVE_AIRPORT_CODE='%s' AND DEPART_DATE_TIME='%s %s' AND FLIGHT_NUM='%s'" % (departAirportCode,arriveAirportCode,departDate,departTime,flightNum)
 										try:
 											cursor.execute(sql)
@@ -301,8 +296,7 @@ def main():
 								departDate = datetime.datetime.strptime(departDate, "%Y-%m-%d") # temp
 								departDay = departDate.strftime("%A") # temp
 								departDate = departDate.strftime("%Y-%m-%d") # temp
-								if debugFlag:
-									print "\n%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate)
+								LOG_DEBUG(os.path.basename(__file__), "\n%s ---> %s [ %s, %s ]" % (departAirportCode,arriveAirportCode,departDay,departDate))
 								for x in range(1,30):
 									inputPosBeg = resultsContent.find("<input id=\"In"+str(x)+"C\"")
 									if(inputPosBeg != -1):
