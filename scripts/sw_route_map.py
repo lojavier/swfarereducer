@@ -67,6 +67,7 @@ apiKey2 = "AIzaSyBUJlKSKL0gfyW8xujV6_LXi30C3EK_ov0"
 ## Initiate mechanize, set parameters in form, and submit form
 #####################################################################
 print "\nRetrieving flight routes...\n"
+LOG_INFO(os.path.basename(__file__),"Retrieving flight routes...")
 try:
 	br = mechanize.Browser()
 	br.set_handle_robots(False)
@@ -233,4 +234,4 @@ else:
 
 db.close()
 
-LOG_INFO(os.path.basename(__file__),"Success!")
+LOG_INFO(os.path.basename(__file__),"Successfully retrieved flight routes")
