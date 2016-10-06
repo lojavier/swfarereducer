@@ -1,0 +1,1701 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        <!--[if IE 8]><html lang="en-US"  class="ie8"><![endif]-->
+        <!--[if IE 9]><html lang="en-US"  class="ie9"><![endif]-->
+        <!--[if !IE]><!--><html lang="en-US"><!--<![endif]-->
+    
+
+<!-- site_state="green" -->
+
+<head>
+    
+        
+            <noscript>
+                <meta http-equiv="refresh" content="0;url=/html/errors/javascript_disabled.html"/>
+            </noscript>
+
+            <script type="text/javascript" src="/assets/v1609026/scripts/cookiesDisabled.js"></script>
+        
+    
+
+    <!-- baseNavigationAWVR.jsp -->
+    
+        
+            
+<title>Southwest Airlines - Checkin Online and Print Boarding Passes</title>
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+        
+    
+
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta http-equiv="Content-Style-Type" content="text/css"/>
+
+
+
+<link rel="stylesheet" href="/assets/v1609026/styles/where-we-fly.css" />
+<link rel="stylesheet" type="text/css" media="all" href="/assets/ui-common/swa-components/2.4.5/swa-components.min.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="/assets/ui-common/swa-css-base/2.4.5/styles/swa-css-base.min.css"/>
+<link rel="stylesheet" type="text/css" href="/assets/v1609026/styles/global_print-standardsCompliant.css" media="print"/>
+<link rel="stylesheet" type="text/css" media="all" href="/assets/v1609026/styles/overlay.css"/>
+
+<link rel="shortcut icon" href="/assets/images/favicon.ico"/>
+<link rel="icon" href="/assets/images/favicon.ico"/>
+
+<!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/v1609026/styles/ie6-v2.css"/>
+<![endif]-->
+
+
+<script type="text/javascript" src="/assets/v1609026/scripts/decoratorCombined.js"></script>
+
+
+    
+        <link rel="stylesheet" type="text/css" media="all" href="/assets/ui-common/swa-css-base/2.4.5/styles/swa-css-base.min.css"/>
+        <link rel="stylesheet" type="text/css" media="all" href="/assets/ui-common/swa-components/2.4.5/swa-components.min.css"/>
+        <link rel="stylesheet" type="text/css" media="all" href="/assets/v1609026/styles/gsa-search-header.css"                             />
+    
+
+
+
+	        
+                <link rel="stylesheet" href="/assets/v1609026/styles/baseNavigationCombined-standardsCompliantAWVR.css" type="text/css"/>
+	        
+	        
+        
+        
+    
+
+    
+
+    
+
+    
+        <style type="text/css">
+            #globalnav_header_primary .globalnav_header_primary_products LI.globalnav_header_primary_product_air A#globalnav_header_primary_link_air.globalnav_header_primary_link {
+            background-image: url(/assets/navigation/images/header/primary-navigation-active.gif);
+            }
+        </style>
+    
+
+    <script>
+    // define swa namespace
+    var swa = typeof(swa) === 'undefined' ? {} : swa;
+    var SWA = typeof(SWA) === 'undefined' ? {} : SWA;
+
+    // Key strokes
+    swa.KEY_TAB = 9;
+
+    swa.account = {
+        leaveEditPageConfirmation: "You will lose any unsaved changes."
+    };
+    swa.tripSearch = {};
+    swa.companion = {
+        validation : {}
+    };
+    swa.paymentInfo = {
+        validation : {}
+    };
+
+    swa.rapidrewards = {
+        emailSubscription: {
+            customerNumber: {
+                maxlength: {
+                    reached: "maximum length has been reached"
+                }
+            }
+        }
+    }
+
+    swa.irn = {
+        primaryRadioLabel: "{0} - {1} is your Primary IRN",
+        primarySelectRadioLabel: "{0} is your Primary IRN",
+        radioDisabled: "Radio Button Disabled",
+        radioEnabled: "Radio Button Enabled",
+        radioLabel: "Make {0} - {1} your Primary IRN",
+        selectRadioLabel: "Make {0} your Primary IRN"
+    }
+
+    swa.passwordStrength = {
+        errorUsername: "May not contain username"
+    }
+
+    SWA.reCaptchaAPIKey = "6LfnmwQAAAAAAMzLaMJ4CrVZ1d6Dg3A8m18f99ht";
+
+    var uiDatepickerJavascriptLocation="/assets/v1609026/scripts/ui.datepicker.js";
+    var departReturnDatepickerJavascriptLocation="/assets/v1609026/scripts/departAndReturnDatePickers.js";
+
+    var globalHeaderFooterSessionInformationCarProtocol   = "http://www.southwest.com";
+    var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.com";
+
+    var analyticsSendJavascriptLoaded                     = false;
+    var transactionType                                   =  "";
+
+    var noMatchOnFilterErrorMessage                       = "Airport not found.";
+    var returnAirportDefaultStations                      = [{stationCode:"RoundTrip",stationName:"Return City or Airport Code"}];
+
+    var openx = {
+        dest : ""
+    };
+
+    
+        
+        
+            var isSwaBiz=false;
+        
+    
+</script>
+
+	<script type="text/javascript">
+		// Please do not remove this line - for some unknown reason, it keeps the account bar on its proper position
+		var globalHeaderFooterSessionInformationCarProtocol = "http://www.southwest.com";
+var globalHeaderFooterSessionInformationHotelProtocol = "http://www.southwest.com";
+
+	</script>
+    
+    
+        <script type="text/javascript">
+            swa.savedTripLimitExceeded = "You have reached the maximum number of Saved Trips. Please delete a trip first and then try again.";
+
+            swa.errors          = swa.errors          || {};
+            swa.errors.codes    = swa.errors.codes    || {};
+            swa.errors.messages = swa.errors.messages || {};
+
+            swa.errors.messages.account_rr_number = "Please enter your Username or Account Number.";
+            swa.errors.messages.account_password = "Please enter your Password.";
+            swa.errors.messages.invalid = "The Username/Account Number and/or Password are incorrect.";
+            swa.errors.messages['account.error.customerRetrieval'] = "We are currently unable to complete your request. If this is the first time you have seen this message, please go back and try again. If you continue to have difficulties please contact a Southwest Airlines Customer Representative for assistance at 1-800-I-FLY-SWA (1-800-435-9792).";
+            swa.errors.messages['account.notFound'] = "The Username/Account Number and/or Password are incorrect.";
+            swa.errors.messages['account.not.online'] = "A password has not been set up for the account number entered. Please select 'Need help logging in?' to create an online account.";
+            swa.errors.messages['login.account.error.serviceUnavailable'] = "We are currently unable to complete your request. Please try again later.";
+            swa.errors.messages['login.account.error.login'] = "The Username/Account Number and/or Password are incorrect.";
+            swa.errors.messages['loginModal.error.invalid'] = "The Username/Account Number and/or Password are incorrect.";
+            swa.errors.messages['loginModal.error.serviceDown'] = "We are currently unable to complete your request. Please try again later.";
+            swa.errors.messages['account.disabled'] = "Your account is temporarily disabled. Please call 855-234-4654 for support.";
+            swa.errors.messages['account.locked'] = "Maximum number of tries reached. Please try again later.";
+
+            
+
+            swa.userLoggedIn = false;
+            swa.savedTripStatus = "";
+            
+
+        </script>
+    
+
+    <script type="text/javascript" src="/assets/app/scripts/analytics/startAnalytics.js"></script>
+    <script type="text/javascript" src="/assets/v1609026/scripts/baseNavigationCombined.js"></script>
+
+
+    
+
+    
+        
+
+        
+    <link rel="stylesheet" href="/assets/v1609026/styles/checkInCombinedAWVR.css" type="text/css"/>
+    <script type="text/javascript" src="/assets/v1609026/scripts/checkInCombinedAWVR.js"></script>
+    
+    
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body class="notranslate ua_js_no  airSelectFlightUpgradeBannerOn displayLowFareCalendarOn pointsdotcomBuyGiftTransferOn pointsdotcomB2bPortalOn clientLoggingOff clientLoggingErrorOnlyOff">
+
+<script type="text/javascript">document.body.className=document.body.className.replace("ua_js_no","")+" ua_js_yes";</script>
+<a href="#page_content" tabindex="1" class="skip-top-navigation--link" title="Skip top navigation">Skip top navigation</a>
+
+<div id="page">
+<img src="/assets/images/dropdown-calendar.gif" style="display:none" alt="dropdown calendar icon (for preloading)" />
+
+	
+
+
+
+
+
+    
+
+    
+        
+
+
+
+
+    
+    	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+	
+
+        
+
+
+    
+    	
+
+	
+	
+	
+	
+	
+        
+        
+	
+	
+		
+		
+		
+		
+		
+	
+	
+        
+	
+		
+	
+		
+		
+	
+
+
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+    <script>
+        var SWA = SWA || {};
+
+        SWA.amazeToggles = {
+            
+            'groupOne': {
+                
+                'script': 'deque_swa_drop_1_2016.04.min.js'
+            }
+            
+            
+        };
+    </script>
+
+
+
+<style>
+#page_content a[aria-describedby$=third-party-site][class=wcm-image-link]:after {
+    content: none;
+}
+</style>
+<div class="sw2">
+
+    
+        <div class="swa-header swa-header_interior" role="banner">
+    
+
+        <div class="swa-header--container">
+            <a href="/?clk=GNAVHOMELOGO" class="swa-header--logo">
+                
+                    <div class="swa-header--logo-image swa-header--logo-interior" aria-label="Southwest">
+                        <svg width="223" height="34" role="img" focusable="false">
+                            <image xlink:href="/assets/images/globalnav/logos/swa_logo_dark.svg"
+                                   src="/assets/images/globalnav/logos/swa_logo_dark.png" width="223" height="34" alt=""/>
+                        </svg>
+                    </div>
+                    <div class="swa-header--logo-image swa-header--logo-home" aria-label="Southwest">
+                        <svg width="223" height="34" role="img" focusable="false">
+                            <image xlink:href="/assets/images/globalnav/logos/swa_logo_light.svg"
+                                   src="/assets/images/globalnav/logos/swa_logo_light.png" width="223" height="34" alt="" />
+                        </svg>
+                    </div>
+                
+            </a>
+
+            <div class="swa-header--controls">
+                
+
+                
+                
+                    <!--mp_global_switch_begins-->
+                    <button aria-describedby="a11y-message-header--popup" class="user-locale swa-header--nav-button swa-header--link swa-header--language" type="button" onclick="return chooser('es');
+                    function chooser(lang){
+                    MP.SrcUrl=unescape('mp_js_orgin_url'); MP.UrlLang='mp_js_current_lang';
+                    MP.oSite=decodeURIComponent('mp_js_origin_baseUrl');
+                    MP.tSite=decodeURIComponent('mp_js_translated_baseUrl');
+                    MP.init();
+                    var script=document.createElement('SCRIPT');
+                    script.src='https://southwestairlines.mpeasylink.com/mpel/mpel_chooser.js';
+                    document.body.appendChild(script);
+                    return false;
+                    }">
+                        <span class="user-locale--button-text">
+                            <span class="js-swa-header--language-name">Espa&ntilde;ol</span>
+                            <span aria-hidden="true" class="swa-icon swa-icon_global swa-header--global-icon"></span>
+                        </span>
+                    </button>
+                    <!--mp_global_switch_ends-->
+                
+            </div>
+
+            <div role="navigation" class="swa-header--nav">
+<button aria-describedby="a11y-message-header--popup" class="swa-header--link swa-header--plan-a-trip swa-header--nav-button jb-swa-header--plan-a-trip" id="swa-header-link--plan-a-trip">Flight | Hotel | Car</button><button aria-describedby="a11y-message-header--popup" class="swa-header--link swa-header--special-offers swa-header--nav-button jb-swa-header--special-offers" id="swa-header-link--special-offers">Special offers</button><button aria-describedby="a11y-message-header--popup" class="swa-header--link swa-header--rapid-rewards swa-header--nav-button jb-swa-header--rapid-rewards" id="swa-header-link--rapid-rewards">Rapid rewards<sup class="swa-header--nav-reg">&reg;</sup></button><button aria-describedby="a11y-message-header--popup" role="search" class="swa-header--link swa-header--search swa-header--nav-button gsa-search-header"><span aria-label="Search" class="swa-icon swa-icon_search swa-header--search-icon"></span></button>
+</div>
+
+
+        </div>
+
+    </div>
+
+    <div class="swa-header--plan-a-trip-overlay">
+<button aria-label="Close" class="swa-header--overlay-close swa-header--overlay-close-button" type="button"><span aria-hidden="true" class="swa-icon swa-icon_close swa-header--overlay-close-icon"></span></button>
+<div class="swa-header--overlay-container">
+<div class="swa-header--overlay-col">
+<div class="swa-header--overlay-heading">
+<div class="swa-icon swa-icon_airplane swa-header--overlay-heading-icon"></div>
+<h2 class="swa-header--overlay-heading-title">
+<a class="swa-header--link-clear swa-header--overlay-heading-link" href="/flight?clk=GNAV-FLIGHT" target="_parent">Flight</a>
+</h2>
+</div>
+<ul class="swa-header--overlay-list">
+<li>
+<a class="swa-header--overlay-list-link" href="/flight?clk=GSUBNAV-AIR-BOOK" target="_parent">Book a Flight</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/flight/lookup-air-reservation.html?clk=GSUBNAV-AIR-MNGRES&amp;forceNewSession=yes" target="_parent">Manage Reservations</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/flight/routemap_dyn.html?clk=GSUBNAV-AIR-ROUTEMAP" target="_parent">Route Map</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/flight/request-schedule.html?clk=GSUBNAV-AIR-SCHEDULES" target="_parent">Flight Schedules</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/html/air/intl?clk=GSUBNAV-AIR-INTLTRVL" target="_parent">International Travel</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/airOffers.html?clk=GSUBNAV-AIR-OFFERS" target="_parent">Flight Offers</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" aria-describedby="a11y-message-header--third-party-site" href="https://getawayfinder.southwest.com/flights?clk=GSUBNAV-AIR-MAP" target="_blank">Search By Map</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/flight/shortcut/low-fare-search.html?clk=GSUBNAV-AIR-LFCLNDR" target="_parent">Low Fare Calendar</a>
+</li>
+</ul>
+</div>
+<div class="swa-header--overlay-col">
+<div class="swa-header--overlay-heading">
+<div class="swa-icon swa-icon_hotel swa-header--overlay-heading-icon"></div>
+<h2 class="swa-header--overlay-heading-title">
+<a class="swa-header--link-clear swa-header--overlay-heading-link" href="/hotels?clk=GNAV-HOTEL" target="_parent">Hotel</a>
+</h2>
+</div>
+<ul class="swa-header--overlay-list">
+<li>
+<a class="swa-header--overlay-list-link" href="/hotels/search-hotels.html?clk=GSUBNAV-HTL-BOOK" target="_parent">Book a Hotel</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/hotels/retrieve-hotel-reservation.html?clk=GSUBNAV-HTL-MANAGE&amp;forceNewSession=yes" target="_parent">Manage Reservations</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/hotelOffers.html?clk=GSUBNAV-HTL-OFFERS" target="_parent">Hotel Offers</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/hotels/best-rate-guarantee-claim.html?clk=GSUBNAV-HTL-BRGRNT" target="_parent">Best Rate Guarantee</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/html/rapidrewards/partners/travel/hotel/index.html?clk=GSUBNAV-HTL-PARTNERS" target="_parent">Rapid Rewards Partners</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/html/hotels/why-book.html?clk=GSUBNAV-HTL-WHYBK" target="_parent">Why Book With Us?</a>
+</li>
+</ul>
+</div>
+<div class="swa-header--overlay-col">
+<div class="swa-header--overlay-heading">
+<div class="swa-icon swa-icon_car swa-header--overlay-heading-icon"></div>
+<h2 class="swa-header--overlay-heading-title">
+<a class="swa-header--link-clear swa-header--overlay-heading-link" href="/car-rentals?clk=GNAV-CAR" target="_parent">Car</a>
+</h2>
+</div>
+<ul class="swa-header--overlay-list">
+<li>
+<a class="swa-header--overlay-list-link" href="/car-rentals/search-car-rentals.html?clk=GSUBNAV-CAR-BOOK" target="_parent">Book a Car</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/car-rentals/retrieve-car-reservation.html?clk=GSUBNAV-CAR-MANAGE&amp;forceNewSession=yes" target="_parent">Manage Reservations</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/carOffers.html?clk=GSUBNAV-CAR-OFFERS" target="_parent">Car Offers</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/html/rapidrewards/partners/travel/rental-car/index.html?clk=GSUBNAV-CAR-PARTNERS" target="_parent">Rapid Rewards Partners</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/html/cars/why-book.html?clk=GSUBNAV-CAR-WHYBK" target="_parent">Why Book With Us?</a>
+</li>
+</ul>
+</div>
+<div class="swa-header--overlay-col">
+<div class="swa-header--overlay-heading">
+<div class="swa-icon swa-icon_vacations swa-header--overlay-heading-icon"></div>
+<h2 class="swa-header--overlay-heading-title">
+<a class="swa-header--link-clear swa-header--overlay-heading-link" href="/flight/vacationspackages.html?clk=GSUBNAV-VAC-PKGS&amp;intcmp=GSUBNAV-VAC-PKGS" target="_parent">Vacations</a>
+</h2>
+</div>
+<ul class="swa-header--overlay-list">
+<li>
+<a class="swa-header--overlay-list-link" href="/flight/vacationspackages.html?clk=GSUBNAV-VAC-PKGS&amp;intcmp=GSUBNAV-VAC-PKGS" target="_parent">Book a Vacation</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" aria-describedby="a11y-message-header--third-party-site" href="http://www.southwestvacations.com/generalinformation/customer-care-and-travel-information?clk=GSUBNAV-VAC-MANAGE-CUSTCARE&amp;intcmp=GSUBNAV-VAC-MANAGE-CUSTCARE" target="_blank">Manage a Vacation</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/vacationOffers.html?clk=GSUBNAV-VAC-OFFERS&amp;intcmp=GSUBNAV-VAC-OFFERS" target="_parent">Vacation Offers</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" aria-describedby="a11y-message-header--third-party-site" href="http://www.southwestvacations.com/destinations?clk=GSUBNAV-VAC-DESTINATIONS&amp;intcmp=GSUBNAV-VAC-DESTINATIONS" target="_blank">Vacation Destinations</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" aria-describedby="a11y-message-header--third-party-site" href="http://www.southwestvacations.com/deals/benefits-of-booking-southwest-vacations?clk=GSUBNAV-VAC-WHYBK&amp;intcmp=GSUBNAV-VAC-WHYBK" target="_blank">Why Book With Us?</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="swa-header--overlay-container"><div class="swa-header--overlay-col">
+    <ul class="swa-header--overlay-utility">
+        <li><a href="/flight/retrieveCheckinDoc.html?clk=GSUBNAV-CHCKIN&forceNewSession=yes" class="swa-header--link-clear swa-header--overlay-utility-link"><span class="swa-icon swa-icon_check-in swa-header--overlay-utility-icon"></span>Check in</a></li>
+        <li><a href="/flight/flight-status-select.html?clk=GSUBNAV-FLTSTATUS" class="swa-header--link-clear swa-header--overlay-utility-link"><span class="swa-icon swa-icon_clock swa-header--overlay-utility-icon"></span>Flight Status</a></li>
+        <li><a href="/flight/change-air-reservation.html?clk=GSUBNAV-CNGFLT&forceNewSession=yes" class="swa-header--link-clear swa-header--overlay-utility-link"><span class="swa-icon swa-icon_change-flight swa-header--overlay-utility-icon"></span>Change Flight</a></li>
+    </ul>
+</div><div class="swa-header--overlay-col swa-header--overlay-col_large swa-header--overlay-ad">
+<a class="swa-header--link-clear swa-header--overlay-ad-link" href="/flight/early-bird-retrieve-reservation.html?clk=GSUBNAV-PLAN-AD1-EB&amp;forceNewSession=yes141231" target="_parent"><img class="swa-header--overlay-ad-img" src="/assets/images/globalnav/ads/swa-earlybird.png" alt="EarlyBird">Add EarlyBird Check-In<sup>&reg;</sup></a>
+</div>
+<div class="swa-header--overlay-col swa-header--overlay-col_large swa-header--overlay-ad swa-header--overlay-col_last">
+<a class="swa-header--link-clear swa-header--overlay-ad-link" href="/gift-card/create-card.html?clk=GSUBNAV-PLAN-AD2-GC141230" target="_parent"><img class="swa-header--overlay-ad-img" src="/assets/images/globalnav/ads/swa-giftcard.png" alt="Southwest gift card. ">Give a Southwest<sup>&reg;</sup> gift card</a>
+</div>
+</div>
+</div><div class="swa-header--special-offers-overlay">
+<button aria-label="Close" class="swa-header--overlay-close swa-header--overlay-close-button" type="button"><span aria-hidden="true" class="swa-icon swa-icon_close swa-header--overlay-close-icon"></span></button>
+<div class="swa-header--overlay-container">
+<div class="swa-header--overlay-col swa-header--overlay-col_large">
+<div class="swa-header--overlay-heading">
+<div class="swa-icon swa-icon_special-offers swa-header--overlay-heading-icon"></div>
+<h2 class="swa-header--overlay-heading-title">
+<a class="swa-header--link-clear swa-header--overlay-heading-link" href="http://travel.southwest.com/specialoffers/topOffers.html?clk=GNAVSPCLOFFR" target="_parent">Special Offers</a>
+</h2>
+</div>
+<ul class="swa-header--overlay-list">
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/airOffers.html?clk=GSUBNAV-OFFERS-AIR" target="_parent">Flights</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/hotelOffers.html?clk=GSUBNAV-OFFERS-HOTELS" target="_parent">Hotels</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/carOffers.html?clk=GSUBNAV-OFFERS-CARS" target="_parent">Cars</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="http://travel.southwest.com/specialoffers/vacationOffers.html?clk=GSUBNAV-OFFERS-VACATIONS" target="_parent">Vacations</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="swa-header--overlay-container"></div>
+<div class="swa-header--overlay-promotion-box" tabindex="0" role="document" aria-labelledby="subscribe-special-offers-modal">
+<h2 class="swa-header--overlay-promotion-heading" id="subscribe-special-offers-modal">Subscribe</h2>
+<a class="swa-header--overlay-promotion-title swa-header--brand--click-n-save" href="/html/email/click_n_save_signup.html?clk=GSUBNAV-OFFERS-AD1-CNS160329" target="_parent">Click &lsquo;N Save<sup class="swa-header--overlay-reg">&reg;</sup></a>
+<p class="swa-header--overlay-promotion-details">Get our biggest deals on flights, hotel stays, car rentals, vacation packages, and more.</p>
+<a class="swa-button swa-button_large swa-button_transparent swa-header--overlay-promotion-button" href="/html/email/click_n_save_signup.html?clk=GSUBNAV-OFFERS-AD1-CNS160329" target="_parent">Sign up and save</a>
+</div>
+</div><div class="swa-header--rapid-rewards-overlay">
+<button aria-label="Close" class="swa-header--overlay-close swa-header--overlay-close-button" type="button"><span aria-hidden="true" class="swa-icon swa-icon_close swa-header--overlay-close-icon"></span></button>
+<div class="swa-header--overlay-container">
+<div class="swa-header--overlay-col">
+<div class="swa-header--overlay-heading">
+<h2 class="swa-header--overlay-heading-title">
+<a class="swa-header--link-clear swa-header--overlay-heading-link" href="/rapidrewards/overview?clk=GNAVRPDRWDS-PROGRAM" target="_parent">Program</a>
+</h2>
+</div>
+<ul class="swa-header--overlay-list">
+<li>
+<a class="swa-header--overlay-list-link" href="/rapidrewards/overview?clk=GSUBNAV-RR-DETAILS" target="_parent">About Rapid Rewards</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/account/enroll?clk=GSUBNAV-RR-ENROLL&amp;f=zSWARRHPAA1409RRAzz" target="_parent">Enroll</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/rapidrewards/how-to-earn?clk=GSUBNAV-RR-EARN" target="_parent">Earning Points</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/rapidrewards/tiers-more-alist?clk=GSUBNAV-RR-TIER" target="_parent">Tier Benefits</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/html/rapidrewards/partners/credit-cards/southwest-airlines-rapid-rewards-cards/index.html?clk=GSUBNAV-RR-VISA" target="_parent">Rapid Rewards Credit Card</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/flight?fareType=POINTS&amp;clk=GSUBNAV-RR-REDEEM" target="_parent">Book with Points</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" aria-describedby="a11y-message-header--third-party-site" href="/rapidrewards/maritz-validate?clk=GSUBNAV-RR-MORE" target="_blank">More Rewards</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" aria-describedby="a11y-message-header--third-party-site" href="https://rapidrewardsshopping.southwest.com/?source=cl|SWA|ALL|cl|NA|link|na||HPNavBar|20150731&amp;utm_source=cl&amp;utm_medium=link&amp;utm_campaign=&amp;utm_content=HPNavBar&amp;chan=cl&amp;seg=NA&amp;med=link&amp;strm=na&amp;cam=&amp;cont=HPNavBar&amp;end=1" target="_blank">Rapid Rewards Shopping</a>
+</li>
+</ul>
+</div>
+<div class="swa-header--overlay-col">
+<div class="swa-header--overlay-heading">
+<h2 class="swa-header--overlay-heading-title">
+<a class="swa-header--link-clear swa-header--overlay-heading-link" href="/account/snapshot?clk=GNAVRPDRWDS-MANAGE" target="_parent">Manage</a>
+</h2>
+</div>
+<ul class="swa-header--overlay-list">
+<li>
+<a class="swa-header--overlay-list-link" href="/account/snapshot?clk=GSUBNAV-RR-ACCOUNT" target="_parent">My Account</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/account/recovery?clk=GSUBNAV-RR-LOOKUP#needUsername" target="_parent">Account Login Help</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/rapidrewards/promotions?clk=GSUBNAV-RR-PROMOS" target="_parent">Promotions</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/rapidrewards/points-center?clk=GSUBNAV-RR-BUYPOINTS" target="_parent">Buy or Transfer Points</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/html/rapidrewards/promotions/donate-points-charity.html?clk=GSUBNAV-RR-DONATEPOINTS" target="_parent">Donate Points</a>
+</li>
+<li>
+<a class="swa-header--overlay-list-link" href="/account/info/edit-communication-prefs?clk=GSUBNAV-RR-EMAILSUBS" target="_parent">E-mail Subscriptions</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="swa-header--overlay-container"><!--mp_trans_remove_start--><div class="swa-header--overlay-col swa-header--overlay-col_full swa-header--overlay-ad">
+<a class="swa-header--link-clear swa-header--overlay-ad-link" href="https://creditcards.chase.com/a1/southwest/40KPremier?CELL=6PLV" target="_blank" aria-describedby="a11y-message-header--new-window"><img class="swa-header--overlay-ad-img" src="/assets/images/globalnav/ads/header_navigation_rr_chase.jpg" alt="Southwest Airlines Rapid Rewards Premier Visa card.">Earn 40,000 points</a>
+</div><!--mp_trans_remove_end--><!--mp_trans_add <div class="swa-header--overlay-col swa-header--overlay-col_full swa-header--overlay-ad">
+<a class="swa-header--link-clear swa-header--overlay-ad-link" href="/html/air/nochangefee.html" target="_parent"><img class="swa-header--overlay-ad-img" src="/assets/images/globalnav/ads/header_navigation_change_fees.gif" alt="Change fees don't fly with us. Fare difference may apply."></a>
+</div> --></div>
+<div class="swa-header--overlay-promotion-box" tabindex="0" role="document" aria-labelledby="start-earning-rapid-rewards-modal">
+<a href="/account/enroll/enroll-member?clk=GSUBNAV-RR-AD2-ENROLL&amp;f=zSWARRHPWN1506RRAzz" target="_parent"><img src="/assets/images/ads/rr_homepage_flyout_200x270.png" alt="Start Earning Rapid Rewards. Unlimited reward seats. No blackout dates. Your points don't expire. Enroll now, it's free. Points don&rsquo;t expire as long as you have flight or Partner earning activity every 24 months. All Rapid Rewards rules and regulations apply."></a>
+</div>
+</div><form action="/search/search.html" class="swa-header--search-overlay" method="GET">
+	<div class="swa-header--search-field">
+		<label class="swa-header--search-label" for="swa-header--search-input">Search</label>
+	    <div class="swa-text-input swa-text-input_xl">
+	        <input id="swa-header--search-input" type="text" class="swa-text-input--input swa-header--search-input" name="q" placeholder="Search southwest.com" title="Search Southwest.com"/>
+	    </div>
+    </div>
+    <button class="swa-button swa-button_primary swa-button_large swa-button_icon swa-header--search-button" type="submit" aria-label="submit search">
+        <span class="swa-button--icon swa-icon swa-icon_search swa-header-icon_search"></span>
+    </button>
+</form>
+
+</div>
+
+<div hidden class="sw2">
+    <span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only" id="a11y-message-header--popup">(opens popup)</span>
+    <span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only" id="a11y-message-header--new-window">(opens new window)</span>
+    <span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only" id="a11y-message-header--third-party-site">Opens new window. External site which may or may not meet accessibility guidelines.</span>
+	<span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only" id="a11y-message-header--same-window-third-party-site">External site which may or may not meet accessibility guidelines.</span>
+    <span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only" id="a11y-message-header--prior-information-popup">(opens popup). There is information in the previous heading.</span>
+    <span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only" id="a11y-message-header--prior-information">There is information in the previous heading.</span>
+    <span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only js-a11y-message-header--error-description" id="a11y-message-header--error-description"></span>
+    <span aria-hidden="true" class="swa-g-screen-reader-only screenreader-only" id="a11y-message--close-modal">(close popup)</span>
+</div>
+
+
+
+        <div class="page_content_border page_content_border_top"></div>
+    
+
+
+	<div id="page_content">
+		
+		
+			
+		
+
+		
+
+		<div id="breadcrumbs" class="breadcrumbs">
+			
+    <ol id="breadcrumbContainer" class="breadcrumbs--wrapper">
+    
+        <li id="travel_tools" class="breadcrumbs--item a11y-wrapper previous_step" >
+            <a class="a11y-link" href="/flight/travel_center">
+                Travel Tools
+                
+                    
+                    
+                    
+                        <span class="screenreader-only">Completed step</span>
+                    
+                
+            </a>
+            
+                <span class="breadcrumbs--arrow previous_step_head"></span>
+            
+        </li>
+    
+        <li id="checkin_entry" class="breadcrumbs--item a11y-wrapper current_step" >
+            
+                Online Checkin
+                
+                    
+                        <span class="screenreader-only">Current step</span>
+                    
+                    
+                    
+                
+            
+            
+        </li>
+    
+    </ol>
+
+		</div>
+
+
+        
+
+		<a name="content"></a>
+		<div id="sw_main">
+			<div id="sw_main_column_container">
+				<div id="oopsSuccesses">
+					
+				</div>
+
+				
+
+				<div id="sw_main_section">
+					
+					<div id="wide_title">
+                        
+                        
+                            <img src="/assets/navigation/images/header/utility-navigation-swa-logo-plane.gif" alt="southwest.com" id="print_image" width="138" height="57"/>
+                        
+                        
+                            
+                            
+                                
+                                
+                            
+                        
+					</div>
+
+					<div id="sw_content">
+						
+        <div class="swa_feature_checkInOnline_container">
+            
+            <div class="swa_errors_travelAdvisory swa_jsOnly">
+<div class="swa_errors_travelAdvisory_inner" style="background:url(/assets/images/advisories/travel-advisory-icon.gif) no-repeat scroll 15px 6px transparent;">
+<div class="swa_errors_travelAdvisory_item" id="travel_advisory">
+<h3 class="swa_errors_travelAdvisory_title">TRAVEL ALERTS</h3>
+<div class="swa_errors_travelAdvisory_info">
+<a href="/html/advisories/swa_travel_advisory_20168281475106509419.html">HURRICANE MATTHEW</a><span class="separator">|</span><a href="/html/advisories/swa_travel_advisory_20168141473868333062.html">Guidelines for traveling with Samsung Galaxy Note 7 smartphone</a>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+</div><noscript>
+<div class="swa_errors_travelAdvisory">
+<div class="swa_errors_travelAdvisory_inner">
+<div class="swa_errors_travelAdvisory_item">
+<h3 class="swa_errors_travelAdvisory_title">TRAVEL ALERTS</h3>
+<div class="swa_errors_travelAdvisory_info">
+<a href="/html/advisories/swa_travel_advisory_20168281475106509419.html">HURRICANE MATTHEW</a><span class="separator">|</span><a href="/html/advisories/swa_travel_advisory_20168141473868333062.html">Guidelines for traveling with Samsung Galaxy Note 7 smartphone</a>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+</div>
+</noscript>
+
+<!-- no system alert -->
+
+<div class="swa_page_header wcm_page_header">
+<h1 class="swa_page_header_title wcm_page_header_title">Check In Online</h1>
+</div><div class="swa_header_intro wcm_intro">
+<p class="swa_page_description wcm_page_description">Please provide the information below to get checked in for your flight. Don't worry if you can't print these items right now, you can print your documents later or at the airport.<br /><br /><strong><a href="/html/customer-service/faqs.html?topic=online_checkin" target="_blank">Do I qualify for online check in?</a></strong></p>
+</div>
+
+            <p class="required"><sup>*</sup>Required</p>
+
+            <form id="itineraryLookup" name="retrieveItinerary" action="/flight/retrieveCheckinDoc.html" method="POST">
+                <div class="swa_panels_rounded_lightBlue">
+                    <div class="swa_panels_rounded_lightBlue_inner">
+                        <div class="checkIn_form_leftPanel">
+                            <h4 class="swa_feature_checkInOnline_form_header">
+                                Enter Passenger Information
+                            </h4>
+                            <div class="swa_forms_fieldContainer">
+                                <div class="swa_forms_labelContainer">
+                                    <label class="swa_feature_checkInOnline_confirmationNumber_label" for="confirmationNumber">
+                                        <span class="required">*</span>
+                                        Confirmation Number:
+                                    </label>
+                                    <div class="swa_forms_fieldHelp_below swa_feature_checkInOnline_lookupConfirmationNumber">
+                                        <a href="/flight/lookup-air-reservation.html?default=cc" class="">
+                                            Lookup Confirmation #
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="swa_forms_inputContainer">
+                                    <input id="confirmationNumber" name="confirmationNumber" class="swa_forms_fields_text" aria-required="true" type="text" value="" size="20" maxlength="12"/>
+                                </div>
+                                <div class="swa_clearer"></div>
+                            </div>
+                            <div class="swa_forms_fieldContainer swa_feature_checkInOnline_firstName_fieldContainer">
+                                <div class="swa_forms_labelContainer">
+                                    <label for="firstName">
+                                        <span class="required">*</span>
+                                        First Name:
+                                    </label>
+                                </div>
+                                <div class="swa_forms_inputContainer">
+                                    <input id="firstName" name="firstName" class="swa_forms_fields_text" aria-required="true" type="text" value="" size="30" maxlength="30"/>
+                                </div>
+                                <div class="swa_clearer"></div>
+                            </div>
+                            <div class="swa_forms_fieldContainer">
+                                <div class="swa_forms_labelContainer">
+                                    <label for="lastName">
+                                        <span class="required">*</span>
+                                        Last Name:
+                                    </label>
+                                </div>
+                                <div class="swa_forms_inputContainer">
+                                    <input id="lastName" name="lastName" class="swa_forms_fields_text" aria-required="true" type="text" value="" size="30" maxlength="30"/>
+                                </div>
+                                <div class="swa_clearer"></div>
+                            </div>
+                                <div class="swa_forms_footer">
+                    <div class="swa_forms_footer_left"></div>
+                    <div class="swa_forms_footer_right sw2">
+                        
+                        
+                            <span class="swa_buttons_preText">
+</span>
+                        
+                        <input class="swa-button swa-button_primary"
+                               id="submitButton"
+                               name="submitButton"
+                               type="submit"
+                               value="Check In"/>
+                    </div>
+                    <div class="swa_clearer"></div>
+                </div>
+                        </div>
+                        <div class="checkIn_form_rightPanel travel-tip--container">
+                            <div class="swa_panels_tip_container">
+<div class="swa_panels_tip">
+<div style="overflow:hidden;" class="swa_panels_tip_inner">
+<h3 class="swa_panels_tip_heading">Simplify Your Travels</h3>
+<h4 class="swa_panels_tip_subHeading swa_panels_tip_subHeading--title">
+</h4>
+<div class="swa_panels_tip_content"><p><strong>Skip</strong> the lines, get <strong>priority</strong> boarding and <strong>more</strong> with our Business Select<sup>&reg;</sup> fare.</p>
+<p style="text-align: right;"><a aria-label="Upgrade Now to Business Select" href="/html/air/products/business-select.html?int=QBOMLANDBUSSELUPG111412">Upgrade Now</a></p></div>
+</div>
+</div>
+</div>
+
+                        </div>
+                        <div class="swa_clearer"></div>
+                    </div>
+                </div>
+                
+            </form>
+            <div class="swa_clearer"></div>
+            <div class="swa_feature_checkInOnline_footer">
+                <style type="text/css">
+.swa_lists_bulleted_2columns_blue .col1 { width:100%; }
+.swa_feature_flightStatus_results_notes H5 { font-size:12px; margin-bottom:4px; }
+.swa_feature_flightStatus_results_notes { margin:1em 0 2em; }
+</style>
+<div class="airport-information--container sw2">
+    <div class="airport-information--wrapper">
+        <div class="airport-information--icon-wrapper">
+            <span class="swa-icon swa-icon_info" aria-label="Information"></span>
+        </div>
+        <div class="airport-information--text-wrapper">
+            <span class="airport-information--text-content">See our <a href="/html/air/airport-information.html">Airport Information</a> page to see how far in advance of your scheduled flight you should arrive at the airport, and for more information about the products and services available there.</span>
+        </div>
+    </div>
+</div>
+<div class="swa_feature_flightStatus_results_notes">
+	<div class="swa_panels_rounded_whiteWithGrayBorder">
+		<div class="swa_panels_rounded_whiteWithGrayBorder_inner">
+			<h5>Please Note</h5>
+			<ul class="swa_lists_bulleted_2columns_blue">
+				<li class="swa_lists_bulleted_2columns_blue_item col1"><span class="swa_lists_bulleted_2columns_blue_item_inner"><strong>30 minutes prior to scheduled departure time:</strong> We may begin boarding as early as 30 minutes prior to your flight&rsquo;s scheduled departure time. We encourage all passengers to plan to arrive in the gate area no later than this time.</span></li>
+				<li class="swa_lists_bulleted_2columns_blue_item col1"><span class="swa_lists_bulleted_2columns_blue_item_inner"><strong>10 minutes prior to scheduled departure time:</strong> All passengers must obtain their boarding passes and be in the gate area available for boarding at least 10 minutes prior to your flight&rsquo;s scheduled departure time. If not, Southwest may cancel your reserved space, and you will not be eligible for denied boarding compensation.</span></li>
+				<li class="swa_lists_bulleted_2columns_blue_item col1"><span class="swa_lists_bulleted_2columns_blue_item_inner"><strong>If you do not plan to travel on your flight:</strong> In accordance with Southwest&rsquo;s No Show Policy, you must notify Southwest at least 10 minutes prior to your flight&rsquo;s scheduled departure if you do not plan to travel on the flight. If not, Southwest will cancel your reservation and all funds will be forfeited.</span></li>
+			</ul>
+			<div class="swa_clearer"></div>
+		</div>
+	</div>
+</div>
+<div class="wcm_horizontal_guide_container wcm_horizontal_guide_container_2_cols">
+    <div class="wcm_horizontal_guide_col wcm_horizontal_guide_col_1 swa_feature_checkInOnline_footer_beforeYouGo">
+        <div class="wcm_horizontal_guide_col_inner">
+            <h5><span>Before You Go</span></h5>
+            <ul>
+                <li><a href="/html/customer-service/baggage/carryon-bags-pol.html" target="_blank" title="Baggage Policy">Baggage Policy</a></li>
+                <li><a href="/html/customer-service/airport-experience/index.html" target="_blank" title="Checkin &amp; Boarding Procedures">Checkin &amp; Boarding Procedures</a></li>
+                <li><a href="/html/customer-service/extra-seat/index-pol.html" target="_blank" title="Customer of Size">Customer of Size</a></li>
+                <li><a href="/html/travel-extras/inflight-experience/index.html" target="_blank" title="Inflight Amenities">Inflight Amenities</a></li>
+                <li><a href="/html/customer-service/purchasing-and-refunds/security-doc.html" target="_blank" title="Security Procedures">Security Procedures</a></li>
+                <li><a href="/html/air/airport-information.html" target="_blank" title="Suggested Airport Arrival Times">Suggested Airport Arrival Times</a></li>
+                <li><a href="/html/customer-service/faqs.html?topic=overbooking" target="_blank" title="Oversell Situation">Oversell Situation</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="wcm_horizontal_guide_col wcm_horizontal_guide_col_2 swa_feature_checkInOnline_footer_specificTravelNeeds">
+        <div class="wcm_horizontal_guide_col_inner">
+            <h5><span>Specific Travel Needs</span></h5>
+            <ul>
+                <li><a href="/html/customer-service/unique-travel-needs/customers-with-disabilities-pol.html" target="_blank" title="Customers with Disabilities">Customers with Disabilities</a></li>
+                <li><a href="/html/customer-service/family/baby-on-board-pol.html" target="_blank" title="Expectant Mothers">Expectant Mothers</a></li>
+                <li><a href="/html/customer-service/unique-travel-needs/seniors/index-pol.html" target="_blank" title="Senior Travelers">Senior Travelers</a></li>
+                <li><a href="/html/customer-service/family/children-pol.html" target="_blank" title="Traveling with Children">Traveling with Children</a></li>
+                <li><a href="/html/travel-extras/pets/index-pol.html" target="_blank" title="Traveling with Pets">Traveling with Pets</a></li>
+                <li><a href="/html/customer-service/family/unaccompanied-minors-pol.html" target="_blank" title="Unaccompanied Minors">Unaccompanied Minors</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="swa_clearer"></div>
+</div>
+            </div>
+        </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="loginModal" class="loginModal" style="display:none;">
+
+	<div id="login_header_container">
+        <div class="loginModalClose a11y-wrapper">
+			<button type="button" class="simplemodal-close a11y-link">
+				<span></span>Close
+			</button>
+		</div>
+		<h4 class="modalTitle" id="modalTitle">Login or enroll in Rapid Rewards to save an itinerary</h4>
+	</div>
+
+	<div id="errors_container" class="errors_container"></div>
+
+	<div id="login_container">
+		<div class="login_sub_container">
+			<form id="loyaltyLoginFormModal" action="https://www.southwest.com/flight/login?loginEntryPoint=LOGIN_MODAL&amp;returnUrl=/flight/retrieveCheckinDoc.html" method="POST" autocomplete="off">
+				<input type="hidden" id="loginModelOriginAirport" name="originAirport"/>
+				<input type="hidden" id="loginModelDestinationAirport" name="destinationAirport"/>
+                <input type="hidden" id="loginModalSavedTripType" name="savedTripType"/>
+				<div class="rr_input_container">
+					<label for="account_rr_number" class="login_label">
+    					Account Number or Username
+					</label>
+					<input id="account_rr_number" type="text" name="credential"
+					    class="modalInput" size="20" aria-required="true"/>
+				</div>
+				<div class="rr_input_container">
+					<label for="account_password" class="login_label">
+					    Password
+					</label>
+					<input id="account_password" type="password" name="password"
+					    class="modalInput" size="20" maxlength="16" aria-required="true"/>
+				</div>
+                <div class="login_link_container a11y-wrapper">
+			        
+			        
+                    <a id="swa_recoveryUserData_modal" class="loginLink a11y-link" href="/account/recovery">
+                        Need help logging in?
+                    </a>
+			    </div>
+				<div id="checkbox_container">
+				    <input id="rememberMe" type="checkbox" name="rememberMe"/>
+					<label for="rememberMe" class="checkbox-container--label">
+					    Remember Me
+					</label>
+				</div>
+				<div id="submit_container" class="sw2">
+                    
+                    <input type="submit" id="loginModalButton" class="swa-button swa-button_primary"
+                        value="Log in" name="loginSubmit"/>
+				</div>
+			</form>
+		</div>
+
+		<div class="login_middle_container">
+			<div class="separator">&nbsp;</div>
+			<div class="text">OR</div>
+			<div class="separator">&nbsp;</div>
+		</div>
+		<div class="login_sub_container enroll_container">
+			<div class="enroll_image">
+			    <img src="/assets/images/loyalty/createCustomer/icon_rapidRewards.gif" alt="Southwest Rapid Rewards" />
+			</div>
+			<div class="enroll_text a11y-wrapper">
+				
+                <span></span>
+                
+                
+                <a id="login_modal_enroll" class="a11y-link" href="/account/enroll/enroll-member">
+                    Enroll in Rapid Rewards today
+                </a>
+			</div>
+		</div>
+	</div>
+
+    
+</div>
+
+
+
+    
+
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+            <div id="global_account_bar">
+    			
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+	
+
+
+
+
+
+
+
+
+    
+    
+        
+    
+
+	<div class="global_account_bar_login_form_outer">
+		<div class="global_account_bar_login_form_inner">
+			<div class="global_account_bar_login_form_container">
+				<div class="global_account_bar_login_form_full" style="padding-bottom:3px;margin-bottom:6px;border-bottom:1px dotted #aaaaaa">
+					<div style="margin-bottom:3px"><span style="font-weight:bold">Quick Air Links</span></div>
+					<ul id="quick_air_links" class="a11y-wrapper">
+						
+						
+                            <li><a href="/flight/retrieveCheckinDoc.html?forceNewSession=yes" id="quick_air_checkin" class="a11y-link">Check In</a></li>
+                            <li><a id="quick_change" class="a11y-link" href="/flight/change-air-reservation.html?forceNewSession=yes">Change Flight</a></li>
+						
+                        <li><a href="/flight/flight-status-select.html" id="quick_air_flight_status" class="a11y-link" target="_self">Check Flight Status</a></li>
+					</ul>
+				</div>
+				
+				<div class="global_account_bar_login_form_full">
+                    <div class="global_account_bar_login_form_left right_nav_login_form_left_no_credits">
+                        
+                            
+                            
+                                <span class="global_account_bar_account_login_text">Account Login</span>
+                            
+                        
+                    </div>
+                    <div class="global_account_bar_login_form_right right_nav_login_form_right_no_credits a11y-wrapper">
+                        
+                            
+                            
+                                
+                                
+                                    <a class="a11y-link jb-enroll-now-link" href="/account/enroll/enroll-member?f=zSWARRHPAC1307CUAzz">Enroll Now!
+                                        <span class="screenreader-only">To Rapid Rewards Program</span>
+                                    </a>
+                                
+                                
+                            
+                        
+                    </div>
+				</div>
+                
+                
+                
+				
+					
+					
+                     
+                      
+                        
+                        
+                        
+
+                        
+                            <form id="loyaltyLoginForm" action="https://www.southwest.com/flight/login?loginEntryPoint=RIGHT_NAV" method="POST">
+                                <input type="hidden" name="returnUrl" value="/flight/retrieveCheckinDoc.html?forceNewSession=yes"/>
+                                
+                                    
+                                    
+                                        <input id="returnUrlForMaritz" name="returnUrlForMaritz" type="hidden" value=""/>
+                                    
+                                
+                                <div class="global_account_bar_login_form_full">
+                                    <label for="accountNumber">Username</label>
+                                    
+                                    <input id="accountNumber" name="credential" class="global_account_bar_login_form_textinput " aria-required="true" type="text" value="" maxlength="30" autocomplete="off"/>
+                                </div>
+                                <div class="global_account_bar_login_form_full">
+                                    <div class="global_account_bar_login_form_inner_container">
+                                        <div class="global_account_bar_login_form_inner_container" id="global_account_bar_login_form_password_real"style="display: inline;">
+                                        <label for="accountPassword">Password</label>
+                                            
+                                            <input id="accountPassword" name="password" class="global_account_bar_login_form_textinput " aria-required="true" type="password" value="" size="18" maxlength="16" autocomplete="off"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="global_account_bar_login_form_full">
+                                    <div class="global_account_bar_login_form_left" style="width:120px">
+                                        
+                                        <input id="rememberMeCheckbox" name="rememberMe" class="global_account_bar_login_form_checkboxinput" type="checkbox" value="true"/><input type="hidden" name="_rememberMe" value="on"/><label for="rememberMeCheckbox" class="rememberMeCheckbox-Label">Remember Me</label>
+                                    </div>
+
+                                        <span class="sw2 button-margin rightAlignText">
+                                            <button class="swa-button login-submit-button jb-login-submit-button" name="loginButton" onclick='javaScript:$.cookie("forceLoyaltyLoginCookie","1", 0);'/>Log In</button>
+                                        </span>
+
+                                </div>
+                                <div class="global_account_bar_login_form_full a11y-wrapper">
+                                    
+                                    
+                                    <a href="/account/recovery" id="swa_recoveryUserData_accountBar" class="a11y-link">Need help logging in?</a>
+                                </div>
+                            </form>
+                        
+                       
+                       
+                     
+					
+				
+				
+			</div>
+		</div>
+		
+	</div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="global_account_bar_header global_account_bar_header_top global_account_bar_header_inactive" id="global_account_bar_tools_mytravel_header">
+    <button aria-describedby="bar-header-title--manageTravel" class="global_account_bar_header_toggle global_account_bar_header_toggle_closed buttonReset-style" type="button" aria-expanded="false" aria-controls="global_account_bar_tools_mytravel"></button>
+    <span id="bar-header-title--manageTravel" class="global_account_bar_header_text">
+        
+        
+            Manage Travel
+        
+        <span class="screenreader-only">Section</span>
+    </span>
+</div>
+<div class="global_account_bar_outer_container" id="global_account_bar_tools_mytravel">
+    
+    
+        <div class="global_account_bar_content global_account_bar_content_hidden">
+            <div class="global_account_bar_content_top_border"></div>
+            <div class="global_account_bar_content_container">
+                <div class="manageTravel">
+                    Don't have an upcoming trip?
+                </div>
+                <div class="my_cart_product_initial_message_container">
+                    Plan your next getaway!
+                </div>
+                <div class="rightAlignText">
+                    <span class="sw2 button-margin">
+                        <a class="swa-button swa-button_secondary" href="/flight/purchasePath.html">
+                            Start Now
+                            <span class="screenreader-only">To book your trip</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="global_account_bar_content_bottom_border"></div>
+        </div>
+    
+</div>
+
+
+
+
+
+
+    <div class="global_account_bar_header global_account_bar_header_middle global_account_bar_header_inactive" id="global_account_bar_section_rapid_rewards_header">
+        <button aria-describedby="bar-Header-Title--rapidRewards" class="global_account_bar_header_toggle global_account_bar_header_toggle_closed buttonReset-style" type="button" aria-expanded="false" aria-controls="global_account_bar_section_rapid_rewards"></button>
+        <span id="bar-Header-Title--rapidRewards" class="global_account_bar_header_text">
+            
+            <noscript>
+                
+                
+                    Rapid Rewards
+                
+            </noscript>
+            <span id="right_nav_rapidrewards_link" class="noScriptAlternative" title="My Rapid Rewards Link">Rapid Rewards</span>
+            <span class="screenreader-only">Section</span>
+        </span>
+    </div>
+
+
+    <div class="global_account_bar_outer_container" id="global_account_bar_section_rapid_rewards">
+
+
+        <div class="global_account_bar_content global_account_bar_content_hidden ">
+            <div class="global_account_bar_content_top_border"></div>
+            <div class="global_account_bar_content_container">
+                 
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        <div class="right_nav_tools_subcontent_single_header">
+            <span class="right_nav_join_rr_header">Join Today!</span>
+            <div class="right_nav_join_rr_content">
+                <div class="right_nav_tools_subcontent_single_body a11y-wrapper" style="margin-bottom:6px">
+                    <p>With the <a class="a11y-link" href="/rapidrewards/about">Rapid Rewards<span class="superscript">&reg;</span></a> program, you have the flexibility to earn even more than before. And, with our new online account tools, you can plan and track your progress to that next vacation!</p>
+                </div>
+                <div class="right_nav_tools_subcontent_single_body">
+                    <div>
+                        
+                        
+                        
+                        <div class="leftAlignText">
+                            <span class="sw2">
+                                <a id="enrollRr" class="swa-button swa-button_secondary" href="/account/enroll/enroll-member">Enroll Now
+                                <span class="screenreader-only">To Rapid Rewards Program</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+
+
+                
+        </div>
+        <div class="global_account_bar_content_bottom_border"></div>
+
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    eVar27 = null;
+    
+    
+    eVar45 = null;
+    
+    var PATH_ACCOUNT_BAR_MY_TRAVEL     = "/u/account/bar/my-travel";
+    var PATH_ACCOUNT_BAR_RAPID_REWARDS = "/u/account/bar/my-rapid-rewards";
+    var LOGIN_ENTRY_POINT              = "";
+</script>
+
+<script type="text/javascript">
+    $(function()
+    {
+        var s = s_gi('swaprod');
+        if (eVar27 != null)
+        {
+            s.eVar27 = eVar27;
+        }
+        if (eVar45 != null)
+        {
+            s.eVar45 = eVar45;
+        }
+    });
+</script>
+
+<script src="/assets/v1609026/scripts/contentSwap.js"></script>
+<script type="text/javascript">
+    var responseTimeout=responseTimeout || 8000;
+</script>
+
+<script type="text/javascript">
+    if(!window.mboxAlreadyIncluded) {
+        document.write('<' + 'scr' + 'ipt src="' + "/assets/app/scripts/analytics/mbox.js" + '"><' + '\/scr' + 'ipt>');
+    }
+</script>
+
+<div id="tagcontainer_account_bar"></div>
+
+
+<div class="popup_help_box_forgot_password popup_help_box" id="popup_help_box" style="display:none">
+    <div class="popup_help_box_header_container">
+	<div class="popup_help_box_header_left"></div>
+	<div class="popup_help_box_header_right">
+	    <div class="popup--closeFocus"><span class="closeImg"></span><span>Close</span></div>
+	</div>
+    </div>
+    <div class="popup_help_box_content_container"></div>
+</div>
+<div class="popup_help_box_pointer_down popup_help_box_pointer" id="popup_help_box_pointer"></div>
+
+<div class="swa-component-overlay last_activity_date large">
+    <div class="heading">
+    <span class="heading-text">Rapid Rewards Last Activity Date</span>
+</div>
+<div class="article a11y-wrapper">
+	<p>Rapid Rewards accounts will remain active and points won&rsquo;t expire as long as you earn Rapid Rewards Points from flights or Partners every 24 months.</p>
+	<p><a class="a11y-link" href="/html/rapidrewards/promotions/rr-points-keep-active.html">Learn More <span class="screenreader-only">About Rapid Rewards Program Last Activity Date</span></a></p>
+</div>
+
+</div>
+
+					
+        <div class="global_account_bar_did_you_know">
+            
+                
+                    
+                    
+                        <div class="right_column_account_bar_message_content_container">
+<div class="right_column_account_bar_message_body_with_bottommargin">
+<a href="/html/rapidrewards/promotions/alamo_1800_2.html?clk=CHCKINPGEHI150901" target="_parent"><img src="/assets/images/ads/purchased/car/alamo_1800_2_180x150.jpg" alt="Alamo: Save and earn on every rental day" title="Alamo: Save and earn on every rental day" border="0"></a>
+</div>
+</div>
+
+                    
+                
+            
+            
+        </div>
+    
+
+                    <div id="ad">
+                        
+                    </div>
+
+                
+
+                <div id="air-selectflight-pointsinpath-rail" class="air-selectflight-pointsinpath-rail">
+                    
+                </div>
+
+            </div>
+
+            
+		</div>
+
+		
+
+        
+            
+                <div class="globalnav_footer_image_clouds"></div>
+            
+        
+	</div>
+
+	
+	
+	
+	 	
+        
+            <div class="page_content_border page_content_border_bottom"></div>
+        
+	
+</div>
+
+
+    
+        
+            
+                
+                    
+                    
+                        <div class="sw2">
+    <div class="swa-footer swa-footer_interior" role="contentinfo">
+        <div class="container swa-footer--container">
+            <div class="swa-footer--copyright">
+                <p aria-hidden="true" class="swa-footer--copyright-third-party">
+<span class="swa-icon swa-icon_external-link swa-footer--external-link-icon swa-footer--copyright-third-party_external-link-icon"></span> Indicates external site which may or may not meet accessibility guidelines.</p><p class="swa-footer--copyright-text">&copy; 
+2016
+
+Southwest Airlines Co. All Rights Reserved. Use of the Southwest websites and our Company Information constitutes acceptance of our <a href="/html/about-southwest/terms-and-conditions/index.html?clk=GFOOTER-BOTTOM-TC" target="_blank">Terms and Conditions</a>. <a href="/html/about-southwest/terms-and-conditions/privacy-policy-pol.html?clk=GFOOTER-BOTTOM-PRIVACY" target="_blank">Privacy Policy Update</a></p><!--mp_trans_add <p class="swa-footer--copyright-text">All prices displayed on this web page are in dollars of the United States of America.</p> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+                    
+                
+           
+           
+       
+    
+
+<div class="doNotPrintFlag">
+    
+</div>
+<div id="sodaValidationModal" style="display:none">
+	
+	
+	<script type="text/javascript"><!--
+	var sodaEligibilityTypeCity = "an airport";
+	var sodaEligibilityTypeDate = "a date";
+	var sodaEligibilityTypeCityAndDate = "an airport or a date";
+	var sodaEligibilityHeaderCity = "City";
+	var sodaEligibilityHeaderDate = "Date";
+	var sodaEligibilityHeaderCityAndDate = "City & Date";
+//--></script>
+
+<h5><span class="js-sodaEligibilityHeader">City & Date</span> Select Alert</h5>
+<div class="sodaModalMessage">
+	You selected <span class="js-sodaEligibilityType">an airport or a date</span> that is not protected under our reaccommodation practices. If you wish to continue please note that changes to your reservation may result in a higher fare.
+</div>
+
+
+	<div class="sodaModalContinueText">
+		Continue changing this reservation without reaccommodation protection?
+	</div>
+	<span class="sw2 a11y-wrapper">
+	    <button type="button" class="jb-submitButton js-submitButton swa-button swa-button_primary submit-modal--continueButton">Continue</button>
+	    <button type="button" class='simplemodal-close simplemodal--button a11y-link'>Cancel</button>
+    </span>
+</div>
+
+
+<div id="destination_flyout" class="destination_flyout" style="display: none"></div>
+
+<script type="text/javascript">
+	// these script variables need to be in this location to ensure that the paths are updated properly
+	var uiDatepickerJavascriptLocation="/assets/v1609026/scripts/ui.datepicker.js";
+	var departReturnDatepickerJavascriptLocation="/assets/v1609026/scripts/departAndReturnDatePickers.js";
+	var tablesorterJavascriptLocation="/assets/v1609026/scripts/jquery.tablesorter.js";
+	var destFlyoutsJavascriptLocation="/assets/v1609026/scripts/destination_flyouts.js";
+	var destFlyoutsFilterJavascriptLocation="/assets/v1609026/scripts/destination_flyouts_filter.js";
+	var validRoutesJavascriptLocation="/flight/validRoutes.js";
+	var upsellJavascriptLocation="/assets/v1609026/scripts/upsell.js";
+    var loginHelpText = '';
+</script>
+
+
+
+
+ <script type="text/javascript" src="/assets/v1609026/scripts/baseNavigationCombinedAWVR.js"></script>
+
+<div id="page_bottom_popup_outer_container">
+	
+		<div id="myCartTotalDueNowPopup" class="popup_outer_container" style="width:400px;">
+			<div class="popup_topbar_container">
+				<h5>Total Due Now</h5>
+				
+
+
+
+
+
+
+
+
+
+
+
+<span class="popup_close_container simplemodal-close">
+    <span class="closeImg"></span><span>Close</span>
+</span>
+
+			</div>
+			<div class="popup_content_container">
+				This includes all items that will be charged at the time of booking.<br /><br />
+Car reservations and non-prepaid hotel reservations are charged at the completion of travel. Your credit card will be only used to guarantee this booking for those products.
+			</div>
+		</div>
+	
+    <script type="text/javascript">
+        
+        
+        
+    </script>
+
+</div>
+<div id="scripts">
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			if (!analyticsSendJavascriptLoaded) {
+				analyticsSendJavascriptLoaded = true;
+				$.getScript("/assets/app/scripts/analytics/sendAnalytics.js");
+			}
+		});
+	</script>
+</div>
+
+
+
+
+
+
+
+
+
+
+    
+        
+    <script type="text/javascript" src="/assets/ui-common/swa-components/2.4.5/swa-components.min.js"></script>
+
+
+<script type="text/javascript">
+    var opened_overlay_at_start = opened_overlay_at_start || '';
+
+    require(['components/swa-header/main/scripts/swa-header'], function (Header) {
+        window.globalHeader = new Header($('.swa-header'), {
+        cssScopeClassName: 'sw2',
+        autoshow: opened_overlay_at_start
+        });
+    });
+
+    require(['components/swa-footer/main/scripts/swa-footer'], function(Footer) {
+       var globalFooter = new Footer($('.swa-footer'));
+   });
+</script>
+    
+
+
+<span aria-live="assertive" aria-atomic="true" aria-relevant="all" class="js-arialive screenreader-only"></span>
+<span aria-hidden="true" class="screenreader-only" id="a11y-message--popup">(opens popup)</span>
+<span aria-hidden="true" class="screenreader-only" id="a11y-message--new-window">(opens new window)</span>
+</body>
+</html>

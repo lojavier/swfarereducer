@@ -177,8 +177,8 @@ def checkinViaSW():
 		br.set_handle_refresh(False)
 		response = br.open(checkinUrl)
 		responseContent = response.read()
-		with open(responseFile, "w") as f:
-		    f.write(responseContent)
+		# with open(responseFile, "w") as f:
+		#     f.write(responseContent)
 		formcount=0
 		for form in br.forms():
 			if str(form.attrs.get('id')) == "itineraryLookup":
@@ -191,8 +191,8 @@ def checkinViaSW():
 		br.find_control(name="lastName").value = lastName
 		results = br.submit()
 		resultsContent = results.read()
-		with open(resultsFile, "w") as f:
-			f.write(resultsContent)
+		# with open(resultsFile, "w") as f:
+		# 	f.write(resultsContent)
 		if parseResults(resultsContent) == 1:
 			LOG_ERROR(os.path.basename(__file__),"Failed to checkin [firstName:%s|lastName:%s|confirmationNum:%s]" % (firstName,lastName,confirmationNum))
 			return 1
@@ -292,7 +292,8 @@ def main():
 					notificationAddress = "%s%s" % (phoneNum,textEmail)
 				else:
 					notificationAddress = email
-				# print "%s %s %s %s %s %s" % (notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
+				LOG_DEBUG(os.path.basename(__file__),"%s %s %s %s %s %s" % (notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum))
+				# if checkinViaSW() == 0:
 				if not sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum):
 					try:
 						sql = "UPDATE RESERVED_FLIGHTS SET CHECKIN_ALERT='%s',CHECKIN_ALERT_TIMESTAMP='%s' WHERE RESERVED_FLIGHT_ID='%s'" % ('1',time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)

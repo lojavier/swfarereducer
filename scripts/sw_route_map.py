@@ -66,7 +66,6 @@ apiKey2 = "AIzaSyBUJlKSKL0gfyW8xujV6_LXi30C3EK_ov0"
 #####################################################################
 ## Initiate mechanize, set parameters in form, and submit form
 #####################################################################
-print "\nRetrieving flight routes...\n"
 LOG_INFO(os.path.basename(__file__),"Retrieving flight routes...")
 try:
 	br = mechanize.Browser()

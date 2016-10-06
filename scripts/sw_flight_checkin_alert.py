@@ -16,6 +16,15 @@ from htmlentitydefs import name2codepoint
 from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
 
 #####################################################################
+## Set directory path and global variables
+#####################################################################
+db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+checkinAlertMinutes = 30
+utc_datetime = datetime.datetime.utcnow()
+currentUtcDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
+checkinAlertDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24,minutes=checkinAlertMinutes)
+
+#####################################################################
 ## Send checkin alert
 #####################################################################
 def sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum):
@@ -42,16 +51,11 @@ def sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriv
 	except:
 		return 1
 
-checkinAlertMinutes = 30
-utc_datetime = datetime.datetime.utcnow()
-currentUtcDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
-checkinAlertDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=24,minutes=checkinAlertMinutes)
-
 def main():
+	global db
 	#####################################################################
 	## Delete past flights 
 	#####################################################################
-	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	cursor = db.cursor()
 	sql = "SELECT GROUP_CONCAT(RESERVED_FLIGHTS.RESERVED_FLIGHT_ID),GROUP_CONCAT(UPCOMING_FLIGHTS.UPCOMING_FLIGHT_ID) \
 			FROM RESERVED_FLIGHTS \

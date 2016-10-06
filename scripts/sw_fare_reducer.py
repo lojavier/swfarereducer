@@ -13,6 +13,13 @@ from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
 from htmlentitydefs import name2codepoint
+from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
+
+#####################################################################
+## Set directory path and file name for logs
+#####################################################################
+db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+cwd = os.path.dirname(os.path.realpath(__file__))
 
 #####################################################################
 ## Send price drop alert
@@ -45,22 +52,15 @@ def sendPriceAlert(notificationAddress,confirmationNum,departAirportCode,arriveA
 	except:
 		return 1
 
-#####################################################################
-## Set directory path and file name for logs
-#####################################################################
-cwd = os.getcwd()
-logFile = cwd+"/logs/"+time.strftime("%Y_%m_%d")+"_sw_fare_reducer.log"
-
 def main():
-	global logFile
+	global db
+	global cwd
 	flightSearchArray = []
 	farePriceAlert = False
 	#####################################################################
 	## Retrieve list of upcoming reserved flights
 	#####################################################################
-	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	cursor = db.cursor()
-
 	sql = "SELECT DISTINCT GROUP_CONCAT(UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME ASC), \
 			GROUP_CONCAT(UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME ASC), \
 			GROUP_CONCAT(DATE_FORMAT(UPCOMING_FLIGHTS.DEPART_DATE_TIME, '%Y-%m-%d') ORDER BY UPCOMING_FLIGHTS.DEPART_DATE_TIME ASC) \
@@ -161,18 +161,12 @@ def main():
 			departDate = x[2]
 			returnDate = x[3]
 			try:
-				flightSearch = "python sw_flight_search.py %s %s %s %s" % (departAirportCode,arriveAirportCode,departDate,returnDate)
+				flightSearch = "python %s/sw_flight_search.py %s %s %s %s" % (cwd,departAirportCode,arriveAirportCode,departDate,returnDate)
 				os.system(flightSearch)
 			except:
-				logF = open(logFile, "a")
-				logMessage = "%s ERROR: Unable to execute sw_flight_search.py [depart:%s|arrive:%s|date:%s|return:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),departAirportCode,arriveAirportCode,departDate,returnDate)
-				logF.write(logMessage)
-				logF.close()
+				LOG_ERROR(os.path.basename(__file__),"Failed to execute sw_flight_search.py [depart:%s|arrive:%s|date:%s|return:%s]" % (departAirportCode,arriveAirportCode,departDate,returnDate))
 	except:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to select distinct reservations by confirmation number\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"Failed to select distinct reservations by confirmation number")
 		return 1
 
 	sql = "SELECT RESERVED_FLIGHTS.RESERVED_FLIGHT_ID,RESERVED_FLIGHTS.EMAIL,RESERVED_FLIGHTS.PHONE_NUM,WIRELESS_CARRIERS.CARRIER_TEXT_EMAIL,RESERVED_FLIGHTS.CONFIRMATION_NUM,RESERVED_FLIGHTS.FARE_LABEL,RESERVED_FLIGHTS.FARE_PRICE_PAID,UPCOMING_FLIGHTS.DEPART_AIRPORT_CODE,UPCOMING_FLIGHTS.ARRIVE_AIRPORT_CODE,UPCOMING_FLIGHTS.DEPART_DATE_TIME,UPCOMING_FLIGHTS.FLIGHT_NUM,UPCOMING_FLIGHTS.FARE_PRICE_DOLLARS,UPCOMING_FLIGHTS.FARE_PRICE_POINTS \
@@ -220,20 +214,11 @@ def main():
 						db.commit()
 					except:
 						db.rollback()
-						logF = open(logFile, "a")
-						logMessage = "%s ERROR: Unable to update price alert flag [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-						logF.write(logMessage)
-						logF.close()
+						LOG_ERROR(os.path.basename(__file__),"Failed to update price alert flag [reservedFlightId:%s]" % (reservedFlightId))
 				else:
-					logF = open(logFile, "a")
-					logMessage = "%s ERROR: Unable to send price alert [reservedFlightId:%s]\n" % (time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
-					logF.write(logMessage)
-					logF.close()
+					LOG_ERROR(os.path.basename(__file__),"Failed to send price alert flag [reservedFlightId:%s]" % (reservedFlightId))
 	except:
-		logF = open(logFile, "a")
-		logMessage = "%s ERROR: Unable to select distinct reserved flights for price comparison\n" % (time.strftime("%Y-%m-%d %H:%M:%S"))
-		logF.write(logMessage)
-		logF.close()
+		LOG_ERROR(os.path.basename(__file__),"Failed to select distinct reserved flights for price comparison")
 		db.close()
 		return 1
 
