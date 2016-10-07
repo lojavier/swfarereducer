@@ -8,7 +8,7 @@ $SW_SCRIPTS_PATH = "/home/pi/swfarereducer/scripts";
 
 $db_host = '127.0.0.1';
 $db_user = 'root';
-$db_pass = shell_exec('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_database_key.pem -in /home/pi/swfarereducer/keys/encrypt_database.dat');
+$db_pass = trim(shell_exec('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_database_key.pem -in /home/pi/swfarereducer/keys/encrypt_database.dat'));
 $db_name = 'SWFAREREDUCERDB';
 
 try {
