@@ -36,7 +36,7 @@ $sql = "SELECT COUNT(*) FROM RESERVED_FLIGHTS WHERE CONFIRMATION_NUM='".$CONFIRM
 try {
 	if ($res = $db->query($sql)) {
 		if ($res->fetchColumn() == 0) {
-			$command = "/usr/bin/python /home/pi/sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
+			$command = "/usr/bin/python ".$SW_SCRIPTS_PATH."/sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
 			exec($command, $output, $return);
 	?>
 			<div class="main">
