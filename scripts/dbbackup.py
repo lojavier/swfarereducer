@@ -16,7 +16,7 @@ cwd = os.path.dirname(os.path.realpath(__file__))
 
 DB_HOST = 'localhost'
 DB_USER = 'root'
-p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_dbbackup_key.pem -in /home/pi/swfarereducer/keys/encrypt_dbbackup.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_database_key.pem -in /home/pi/swfarereducer/keys/encrypt_database.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 DB_USER_PASSWORD = p.stdout.readline().strip()
 DB_NAME = 'SWFAREREDUCERDB'
 BACKUP_DIR = cwd+"/../sql/backup"

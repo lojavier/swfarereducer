@@ -4,7 +4,7 @@
 # Create password protected keys for security
 # - alert
 # - update
-# - dbbackup
+# - database
 #################################################################
 
 if [ $# -lt 1 ]; then
