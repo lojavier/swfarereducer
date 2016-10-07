@@ -244,6 +244,7 @@ errorMessage = ""
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
+db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 cwd = os.path.dirname(os.path.realpath(__file__))
 responseFile = cwd+"/../docs/lookup-air-reservation.html"
 resultsFile = cwd+"/../docs/view-air-reservation.html"
@@ -251,6 +252,7 @@ reservationUrl = "https://www.southwest.com/flight/lookup-air-reservation.html"
 # https://www.southwest.com/flight/retrieveCheckinDoc.html
 
 def main():
+	global db
 	global errorMessage
 	global responseFile
 	global resultsFile
@@ -280,7 +282,6 @@ def main():
 	#####################################################################
 	## Check if flight information exists in DB
 	#####################################################################
-	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	cursor = db.cursor()
 	sql = "SELECT COUNT(*) FROM RESERVED_FLIGHTS WHERE CONFIRMATION_NUM='%s' AND FIRST_NAME='%s' AND LAST_NAME='%s'" % (confirmationNum,firstName,lastName)
 	try:

@@ -19,7 +19,7 @@ diff -r $APP_PATH $WEB_PATH > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "$(date +'%Y-%m-%d %H:%M:%S') info update.sh: App update detected" >> $LOG_PATH
 
-	passphrase=`openssl rsautl -decrypt -inkey $KEY_PATH/update_key.pem -in $KEY_PATH/update.dat`
+	passphrase=`openssl rsautl -decrypt -inkey $KEY_PATH/private_update_key.pem -in $KEY_PATH/encrypt_update.dat`
 
 	echo '$passphrase' | sudo -S rm -rf $WEB_PATH/*
 	if [ $? -ne 0 ]; then
