@@ -16,7 +16,7 @@ from htmlentitydefs import name2codepoint
 from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
 
 #####################################################################
-## Set directory path and file name for logs
+## Set directory path and global variables
 #####################################################################
 db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 cwd = os.path.dirname(os.path.realpath(__file__))
