@@ -29,9 +29,9 @@ checkinUrl = "https://www.southwest.com/flight/retrieveCheckinDoc.html?forceNewS
 errorFlag=""
 errorMessageFlag=""
 errorMessage=""
-confirmationNum="B2RC4P"
-firstName="LORENZO"
-lastName="JAVIER"
+confirmationNum=""
+firstName=""
+lastName=""
 
 #####################################################################
 ## Parse HTML output
