@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#################################################################
+# Create password protected keys for security
+# - alert
+# - update
+# - dbbackup
+#################################################################
+
 if [ $# -lt 1 ]; then
     exit 1
 fi
