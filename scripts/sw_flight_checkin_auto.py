@@ -9,6 +9,7 @@ import MySQLdb
 import smtplib
 import datetime
 import mechanize
+import subprocess
 from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
@@ -121,7 +122,8 @@ def sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriv
 		SMTP_SERVER = "smtp.gmail.com"
 		SMTP_PORT = 587
 		SMTP_USERNAME = "swfarereducer@gmail.com"
-		SMTP_PASSWORD = ""
+		p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_alert_key.pem -in /home/pi/swfarereducer/keys/encrypt_alert.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		SMTP_PASSWORD = p.stdout.readline().strip()
 		EMAIL_FROM = 'swfarereducer@gmail.com'
 		EMAIL_TO = [notificationAddress]
 		EMAIL_SPACE = ", "
