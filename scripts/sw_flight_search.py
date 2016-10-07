@@ -95,6 +95,7 @@ class MyHTMLParserErrors(HTMLParser):
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
+db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 cwd = os.path.dirname(os.path.realpath(__file__))
 responseFile = cwd+"/../docs/sw_flight_response.html"
 resultsFile = cwd+"/../docs/sw_flight_results.html"
@@ -104,6 +105,7 @@ flightUrl = "https://www.southwest.com/flight/"
 ## main
 ###########
 def main():
+	global db
 	global responseFile
 	global resultsFile
 	global logFile
@@ -130,7 +132,6 @@ def main():
 	global errorMessageFlag
 	global errorMessage
 
-	db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 	cursor = db.cursor()
 
 	if len(sys.argv) > 3:
