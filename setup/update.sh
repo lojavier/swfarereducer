@@ -20,6 +20,9 @@ if [ $? -ne 0 ]; then
 	echo "$(date +'%Y-%m-%d %H:%M:%S') info update.sh: App update detected" >> $LOG_PATH
 
 	passphrase=`openssl rsautl -decrypt -inkey $KEY_PATH/private_update_key.pem -in $KEY_PATH/encrypt_update.dat`
+	if [ "$passphrase" = "" ]; then
+		echo "$(date +'%Y-%m-%d %H:%M:%S') error update.sh: Failed to retrieve openssl passphrase" >> $LOG_PATH
+	fi
 
 	echo '$passphrase' | sudo -S rm -rf $WEB_PATH/*
 	if [ $? -ne 0 ]; then
