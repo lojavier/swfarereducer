@@ -138,7 +138,7 @@ def main():
 				notificationAddress = "%s%s" % (phoneNum,textEmail)
 			else:
 				notificationAddress = email
-			# print "%s %s %s %s %s %s" % (notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
+			LOG_DEBUG(os.path.basename(__file__),"%s %s %s %s %s %s" % (notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum))
 			if not sendCheckinAlert(notificationAddress,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum):
 				try:
 					sql = "UPDATE RESERVED_FLIGHTS SET CHECKIN_ALERT='%s',CHECKIN_ALERT_TIMESTAMP='%s' WHERE RESERVED_FLIGHT_ID='%s'" % ('1',time.strftime("%Y-%m-%d %H:%M:%S"),reservedFlightId)
@@ -155,6 +155,7 @@ def main():
 		return 1
 
 	db.close()
+	LOG_INFO(os.path.basename(__file__),"Successfully finished checkin alerts")
 	return 0
 
 main()
