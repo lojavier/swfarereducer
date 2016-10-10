@@ -10,6 +10,7 @@ import smtplib
 import datetime
 import requests
 import mechanize
+import subprocess
 # from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
@@ -57,6 +58,9 @@ class MyHTMLParserErrors(HTMLParser):
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
+p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_database_key.pem -in /home/pi/swfarereducer/keys/encrypt_database.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+db_pass = p.stdout.readline().strip()
+db = MySQLdb.connect("127.0.0.1","root",db_pass,"SWFAREREDUCERDB")
 cwd = os.path.dirname(os.path.realpath(__file__))
 resultsFile = cwd+"/../docs/routemap_dyn.html"
 routeMapUrl = "https://www.southwest.com/flight/routemap_dyn.html"
@@ -90,7 +94,6 @@ else:
 	with open(resultsFile, "w") as f:
 	    f.write(resultsContent)
 
-db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
 cursor = db.cursor()
 pos1 = resultsContent.find("var routes")
 if(pos1 != -1):

@@ -76,7 +76,7 @@ if (mysqli_num_rows($result) > 0 && !$error2) {
 			$arrivalDateTime1 = $row['ARRIVE_DATE_TIME'];
 			$fareType1 = $row['FARE_TYPE'];
 			$fareLabel1 = $row['FARE_LABEL'];
-			$farePrice1 = $row['FARE_PRICE_PAID_PAID'];
+			$farePrice1 = $row['FARE_PRICE_PAID'];
 		} elseif($flightCount == 2) {
 			$reservedFlightId2 = $row['RESERVED_FLIGHT_ID'];
 			$departureDateTime2 = $row['DEPART_DATE_TIME'];
@@ -86,7 +86,7 @@ if (mysqli_num_rows($result) > 0 && !$error2) {
 			$arrivalDateTime2 = $row['ARRIVE_DATE_TIME'];
 			$fareType2 = $row['FARE_TYPE'];
 			$fareLabel2 = $row['FARE_LABEL'];
-			$farePrice2 = $row['FARE_PRICE_PAID_PAID'];
+			$farePrice2 = $row['FARE_PRICE_PAID'];
 		}
 	}
 ?>

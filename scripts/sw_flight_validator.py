@@ -9,6 +9,7 @@ import MySQLdb
 import smtplib
 import datetime
 import mechanize
+import subprocess
 from datetime import date
 from HTMLParser import HTMLParser
 from email.mime.text import MIMEText
@@ -244,7 +245,9 @@ errorMessage = ""
 #####################################################################
 ## Set directory path and file name for response & results html file
 #####################################################################
-db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_database_key.pem -in /home/pi/swfarereducer/keys/encrypt_database.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+db_pass = p.stdout.readline().strip()
+db = MySQLdb.connect("127.0.0.1","root",db_pass,"SWFAREREDUCERDB")
 cwd = os.path.dirname(os.path.realpath(__file__))
 responseFile = cwd+"/../docs/lookup-air-reservation.html"
 resultsFile = cwd+"/../docs/view-air-reservation.html"
@@ -305,8 +308,8 @@ def main():
 		br.set_handle_refresh(False)
 		response = br.open(reservationUrl)
 		responseContent = response.read()
-		with open(responseFile, "w") as f:
-		    f.write(responseContent)
+		# with open(responseFile, "w") as f:
+		#     f.write(responseContent)
 		# br.select_form(predicate=lambda f: f.attrs.get('id', None) == 'pnrFriendlyLookup_check_form')
 		formcount=0
 		for form in br.forms():
@@ -320,8 +323,8 @@ def main():
 		br.find_control(name="confirmationNumber").value = confirmationNum
 		results = br.submit()
 		resultsContent = results.read()
-		with open(resultsFile, "w") as f:
-			f.write(resultsContent)
+		# with open(resultsFile, "w") as f:
+		# 	f.write(resultsContent)
 	except:
 		LOG_ERROR(os.path.basename(__file__),"Failed to lookup reservation via %s [firstName:%s|lastName:%s|confirmationNum:%s]" % (reservationUrl,firstName,lastName,confirmationNum))
 		db.close()

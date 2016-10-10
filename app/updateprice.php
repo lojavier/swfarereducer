@@ -54,7 +54,7 @@ if (mysqli_num_rows($result) > 0 && !$error) {
 			$arrivalDateTime1 = $row['ARRIVE_DATE_TIME'];
 			$fareType1 = $row['FARE_TYPE'];
 			$fareLabel1 = $row['FARE_LABEL'];
-			$farePricePaid1 = $row['FARE_PRICE_PAID_PAID'];
+			$farePricePaid1 = $row['FARE_PRICE_PAID'];
 		} elseif($flightCount == 2) {
 			$reservedFlightId2 = $row['RESERVED_FLIGHT_ID'];
 			$departureDateTime2 = $row['DEPART_DATE_TIME'];
@@ -64,7 +64,7 @@ if (mysqli_num_rows($result) > 0 && !$error) {
 			$arrivalDateTime2 = $row['ARRIVE_DATE_TIME'];
 			$fareType2 = $row['FARE_TYPE'];
 			$fareLabel2 = $row['FARE_LABEL'];
-			$farePricePaid2 = $row['FARE_PRICE_PAID_PAID'];
+			$farePricePaid2 = $row['FARE_PRICE_PAID'];
 		}
 	}
 ?>
@@ -90,19 +90,19 @@ if (mysqli_num_rows($result) > 0 && !$error) {
 ?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked" required>&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_1" value="POINTS" required>&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_1" value=<?php echo "$farePricePaid1"; ?> style="width:35%;" required> <br>
+						<input type="text" name="FARE_PRICE_PAID_1" style="width:35%;" value=<?php echo "$farePricePaid1"; ?> required> <br>
 <?php
 					} elseif ( strstr($fareLabel1, "POINTS")) {
 ?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked" required>&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_1" value=<?php echo "$farePricePaid1"; ?> style="width:35%;" required> <br>
+						<input type="text" name="FARE_PRICE_PAID_1" style="width:35%;" value=<?php echo "$farePricePaid1"; ?> required> <br>
 <?php
 					} else {
 ?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_1" value="POINTS" required>&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_1" value="" style="width:35%;" required> <br>
+						<input type="text" name="FARE_PRICE_PAID_1" style="width:35%;" value="" required> <br>
 <?php
 					}
 					$tempDate = strtotime($departureDateTime2);
@@ -117,19 +117,19 @@ if (mysqli_num_rows($result) > 0 && !$error) {
 ?>
 						<input type="radio" name="FARE_LABEL_2" value="DOLLARS" checked="checked" required>&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_2" value="POINTS" required>&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_2" value=<?php echo "$farePricePaid2"; ?> style="width:35%;" required> <br>
+						<input type="text" name="FARE_PRICE_PAID_2" style="width:35%;" value=<?php echo "$farePricePaid2"; ?> required> <br>
 <?php
 					} elseif ( strstr($fareLabel2, "POINTS") ) {
 ?>
 						<input type="radio" name="FARE_LABEL_2" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_2" value="POINTS" checked="checked" required>&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_2" value=<?php echo "$farePricePaid2"; ?> style="width:35%;" required> <br>
+						<input type="text" name="FARE_PRICE_PAID_2" style="width:35%;" value=<?php echo "$farePricePaid2"; ?> required> <br>
 <?php
 					} else {
 ?>
 						<input type="radio" name="FARE_LABEL_2" value="DOLLARS" required>&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_2" value="POINTS" required>&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_2" value="" style="width:35%;" required> <br>
+						<input type="text" name="FARE_PRICE_PAID_2" style="width:35%;" value="" required> <br>
 <?php
 					}
 				} elseif($flightCount == 1) {
@@ -148,23 +148,23 @@ if (mysqli_num_rows($result) > 0 && !$error) {
 ?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS" checked="checked">&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_1" value=<?php echo "$farePricePaid1"; ?> style="width:35%;"> <br>
+						<input type="text" name="FARE_PRICE_PAID_1" style="width:35%;" value=<?php echo "$farePricePaid1"; ?> > <br>
 <?php
 					} elseif ( strstr($fareLabel1, "POINTS") ) {
 ?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_1" value="POINTS" checked="checked">&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_1" value=<?php echo "$farePricePaid1"; ?> style="width:35%;"> <br>
+						<input type="text" name="FARE_PRICE_PAID_1" style="width:35%;" value=<?php echo "$farePricePaid1"; ?> > <br>
 <?php
 					} else {
 ?>
 						<input type="radio" name="FARE_LABEL_1" value="DOLLARS">&nbsp;DOLLARS&nbsp;
 						<input type="radio" name="FARE_LABEL_1" value="POINTS">&nbsp;POINTS&nbsp;
-						<input type="text" name="FARE_PRICE_PAID_1" value="" style="width:35%;"> <br>
+						<input type="text" name="FARE_PRICE_PAID_1" style="width:35%;" value="" > <br>
 <?php
 					}
 				} elseif($flightCount < 1) {
-					echo "ERROR <br>";
+					echo "ERROR: No flights exits in our database! <br>";
 				}
 ?>
 			</p>

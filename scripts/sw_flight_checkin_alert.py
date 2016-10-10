@@ -19,7 +19,9 @@ from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
 #####################################################################
 ## Set directory path and global variables
 #####################################################################
-db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_database_key.pem -in /home/pi/swfarereducer/keys/encrypt_database.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+db_pass = p.stdout.readline().strip()
+db = MySQLdb.connect("127.0.0.1","root",db_pass,"SWFAREREDUCERDB")
 checkinAlertMinutes = 30
 utc_datetime = datetime.datetime.utcnow()
 currentUtcDateTime = datetime.datetime.strptime(utc_datetime.strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")

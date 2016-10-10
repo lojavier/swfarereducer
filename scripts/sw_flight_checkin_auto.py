@@ -20,7 +20,9 @@ from sw_logger import LOG_INFO,LOG_ERROR,LOG_WARNING,LOG_DEBUG
 ## Set directory path and file name for response & results html file
 ## Set global variables
 #####################################################################
-db = MySQLdb.connect("127.0.0.1","root","swfarereducer","SWFAREREDUCERDB")
+p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_database_key.pem -in /home/pi/swfarereducer/keys/encrypt_database.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+db_pass = p.stdout.readline().strip()
+db = MySQLdb.connect("127.0.0.1","root",db_pass,"SWFAREREDUCERDB")
 cwd = os.path.dirname(os.path.realpath(__file__))
 responseFile = cwd+"/../docs/sw_flight_checkin_auto_response.html"
 resultsFile = cwd+"/../docs/sw_flight_checkin_auto_results.html"
