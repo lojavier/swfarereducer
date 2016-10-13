@@ -42,8 +42,6 @@ $error = mysqli_error($conn);
 if (mysqli_num_rows($result) == 0 && !$error) {
     $command = $SW_SCRIPTS_PATH."/sw_flight_validator.py ".$CONFIRMATION_NUM." ".$FIRST_NAME." ".$LAST_NAME;
 	exec($command, $output, $return);
-	echo "$command <br>";
-	echo "return : $return";
 	if($return == 0) {
 		$sql = "SELECT RF.*,UF.*,A.AIRPORT_NAME AS DEPART_AIRPORT_NAME,B.AIRPORT_NAME AS ARRIVE_AIRPORT_NAME 
 				FROM RESERVED_FLIGHTS AS RF 
@@ -202,18 +200,6 @@ if (mysqli_num_rows($result) == 0 && !$error) {
 				<input type="hidden" name="CONFIRMATION_NUM" value=<?php echo $CONFIRMATION_NUM;?>>
 				<input type="hidden" name="FIRST_NAME" value=<?php echo $FIRST_NAME;?>>
 				<input type="hidden" name="LAST_NAME" value=<?php echo $LAST_NAME;?>>
-	 	 		<input type="hidden" name="FLIGHT_NUM_1" value="<?php echo $flightNum1;?>">
-	 	 		<input type="hidden" name="DEPART_DATE_TIME_1" value="<?php echo $departureDateTime1;?>">
-	 	 		<input type="hidden" name="ARRIVE_DATE_TIME_1" value="<?php echo $arrivalDateTime1;?>">
-	 	 		<input type="hidden" name="ARRIVE_AIRPORT_CODE_1" value="<?php echo $ARRIVE_AIRPORT_CODE_1;?>">
-	 	 		<input type="hidden" name="DEPART_AIRPORT_CODE_1" value="<?php echo $DEPART_AIRPORT_CODE_1;?>">
-	 	 		<input type="hidden" name="FARE_TYPE_1" value="<?php echo $fareType1;?>">
-	 	 		<input type="hidden" name="FLIGHT_NUM_2" value="<?php echo $flightNum2;?>">
-	 	 		<input type="hidden" name="DEPART_DATE_TIME_2" value="<?php echo $departureDateTime2;?>">
-	 	 		<input type="hidden" name="ARRIVE_DATE_TIME_2" value="<?php echo $arrivalDateTime2;?>">
-	 	 		<input type="hidden" name="ARRIVE_AIRPORT_CODE_2" value="<?php echo $ARRIVE_AIRPORT_CODE_2;?>">
-	 	 		<input type="hidden" name="DEPART_AIRPORT_CODE_2" value="<?php echo $DEPART_AIRPORT_CODE_2;?>">
-	 	 		<input type="hidden" name="FARE_TYPE_2" value="<?php echo $fareType2;?>">
 			 	<p class="p-container">
 					<input type="submit" value="CONTINUE" onclick="submitNewFlight();">
 				</p>
