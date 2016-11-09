@@ -32,7 +32,8 @@ def sendPriceAlert(notificationAddress,confirmationNum,departAirportCode,arriveA
 		SMTP_SERVER = "smtp.gmail.com"
 		SMTP_PORT = 587
 		SMTP_USERNAME = "swfarereducer@gmail.com"
-		SMTP_PASSWORD = ""
+		p = subprocess.Popen('openssl rsautl -decrypt -inkey /home/pi/swfarereducer/keys/private_alert_key.pem -in /home/pi/swfarereducer/keys/encrypt_alert.dat'.split(), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		SMTP_PASSWORD = p.stdout.readline().strip()
 		EMAIL_FROM = 'swfarereducer@gmail.com'
 		EMAIL_TO = [notificationAddress]
 		EMAIL_SPACE = ", "
@@ -41,7 +42,6 @@ def sendPriceAlert(notificationAddress,confirmationNum,departAirportCode,arriveA
 			DATA = "[$%s -> $%s] [CONF#%s] [%s->%s] [%s] [FLIGHT#%s] southwest.com/flight/change-air-reservation.html" % (farePricePaid,farePrice,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
 		elif fareLabel == "POINTS":
 			DATA = "[%s -> %s] [CONF#%s] [%s->%s] [%s] [FLIGHT#%s] southwest.com/flight/change-air-reservation.html" % (farePricePaid,farePrice,confirmationNum,departAirportCode,arriveAirportCode,departDateTime,flightNum)
-	
 		msg = MIMEText(DATA)
 		msg['Subject'] = EMAIL_SUBJECT
 		msg['To'] = EMAIL_SPACE.join(EMAIL_TO)
